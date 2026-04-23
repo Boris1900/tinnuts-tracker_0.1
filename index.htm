@@ -127,7 +127,7 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
     <p>Der Tinnitus Tracker ist speziell für <strong>iOS und Android</strong> entwickelt.<br>
     Scannen Sie den QR-Code mit Ihrem Smartphone um die App direkt zu öffnen.</p>
     <div class="qr-wrap">
-      <img src="index_files/Unbenannt.png" alt="QR Code zur App">
+      <div id="qrcode" style="display:flex;align-items:center;justify-content:center;width:180px;height:180px;margin:0 auto" title="https://Boris1900.github.io/tinnuts-tracker_0.1/TinnitusTracker_Seedorf.html"><canvas width="180" height="180" style="display: none;"></canvas><img style="display: block;" src="data:image/png;base64,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"></div>
       <div class="qr-hint">
         📷 Öffnen Sie die <strong>Kamera-App</strong> auf Ihrem Handy<br>
         und halten Sie sie über diesen Code – fertig!
@@ -285,7 +285,10 @@ Zusammenhänge zu erkennen.</p>
 
 <script>
 const APP_URL = "https://Boris1900.github.io/tinnuts-tracker_0.1/TinnitusTracker_Seedorf.html";
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// Detect by screen width AND user agent for best accuracy
+const uaMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const screenMobile = window.innerWidth < 768;
+const isMobile = uaMobile || screenMobile;
 const isAndroid = /Android/i.test(navigator.userAgent);
 const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -323,6 +326,20 @@ if (isMobile && !localStorage.getItem('hint_shown')) {
 function closeHint() {
   document.getElementById('homescreen-hint').style.display = 'none';
   localStorage.setItem('hint_shown', '1');
+}
+</script>
+
+<script src="index_files/qrcode.min.js"></script>
+<script>
+if (!isMobile) {
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://Boris1900.github.io/tinnuts-tracker_0.1/TinnitusTracker_Seedorf.html",
+    width: 180,
+    height: 180,
+    colorDark: "#3d5c3d",
+    colorLight: "#f5f7f5",
+    correctLevel: QRCode.CorrectLevel.M
+  });
 }
 </script>
 

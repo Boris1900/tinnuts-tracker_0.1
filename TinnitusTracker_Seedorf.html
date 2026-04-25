@@ -780,5 +780,115 @@ buildDots('dot-row',3,updateIntensity);
 updateIntensity(3);
 updateUI();
 </script>
+  <!-- ===== INSTALL OVERLAY ===== -->
+<div id="installOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+  <div style="background:#fff;border-radius:16px 16px 0 0;margin-top:60px;padding:24px 20px 40px;max-width:480px;margin-left:auto;margin-right:auto;position:relative;">
+    <button onclick="closeInstallOverlay()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#888;cursor:pointer;">✕</button>
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:42px;margin-bottom:8px;">📲</div>
+      <h2 style="color:#3d5c3d;font-family:'Open Sans',sans-serif;font-size:18px;margin:0 0 6px;">App auf dem Homescreen speichern</h2>
+      <p style="color:#666;font-size:14px;margin:0;font-family:'Open Sans',sans-serif;">So nutzt du den Tinnitus Tracker wie eine richtige App – ohne App Store!</p>
+    </div>
+
+    <!-- iOS -->
+    <div id="iosGuide" style="display:none;">
+      <div style="background:#e8f0e8;border-radius:12px;padding:16px;margin-bottom:12px;">
+        <p style="font-size:13px;color:#5c7a5c;font-weight:700;margin:0 0 12px;font-family:'Open Sans',sans-serif;">📱 Anleitung für iPhone / iPad (Safari)</p>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">1</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe unten in Safari auf das <strong>Teilen-Symbol:</strong></p>
+            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;">
+              <svg width="22" height="28" viewBox="0 0 22 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1L11 18" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"/><path d="M5 7L11 1L17 7" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="11" width="20" height="16" rx="3" stroke="#007AFF" stroke-width="2"/></svg>
+              <span style="color:#007AFF;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Teilen</span>
+            </div>
+            <p style="margin:4px 0 0;font-size:13px;color:#555;font-family:'Open Sans',sans-serif;">Es befindet sich <strong>unten in der Mitte</strong> der Safari-Leiste.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">2</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Im Menü <strong>nach unten scrollen</strong> – der Eintrag ist weiter unten.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">3</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe auf <strong>„Zum Home-Bildschirm"</strong></p>
+            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="24" height="24" rx="5" stroke="#555" stroke-width="1.8"/><path d="M13 7V19M7 13H19" stroke="#555" stroke-width="2.5" stroke-linecap="round"/></svg>
+              <span style="color:#333;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Zum Home-Bildschirm</span>
+            </div>
+            <p style="margin:4px 0 0;font-size:13px;color:#555;font-family:'Open Sans',sans-serif;">Dann <strong>„Hinzufügen"</strong> bestätigen – fertig! ✅</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Android -->
+    <div id="androidGuide" style="display:none;">
+      <div style="background:#e8f0e8;border-radius:12px;padding:16px;margin-bottom:12px;">
+        <p style="font-size:13px;color:#5c7a5c;font-weight:700;margin:0 0 12px;font-family:'Open Sans',sans-serif;">🤖 Anleitung für Android (Chrome)</p>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">1</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe oben rechts auf die <strong>drei Punkte:</strong></p>
+            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;">
+              <svg width="6" height="24" viewBox="0 0 6 24" fill="#333" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="3" r="2.5"/><circle cx="3" cy="12" r="2.5"/><circle cx="3" cy="21" r="2.5"/></svg>
+              <span style="color:#333;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Menü oben rechts</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">2</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Im Menü <strong>nach unten scrollen.</strong></p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">3</div>
+          <div>
+            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe auf <strong>„Zum Startbildschirm hinzufügen"</strong></p>
+            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="13" y="13" width="9" height="9" rx="2" fill="#4CAF50" opacity="0.4"/><path d="M17.5 13.5V19.5M14.5 16.5H20.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+              <span style="color:#333;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Zum Startbildschirm hinzufügen</span>
+            </div>
+            <p style="margin:4px 0 0;font-size:13px;color:#555;font-family:'Open Sans',sans-serif;">Dann <strong>„Hinzufügen"</strong> bestätigen – fertig! ✅</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="closeInstallOverlay()" style="width:100%;padding:14px;background:#5c7a5c;color:white;border:none;border-radius:10px;font-size:16px;font-family:'Open Sans',sans-serif;font-weight:600;cursor:pointer;margin-top:8px;">Verstanden – los geht's! 👍</button>
+    <p style="text-align:center;font-size:12px;color:#aaa;margin:12px 0 0;font-family:'Open Sans',sans-serif;">Diese Anleitung erscheint nur einmal.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='tinnitusTrackerInstallShown';
+  function isIOS(){return /iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;}
+  function isAndroid(){return /Android/.test(navigator.userAgent);}
+  function isStandalone(){return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches;}
+  window.closeInstallOverlay=function(){
+    var o=document.getElementById('installOverlay');
+    if(o)o.style.display='none';
+    localStorage.setItem(KEY,'1');
+  };
+  function showOverlay(){
+    if(isStandalone())return;
+    if(!isIOS()&&!isAndroid())return;
+    if(localStorage.getItem(KEY))return;
+    var o=document.getElementById('installOverlay');
+    if(!o)return;
+    if(isIOS())document.getElementById('iosGuide').style.display='block';
+    else document.getElementById('androidGuide').style.display='block';
+    o.style.display='block';
+    o.addEventListener('click',function(e){if(e.target===o)window.closeInstallOverlay();});
+  }
+  setTimeout(showOverlay,1200);
+})();
+</script>
+<!-- ===== ENDE INSTALL OVERLAY ===== -->
 </body>
 </html>

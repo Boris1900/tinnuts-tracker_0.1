@@ -42,12 +42,12 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
 .hint-close { background:none; border:none; color:#fff; font-size:22px; cursor:pointer; opacity:.7; padding:0 4px; flex-shrink:0; }
 
 /* HERO */
-.hero { min-height:100vh; background:linear-gradient(160deg,#f0f4f0 0%,#e0ead0 50%,#f0f4f0 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:100px 24px 60px; text-align:center; position:relative; overflow:hidden; }
-.hero-logo { width:90px; height:90px; object-fit:contain; margin-bottom:24px; }
-.hero-badge { display:inline-block; background:#e8f0e8; color:#3d5c3d; border:1.5px solid #a8c5a8; border-radius:20px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:20px; }
-.hero h1 { font-size:clamp(28px,5vw,48px); font-weight:700; color:#2c3c2c; line-height:1.2; margin-bottom:20px; max-width:600px; }
+.hero { min-height:100vh; background:linear-gradient(160deg,#f0f4f0 0%,#e0ead0 50%,#f0f4f0 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:80px 24px 40px; text-align:center; position:relative; overflow:hidden; }
+.hero-logo { width:64px; height:64px; object-fit:contain; margin-bottom:12px; }
+.hero-badge { display:inline-block; background:#e8f0e8; color:#3d5c3d; border:1.5px solid #a8c5a8; border-radius:20px; padding:5px 14px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px; }
+.hero h1 { font-size:clamp(22px,4vw,38px); font-weight:700; color:#2c3c2c; line-height:1.2; margin-bottom:12px; max-width:600px; }
 .hero h1 span { color:#5c7a5c; }
-.hero-sub { font-size:clamp(15px,2.5vw,18px); color:#5a7a5a; line-height:1.7; max-width:500px; margin-bottom:40px; }
+.hero-sub { font-size:clamp(13px,2vw,15px); color:#5a7a5a; line-height:1.6; max-width:500px; margin-bottom:20px; }
 .hero-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:50px; }
 .btn-primary { background:linear-gradient(135deg,#5c7a5c,#3d5c3d); color:#fff; border:none; border-radius:12px; padding:16px 32px; font-size:16px; font-weight:600; font-family:inherit; cursor:pointer; text-decoration:none; box-shadow:0 4px 20px rgba(92,122,92,.4); transition:all .2s; display:inline-block; }
 .btn-primary:hover { transform:translateY(-2px); }
@@ -87,8 +87,8 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
 .step { display:flex; gap:20px; align-items:flex-start; padding:20px 0; border-bottom:1px solid #d0ddd0; }
 .step:last-child { border-bottom:none; }
 .step-num { width:40px; height:40px; border-radius:50%; background:#5c7a5c; color:#fff; font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.step-title { font-size:15px; font-weight:700; color:#3d5c3d; margin-bottom:4px; }
-.step-text { font-size:13px; color:#5a7a5a; line-height:1.6; }
+.step-title { font-size:17px; font-weight:700; color:#3d5c3d; margin-bottom:6px; }
+.step-text { font-size:15px; color:#5a7a5a; line-height:1.7; }
 
 /* CTA */
 .cta { padding:80px 24px; background:linear-gradient(135deg,#3d5c3d,#5c7a5c); text-align:center; }
@@ -118,6 +118,12 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
   .btn-primary,.btn-secondary { width:100%; max-width:300px; text-align:center; }
 }
 </style>
+<script src="https://assets.quentn.com/fb/0.2/dist-user-wc/embed-form.umd.min.js" defer></script>
+
+<style>
+/* Try to style Quentn form to match hero */
+qntn-form { --qntn-primary-color: #5c7a5c; }
+</style>
 </head>
 <body>
 
@@ -142,7 +148,7 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
     <div class="nav-title">Tinnitus Tracker</div>
     <div class="nav-sub">Tinnituspraxis Seedorf</div>
   </div>
-  <a href="#download" class="nav-cta">Kostenlos laden</a>
+  <a href="#hero-form" class="nav-cta">Kostenlos anmelden</a>
 </nav>
 
 <!-- HERO -->
@@ -151,10 +157,19 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
   <div class="hero-badge">Kostenlos · Keine Registrierung</div>
   <h1>Tinnitus tracken.<br><span>Muster erkennen.</span><br>Lebensqualität gewinnen.</h1>
   <p class="hero-sub">Der kostenlose Tinnitus Tracker der Tinnituspraxis Seedorf hilft Ihnen, Ihre Ohrgeräusche zu dokumentieren und Zusammenhänge zu erkennen.</p>
-  <div class="hero-btns">
-    <a href="https://app.tinnituspraxis-seedorf.de/TinnitusTracker_Seedorf.html" class="btn-primary" id="app-btn">📱 App jetzt laden – kostenlos</a>
-    <a href="#features" class="btn-secondary">Mehr erfahren</a>
+  <!-- Quentn Form direkt im Hero -->
+  <div id="hero-form" style="width:100%">
+  <div style="width:100%;max-width:420px;margin:0 auto 20px;background:rgba(255,255,255,0.95);border-radius:16px;padding:20px;box-shadow:0 4px 24px rgba(92,122,92,0.15);text-align:left;">
+    <div style="font-size:13px;font-weight:600;color:#3d5c3d;margin-bottom:12px;text-align:center;">
+      🎁 Kostenlos – jetzt E-Mail eintragen & App erhalten
+    </div>
+    <qntn-form data-source="t88of5.eu-5.quentn-site.com" data-form-id="331"></qntn-form>
+    <div style="font-size:11px;color:#8fa08f;margin-top:10px;text-align:center;">
+      DSGVO-konform · Kein Spam · Jederzeit abmeldbar
+    </div>
   </div>
+
+  <div style="display:flex;justify-content:center;width:100%;margin-top:20px;">
   <div class="phone">
     <div class="phone-notch"></div>
     <div class="phone-screen">
@@ -199,6 +214,7 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- FEATURES -->
@@ -226,92 +242,45 @@ body { font-family:'Open Sans',sans-serif; color:#2c3c2c; background:#fff; }
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <div><div class="step-title">App öffnen</div><div class="step-text">Tippen Sie auf den Button und öffnen Sie die App in Ihrem Browser – kein Download nötig.</div></div>
+        <div><div class="step-title">E-Mail eingeben & bestätigen</div><div class="step-text">Tragen Sie Ihre E-Mail-Adresse oben ein. Sie erhalten eine Bestätigungsmail – bitte den Link darin anklicken.</div></div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div><div class="step-title">Zum Homescreen hinzufügen</div><div class="step-text">Android: Chrome-Menü → "Zum Startbildschirm". iPhone: Safari → Teilen → "Zum Home-Bildschirm". Die App erscheint als Icon.</div></div>
+        <div><div class="step-title">App-Link per E-Mail erhalten</div><div class="step-text">Nach der Bestätigung schicken wir Ihnen sofort den Link zur App. Öffnen Sie ihn auf Ihrem Smartphone – Android oder iPhone.</div></div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div><div class="step-title">Täglich tracken</div><div class="step-text">Morgens, mittags und abends eintragen. Nach 2 Wochen sehen Sie erste Muster und Zusammenhänge.</div></div>
+        <div><div class="step-title">Zum Homescreen hinzufügen & loslegen</div><div class="step-text">Android: Chrome-Menü → "Zum Startbildschirm". iPhone: Safari → Teilen → "Zum Home-Bildschirm". Dann täglich tracken!</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CTA - nur Hinweis, kein direkter Link -->
 <section class="cta" id="download">
-  <h2>Jetzt kostenlos starten</h2>
-  <p>Kein Konto, keine Kreditkarte, kein Abo.<br>Einfach öffnen und loslegen.</p>
-  <a href="https://app.tinnituspraxis-seedorf.de/TinnitusTracker_Seedorf.html" class="btn-white" id="cta-btn">
-    📱 App jetzt öffnen – kostenlos
+  <h2>Bereit loszulegen?</h2>
+  <p>Einfach E-Mail-Adresse oben eintragen –<br>der App-Link kommt sofort per Mail.</p>
+  <a href="#hero-form" style="display:inline-block;margin-top:8px;padding:14px 28px;border-radius:12px;background:#fff;color:#3d5c3d;font-weight:700;font-size:15px;text-decoration:none;font-family:inherit;">
+    ↑ Jetzt kostenlos anmelden
   </a>
-  <div class="cta-note">Funktioniert auf Android und iPhone · Keine Registrierung · Daten bleiben auf Ihrem Gerät</div>
+  <div class="cta-note" style="margin-top:16px;">Kostenlos · DSGVO-konform · Kein Spam · Jederzeit abmeldbar</div>
 </section>
 
 
-<!-- DESKTOP HINT – nur auf breiten Bildschirmen via CSS sichtbar -->
+<!-- DESKTOP HINT -->
 <style>
 .desktop-only { display:none; }
 @media(min-width:768px) { .desktop-only { display:block; } }
-.mobile-only { display:block; }
-@media(min-width:768px) { .mobile-only { display:none; } }
 </style>
-
-<section class="desktop-only" style="background:#f0f4f0;padding:60px 24px;text-align:center;border-top:1.5px solid #d0ddd0;">
+<section class="desktop-only" id="qr-section" style="background:#e8f0e8;padding:32px 24px;text-align:center;border-top:1.5px solid #d0ddd0;">
   <div style="max-width:500px;margin:0 auto;">
-    <div style="font-size:32px;margin-bottom:16px">💻📱</div>
-    <h2 style="font-size:22px;font-weight:700;color:#3d5c3d;margin-bottom:12px;">Diese App ist für Smartphones optimiert</h2>
-    <p style="font-size:14px;color:#5a7a5a;line-height:1.7;margin-bottom:28px;">Scannen Sie den QR-Code mit Ihrem Handy um die App direkt zu öffnen.<br>Oder öffnen Sie <strong>app.tinnituspraxis-seedorf.de</strong> in Ihrem Handy-Browser.</p>
-    <div style="background:#fff;border:2px solid #d0ddd0;border-radius:16px;padding:24px;display:inline-block;margin-bottom:20px;">
-      <div id="qrcode-section"></div>
-      <div style="font-size:12px;color:#5a7a5a;margin-top:12px;line-height:1.5;">📷 Kamera-App öffnen und über den Code halten</div>
-    </div>
-    <div style="margin-top:8px;">
-      <a href="https://app.tinnituspraxis-seedorf.de/TinnitusTracker_Seedorf.html" 
-         style="font-size:13px;color:#5c7a5c;font-weight:600;text-decoration:none;">
-        Trotzdem am Desktop öffnen →
-      </a>
-    </div>
+    <div style="font-size:28px;margin-bottom:12px">📱</div>
+    <h3 style="font-size:18px;font-weight:700;color:#3d5c3d;margin-bottom:10px;">Diese Seite ist für Smartphones gedacht</h3>
+    <p style="font-size:14px;color:#5a7a5a;line-height:1.7;">Öffnen Sie <strong>app.tinnituspraxis-seedorf.de</strong> auf Ihrem Handy –<br>tragen Sie dort Ihre E-Mail ein und erhalten Sie die App sofort.</p>
   </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-var el = document.getElementById('qrcode-section');
-if (el) {
-  new QRCode(el, {
-    text: "https://app.tinnituspraxis-seedorf.de/TinnitusTracker_Seedorf.html",
-    width: 180, height: 180,
-    colorDark: "#3d5c3d", colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.M
-  });
-}
 
-// Mobile homescreen hint – only on small screens
-if (window.innerWidth < 768 && !localStorage.getItem('hint_shown')) {
-  setTimeout(function() {
-    var hint = document.getElementById('homescreen-hint');
-    if (hint) {
-      hint.style.display = 'block';
-      var ua = navigator.userAgent;
-      if (/Android/i.test(ua)) {
-        document.getElementById('hint-title').textContent = 'App auf dem Homescreen speichern';
-        document.getElementById('hint-desc').textContent = 'Chrome-Menü (⋮) → "Zum Startbildschirm hinzufügen"';
-      } else if (/iPhone|iPad|iPod/i.test(ua)) {
-        document.getElementById('hint-title').textContent = 'App auf dem Homescreen speichern';
-        document.getElementById('hint-desc').textContent = 'Safari → Teilen (□↑) → "Zum Home-Bildschirm"';
-      }
-    }
-  }, 3000);
-}
-
-function closeHint() {
-  document.getElementById('homescreen-hint').style.display = 'none';
-  localStorage.setItem('hint_shown', '1');
-}
-</script>
 
 <!-- FOOTER – wie Homepage -->
 <footer class="footer">

@@ -303,25 +303,7 @@ if (!isMobile) {
 }
 
 // Mobile: show homescreen hint after 3 seconds (only once)
-if (isMobile && !localStorage.getItem('hint_shown')) {
-  setTimeout(() => {
-    const hint = document.getElementById('homescreen-hint');
-    hint.style.display = 'block';
-    // Customize by platform
-    if (isAndroid) {
-      document.getElementById('hint-title').textContent = 'App auf dem Homescreen speichern';
-      document.getElementById('hint-desc').textContent = 'Chrome-Menü (⋮) → "Zum Startbildschirm hinzufügen"';
-    } else if (isIOS) {
-      document.getElementById('hint-title').textContent = 'App auf dem Homescreen speichern';
-      document.getElementById('hint-desc').textContent = 'Safari → Teilen (□↑) → "Zum Home-Bildschirm"';
-    }
-  }, 3000);
-}
 
-function closeHint() {
-  document.getElementById('homescreen-hint').style.display = 'none';
-  localStorage.setItem('hint_shown', '1');
-}
 </script>
 
 

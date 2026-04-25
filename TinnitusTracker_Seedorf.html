@@ -676,6 +676,53 @@ function renderBlog(items) {
       <div class="blog-arrow">→ Weiterlesen</div>
     </a>`;
   }).join('');
+  renderManualArticles();
+}
+  function renderManualArticles() {
+  var list = document.getElementById('blog-list');
+  if (!list) return;
+  var articles = [
+    {
+      title: 'EMDR in der Tinnituspraxis Seedorf – wenn das Nervensystem zur Ruhe kommt',
+      date: '31. Aug. 2025',
+      excerpt: 'Tinnitus ist häufig eng mit innerer Anspannung und unverarbeiteten Erlebnissen verknüpft. EMDR hilft, das Nervensystem zu beruhigen.',
+      url: 'https://www.tinnituspraxis-seedorf.de/post/emdr-in-der-tinnituspraxis-seedorf-wenn-das-nervensystem-zur-ruhe-kommt'
+    },
+    {
+      title: 'Lasertherapie beim Hörsturz – ist auch nach Wochen und Monaten eine deutliche Verbesserung möglich?',
+      date: '13. Aug. 2025',
+      excerpt: 'Viele Betroffene gehen davon aus, dass nach einigen Wochen nichts mehr zu machen ist. Das stimmt so nicht – das Innenohr bleibt lange anpassungsfähig.',
+      url: 'https://www.tinnituspraxis-seedorf.de/post/lasertherapie-beim-h%C3%B6rsturz-ist-auch-nach-wochen-und-monaten-eine-deutliche-verbesserung-m%C3%B6glich'
+    },
+    {
+      title: 'Schwerhörigkeit: Was die hochdosierte Low-Level-Lasertherapie bringen kann',
+      date: '24. Jan. 2025',
+      excerpt: 'Die hochdosierte Low-Level-Lasertherapie fördert die Zellregeneration im Innenohr – ein innovativer Ansatz bei Schwerhörigkeit.',
+      url: 'https://www.tinnituspraxis-seedorf.de/post/schwerh%C3%B6rigkeit-was-die-hochdosierte-low-level-lasertherapie-bringen-kann'
+    },
+    {
+      title: 'Chancen und Grenzen der Low-Level-Lasertherapie bei Tinnitus',
+      date: '12. Nov. 2024',
+      excerpt: 'Die Erfolge der Lasertherapie hängen stark von der Art der Hörproblematik ab. Wann ist sie sinnvoll – und wann braucht es andere Ansätze?',
+      url: 'https://www.tinnituspraxis-seedorf.de/post/chancen-und-grenzen-der-low-level-lasertherpie-bei-tinnitus'
+    },
+    {
+      title: 'Tinnitus-Behandlung mit der Innenohr-Regenerations-Therapie (IRT)',
+      date: '10. Sept. 2024',
+      excerpt: 'Die IRT bietet einen ganzheitlichen Ansatz der nicht nur Symptome lindert, sondern das Problem tiefgreifend angeht – mit Laser, EMDR und Hörtraining.',
+      url: 'https://www.tinnituspraxis-seedorf.de/post/tinnitus-behandlung-mit-der-innenohr-regenerations-therapie-irt-ein-ganzheitlicher-weg-zur-linder'
+    }
+  ];
+  var html = articles.map(function(a) {
+    return '<a class="blog-card" href="'+a.url+'" target="_blank">'+
+      '<div class="blog-tag">Blog</div>'+
+      '<div class="blog-title">'+a.title+'</div>'+
+      '<div class="blog-date">'+a.date+'</div>'+
+      '<div class="blog-excerpt">'+a.excerpt+'</div>'+
+      '<div class="blog-arrow">→ Weiterlesen</div>'+
+      '</a>';
+  }).join('');
+  list.innerHTML += html;
 }
 
 function renderBlogFallback() {

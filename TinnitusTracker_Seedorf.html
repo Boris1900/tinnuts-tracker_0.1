@@ -1085,6 +1085,114 @@ updateUI();
   }
   setTimeout(showOverlay,1200);
 })();
+// ===== TINNITUS TESTER =====
+const tKanals = ['pfeifen','sirren','piepen','summen','brummen','zischen','weiss','braun'];
+const tState = {};
+tKanals.forEach(k => tState[k] = {active:false, freq:0, vol:10});
+let tActx = null, tNodes = {}, tPlaying = false;
+
+function tGetCtx(){ if(!tActx) tActx = new (window.AudioContext||window.webkitAudioContext)(); return tActx; }
+
+function tToggle(id, on){
+  tState[id].active = on;
+  document.getElementById('tk-'+id).style.borderColor = on ? '#5c7a5c' : '#d0ddd0';
+  document.getElementById('tk-'+id).style.background = on ? '#f8fbf8' : '#fff';
+  const track = document.getElementById('ttr-'+id);
+  const thumb = document.getElementById('tth-'+id);
+  if(track) track.style.background = on ? '#5c7a5c' : '#d0ddd0';
+  if(thumb) thumb.style.transform = on ? 'translateX(20px)' : 'translateX(0)';
+  const ctrl = document.getElementById('tc-'+id);
+  if(ctrl){ ctrl.style.display = on ? 'flex' : 'none'; ctrl.style.flexDirection='column'; }
+  if(tPlaying){ if(on) tStartKanal(id); else tStopKanal(id); }
+  tUpdateResult();
+}
+
+function tUpdateF(id, val){
+  tState[id].freq = parseInt(val);
+  document.getElementById('tfv-'+id).textContent = val + ' Hz';
+  if(tPlaying && tNodes[id]){
+    const n = tNodes[id];
+    if(id==='pfeifen'){ n.osc.frequency.value=parseInt(val); }
+    else if(id==='sirren'){ n.osc.frequency.value=parseInt(val); if(n.filt) n.filt.frequency.value=parseInt(val); }
+    else if(id==='piepen'){ n.osc.frequency.value=parseInt(val); }
+    else if(id==='summen'){ n.osc.frequency.value=parseInt(val); if(n.osc2) n.osc2.frequency.value=parseInt(val)+3; }
+    else if(id==='brummen'){ n.osc.frequency.value=parseInt(val); }
+    else if(id==='zischen'){ if(n.filt) n.filt.frequency.value=parseInt(val); }
+  }
+}
+
+function tUpdateV(id, val){
+  tState[id].vol = parseInt(val);
+  document.getElementById('tvv-'+id).textContent = val + ' %';
+  if(tPlaying && tNodes[id] && tNodes[id].gain) tNodes[id].gain.gain.value = parseInt(val)/100*0.3;
+}
+
+function tMakeNoise(type){
+  const ctx = tGetCtx();
+  const buf = ctx.createBuffer(1, ctx.sampleRate*2, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  if(type==='white'){ for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; }
+  else { let last=0; for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; last=(last+0.02*w)/1.02; d[i]=last*15; } }
+  const src = ctx.createBufferSource(); src.buffer=buf; src.loop=true; return src;
+}
+
+function tStartKanal(id){
+  const ctx = tGetCtx(); tStopKanal(id);
+  const s = tState[id];
+  const gain = ctx.createGain(); gain.gain.value = s.vol/100*0.3; gain.connect(ctx.destination);
+  let n = {gain};
+  if(id==='pfeifen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||4000; o.connect(gain); o.start(); n.osc=o; }
+  else if(id==='sirren'){ const o=ctx.createOscillator(); o.type='square'; o.frequency.value=s.freq||3000; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=s.freq||3000; f.Q.value=8; o.connect(f); f.connect(gain); o.start(); n.osc=o; n.filt=f; }
+  else if(id==='piepen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||6000; const lfo=ctx.createOscillator(); lfo.type='square'; lfo.frequency.value=4; const lg=ctx.createGain(); lg.gain.value=0.5; lfo.connect(lg); lg.connect(gain.gain); o.connect(gain); lfo.start(); o.start(); n.osc=o; n.lfo=lfo; }
+  else if(id==='summen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||800; const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=(s.freq||800)+3; o.connect(gain); o2.connect(gain); o.start(); o2.start(); n.osc=o; n.osc2=o2; }
+  else if(id==='brummen'){ const o=ctx.createOscillator(); o.type='sawtooth'; o.frequency.value=s.freq||100; const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=400; o.connect(f); f.connect(gain); o.start(); n.osc=o; }
+  else if(id==='zischen'){ const src=tMakeNoise('white'); const f=ctx.createBiquadFilter(); f.type='highpass'; f.frequency.value=s.freq||5000; src.connect(f); f.connect(gain); src.start(); n.src=src; n.filt=f; }
+  else if(id==='weiss'){ const src=tMakeNoise('white'); const f1=ctx.createBiquadFilter(); f1.type='highpass'; f1.frequency.value=500; const f2=ctx.createBiquadFilter(); f2.type='lowpass'; f2.frequency.value=8000; src.connect(f1); f1.connect(f2); f2.connect(gain); src.start(); n.src=src; }
+  else if(id==='braun'){ const src=tMakeNoise('brown'); src.connect(gain); src.start(); n.src=src; }
+  tNodes[id] = n;
+}
+
+function tStopKanal(id){
+  const n = tNodes[id]; if(!n) return;
+  try{if(n.osc){n.osc.stop();n.osc.disconnect();}}catch(e){}
+  try{if(n.osc2){n.osc2.stop();n.osc2.disconnect();}}catch(e){}
+  try{if(n.lfo){n.lfo.stop();n.lfo.disconnect();}}catch(e){}
+  try{if(n.src){n.src.stop();n.src.disconnect();}}catch(e){}
+  try{if(n.gain){n.gain.disconnect();}}catch(e){}
+  delete tNodes[id];
+}
+
+function tTogglePlay(){
+  const btn = document.getElementById('tPlayBtn');
+  const active = tKanals.filter(k=>tState[k].active);
+  if(!tPlaying){
+    if(active.length===0){alert('Bitte aktivieren Sie mindestens einen Klang.');return;}
+    tPlaying=true; active.forEach(k=>tStartKanal(k));
+    btn.style.background='linear-gradient(135deg,#d45a5a,#b03c3c)';
+    btn.style.boxShadow='0 3px 14px rgba(180,60,60,.35)';
+    btn.textContent='◼ Klang stoppen';
+  } else {
+    tPlaying=false; tKanals.forEach(k=>tStopKanal(k));
+    btn.style.background='linear-gradient(135deg,#5c7a5c,#3d5c3d)';
+    btn.style.boxShadow='0 3px 14px rgba(92,122,92,.35)';
+    btn.textContent='▶ Klang starten';
+  }
+}
+
+function tUpdateResult(){
+  const active = tKanals.filter(k=>tState[k].active);
+  const box = document.getElementById('tResultBox');
+  if(!box) return;
+  if(active.length===0){box.style.display='none';return;}
+  const names={'pfeifen':'Pfeifen','sirren':'Sirren','piepen':'Piepen','summen':'Summen','brummen':'Brummen','zischen':'Zischen','weiss':'Weißes Rauschen','braun':'Braunes Rauschen'};
+  let html='<strong>Mein Tinnitus-Klangprofil:</strong><br>';
+  active.forEach(k=>{
+    const s=tState[k]; const fStr=(k==='weiss'||k==='braun')?'Breitband':s.freq+' Hz';
+    html+=names[k]+' · '+fStr+' · '+s.vol+' %<br>';
+  });
+  box.innerHTML=html; box.style.display='block';
+}
+// ===== ENDE TINNITUS TESTER =====
 </script>
 <!-- ===== ENDE INSTALL OVERLAY ===== -->
 </body>

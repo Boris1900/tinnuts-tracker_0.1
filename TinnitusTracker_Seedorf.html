@@ -1098,7 +1098,6 @@ function tUpdateF(id, val){
     const n = tNodes[id];
     if(id==='pfeifen'){ n.osc.frequency.value=parseInt(val); }
     else if(id==='sirren'){ n.osc.frequency.value=parseInt(val); if(n.filt) n.filt.frequency.value=parseInt(val); }
-    else if(id==='piepen'){ n.osc.frequency.value=parseInt(val); }
     else if(id==='summen'){ n.osc.frequency.value=parseInt(val); if(n.osc2) n.osc2.frequency.value=parseInt(val)+3; }
     else if(id==='brummen'){ n.osc.frequency.value=parseInt(val); }
     else if(id==='zischen'){ if(n.filt) n.filt.frequency.value=parseInt(val); }

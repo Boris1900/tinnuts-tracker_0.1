@@ -655,7 +655,7 @@ async function loadBlog() {
     const data = await res.json();
     if(data.status==='ok' && data.items && data.items.length>0) {
       renderBlog(data.items);
-      renderManualArticles();
+      setTimeout(renderManualArticles, 500);
     } else {
       renderBlogFallback();
     }

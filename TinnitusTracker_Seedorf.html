@@ -915,7 +915,7 @@ updateUI();
 <script>
 (function(){
   var KEY='tinnitusTrackerInstallShown';
-  function isIOS(){return /iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;}
+  function isIOS(){return (/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1))&&!window.MSStream;}
   function isAndroid(){return /Android/.test(navigator.userAgent);}
   function isStandalone(){return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches;}
   window.closeInstallOverlay=function(){

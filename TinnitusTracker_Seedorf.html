@@ -1072,7 +1072,7 @@ updateUI();
 // ===== TINNITUS TESTER =====
 const tKanals = ['piepen','sirren','piepen','summen','brummen','zischen','weiss','braun'];
 const tState = {};
-tKanals.forEach(k => tState[k] = {active:false, freq:0, vol:10});
+tKanals.forEach(k => tState[k] = {active:false, freq:0, vol:5});
 let tActx = null, tNodes = {}, tPlaying = false;
 
 function tGetCtx(){ if(!tActx) tActx = new (window.AudioContext||window.webkitAudioContext)(); return tActx; }

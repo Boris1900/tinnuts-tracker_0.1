@@ -295,19 +295,19 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 
     <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#5c7a5c;text-transform:uppercase;margin:8px 0 6px;display:flex;align-items:center;gap:8px;">Töne <span style="height:1px;flex:1;background:#d0ddd0;display:inline-block;"></span></div>
 
-    <!-- Pfeifen -->
-    <div id="tk-pfeifen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+    <!-- Piepen -->
+    <div id="tk-piepen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Pfeifen</span>
+        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">piepen</span>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-pfeifen" style="opacity:0;width:0;height:0;" onchange="tToggle('pfeifen',this.checked)">
-          <span id="ttr-pfeifen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-pfeifen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+          <input type="checkbox" id="tt-piepen" style="opacity:0;width:0;height:0;" onchange="tToggle('piepen',this.checked)">
+          <span id="ttr-piepen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-piepen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
         </label>
       </div>
-      <div id="tc-pfeifen" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="250" max="12000" step="50" value="4000" id="tf-pfeifen" style="flex:1;" oninput="tUpdateF('pfeifen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-pfeifen">4000 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-pfeifen" style="flex:1;" oninput="tUpdateV('pfeifen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-pfeifen">10 %</span></div>
+      <div id="tc-piepen" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="250" max="12000" step="50" value="4000" id="tf-piepen" style="flex:1;" oninput="tUpdateF('piepen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-piepen">4000 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-piepen" style="flex:1;" oninput="tUpdateV('piepen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-piepen">10 %</span></div>
       </div>
     </div>
 
@@ -1070,7 +1070,7 @@ updateUI();
   setTimeout(showOverlay,1200);
 })();
 // ===== TINNITUS TESTER =====
-const tKanals = ['pfeifen','sirren','piepen','summen','brummen','zischen','weiss','braun'];
+const tKanals = ['piepen','sirren','piepen','summen','brummen','zischen','weiss','braun'];
 const tState = {};
 tKanals.forEach(k => tState[k] = {active:false, freq:0, vol:10});
 let tActx = null, tNodes = {}, tPlaying = false;
@@ -1096,7 +1096,7 @@ function tUpdateF(id, val){
   document.getElementById('tfv-'+id).textContent = val + ' Hz';
   if(tPlaying && tNodes[id]){
     const n = tNodes[id];
-    if(id==='pfeifen'){ n.osc.frequency.value=parseInt(val); }
+    if(id==='piepen'){ n.osc.frequency.value=parseInt(val); }
     else if(id==='sirren'){ n.osc.frequency.value=parseInt(val); if(n.filt) n.filt.frequency.value=parseInt(val); }
     else if(id==='summen'){ n.osc.frequency.value=parseInt(val); if(n.osc2) n.osc2.frequency.value=parseInt(val)+3; }
     else if(id==='brummen'){ n.osc.frequency.value=parseInt(val); }
@@ -1124,7 +1124,7 @@ function tStartKanal(id){
   const s = tState[id];
   const gain = ctx.createGain(); gain.gain.value = s.vol/100*0.3; gain.connect(ctx.destination);
   let n = {gain};
-  if(id==='pfeifen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||4000; o.connect(gain); o.start(); n.osc=o; }
+  if(id==='piepen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||4000; o.connect(gain); o.start(); n.osc=o; }
   else if(id==='sirren'){ const o=ctx.createOscillator(); o.type='square'; o.frequency.value=s.freq||3000; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=s.freq||3000; f.Q.value=8; o.connect(f); f.connect(gain); o.start(); n.osc=o; n.filt=f; }
   else if(id==='piepen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||6000; const lfo=ctx.createOscillator(); lfo.type='square'; lfo.frequency.value=4; const lg=ctx.createGain(); lg.gain.value=0.5; lfo.connect(lg); lg.connect(gain.gain); o.connect(gain); lfo.start(); o.start(); n.osc=o; n.lfo=lfo; }
   else if(id==='summen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||800; const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=(s.freq||800)+3; o.connect(gain); o2.connect(gain); o.start(); o2.start(); n.osc=o; n.osc2=o2; }
@@ -1167,7 +1167,7 @@ function tUpdateResult(){
   const box = document.getElementById('tResultBox');
   if(!box) return;
   if(active.length===0){box.style.display='none';return;}
-  const names={'pfeifen':'Pfeifen','sirren':'Sirren','piepen':'Piepen','summen':'Summen','brummen':'Brummen','zischen':'Zischen','weiss':'Weißes Rauschen','braun':'Braunes Rauschen'};
+  const names={'piepen':'piepen','sirren':'Sirren','piepen':'Piepen','summen':'Summen','brummen':'Brummen','zischen':'Zischen','weiss':'Weißes Rauschen','braun':'Braunes Rauschen'};
   let html='<strong>Mein Tinnitus-Klangprofil:</strong><br>';
   active.forEach(k=>{
     const s=tState[k]; const fStr=(k==='weiss'||k==='braun')?'Breitband':s.freq+' Hz';

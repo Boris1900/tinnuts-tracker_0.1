@@ -288,67 +288,35 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 <div id="view-tester" class="view">
   <div class="card">
     <div style="background:#e8f0e8;border:1.5px solid #a8c5a8;border-radius:10px;padding:12px 14px;font-size:12px;color:#3d5c3d;line-height:1.6;margin-bottom:10px;">
-      Haben Sie Tinnitus? Mit diesem Tool können Sie versuchen, Ihren Tinnitus-Klang nachzubilden. Aktivieren Sie einen oder mehrere Klänge gleichzeitig und passen Sie Frequenz sowie Lautstärke individuell an – um Ihrem persönlichen Klang möglichst nahezukommen.
+      Mit diesem Tool können Sie Ihren Tinnitus-Klang nachbilden. Aktivieren Sie einen oder mehrere Klänge gleichzeitig und passen Sie Frequenz sowie Lautstärke individuell an – um Ihrem persönlichen Klang möglichst nahezukommen.
     </div>
     <div style="background:#fff8e1;border:1.5px solid #f5cc4a;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5a00;line-height:1.5;margin-bottom:12px;">
-      ⚠ <strong>Bitte Kopfhörer verwenden</strong> und Lautstärke sehr niedrig beginnen, z.b. mit 1%. Laute Töne können Ihren Tinnitus verschlimmern.
+      ⚠ <strong>Bitte Kopfhörer verwenden</strong> und mit 1% Lautstärke beginnen. Laute Töne können Ihren Tinnitus verschlimmern.
     </div>
     <div class="card-label">Klänge auswählen &amp; mischen</div>
 
     <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#5c7a5c;text-transform:uppercase;margin:8px 0 6px;display:flex;align-items:center;gap:8px;">Töne <span style="height:1px;flex:1;background:#d0ddd0;display:inline-block;"></span></div>
 
-    <!-- Piepen -->
-    <div id="tk-piepen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+    <!-- Hochtonpiepen -->
+    <div id="tk-hochton" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Piepen</span>
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Hochtonpiepen</span><span style="font-size:10px;color:#7a9a7a;display:block;">Klassischer Pfeifton · 500–16.000 Hz</span></div>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-piepen" style="opacity:0;width:0;height:0;" onchange="tToggle('piepen',this.checked)">
-          <span id="ttr-piepen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-piepen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+          <input type="checkbox" id="tt-hochton" style="opacity:0;width:0;height:0;" onchange="tToggle('hochton',this.checked)">
+          <span id="ttr-hochton" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-hochton" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
         </label>
       </div>
-      <div id="tc-piepen" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="250" max="12000" step="50" value="4000" id="tf-piepen" style="flex:1;" oninput="tUpdateF('piepen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-piepen">4000 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-piepen" style="flex:1;" oninput="tUpdateV('piepen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-piepen">5 %</span></div>
+      <div id="tc-hochton" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="500" max="16000" step="100" value="6000" id="tf-hochton" style="flex:1;" oninput="tUpdateF('hochton',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-hochton">6000 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-hochton" style="flex:1;" oninput="tUpdateV('hochton',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-hochton">1 %</span></div>
       </div>
     </div>
 
-    <!-- Sirren -->
-    <div id="tk-sirren" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Sirren</span>
-        <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-sirren" style="opacity:0;width:0;height:0;" onchange="tToggle('sirren',this.checked)">
-          <span id="ttr-sirren" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-sirren" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
-        </label>
-      </div>
-      <div id="tc-sirren" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="250" max="12000" step="50" value="3000" id="tf-sirren" style="flex:1;" oninput="tUpdateF('sirren',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-sirren">3000 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-sirren" style="flex:1;" oninput="tUpdateV('sirren',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-sirren">5 %</span></div>
-      </div>
-    </div>
-
-    <!-- Summen -->
-    <div id="tk-summen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Summen</span>
-        <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-summen" style="opacity:0;width:0;height:0;" onchange="tToggle('summen',this.checked)">
-          <span id="ttr-summen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-summen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
-        </label>
-      </div>
-      <div id="tc-summen" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="250" max="3000" step="50" value="800" id="tf-summen" style="flex:1;" oninput="tUpdateF('summen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-summen">800 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-summen" style="flex:1;" oninput="tUpdateV('summen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-summen">5 %</span></div>
-      </div>
-    </div>
-
-    <!-- Brummen -->
+    <!-- Tiefes Brummen -->
     <div id="tk-brummen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Brummen</span>
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Tiefes Brummen</span><span style="font-size:10px;color:#7a9a7a;display:block;">Tiefer Brummton mit Obertönen · 50–500 Hz</span></div>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
           <input type="checkbox" id="tt-brummen" style="opacity:0;width:0;height:0;" onchange="tToggle('brummen',this.checked)">
           <span id="ttr-brummen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
@@ -356,64 +324,84 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
         </label>
       </div>
       <div id="tc-brummen" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Tiefe</span><input type="range" min="50" max="400" step="10" value="100" id="tf-brummen" style="flex:1;" oninput="tUpdateF('brummen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-brummen">100 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-brummen" style="flex:1;" oninput="tUpdateV('brummen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-brummen">5 %</span></div>
-        <p style="font-size:10px;color:#7a9a7a;font-style:italic;">Tiefton-Bereich: 50–400 Hz</p>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Tiefe</span><input type="range" min="50" max="500" step="10" value="100" id="tf-brummen" style="flex:1;" oninput="tUpdateF('brummen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-brummen">100 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-brummen" style="flex:1;" oninput="tUpdateV('brummen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-brummen">1 %</span></div>
       </div>
     </div>
 
-    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#5c7a5c;text-transform:uppercase;margin:12px 0 6px;display:flex;align-items:center;gap:8px;">Rauschen <span style="height:1px;flex:1;background:#d0ddd0;display:inline-block;"></span></div>
-
-    <!-- Zischen -->
-    <div id="tk-zischen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+    <!-- Pulsieren -->
+    <div id="tk-pulsieren" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Zischen</span>
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Pulsieren</span><span style="font-size:10px;color:#7a9a7a;display:block;">Rhythmischer, pochender Ton</span></div>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-zischen" style="opacity:0;width:0;height:0;" onchange="tToggle('zischen',this.checked)">
-          <span id="ttr-zischen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-zischen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+          <input type="checkbox" id="tt-pulsieren" style="opacity:0;width:0;height:0;" onchange="tToggle('pulsieren',this.checked)">
+          <span id="ttr-pulsieren" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-pulsieren" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
         </label>
       </div>
-      <div id="tc-zischen" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Schärfe</span><input type="range" min="2000" max="10000" step="100" value="5000" id="tf-zischen" style="flex:1;" oninput="tUpdateF('zischen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tfv-zischen">5000 Hz</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-zischen" style="flex:1;" oninput="tUpdateV('zischen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-zischen">5 %</span></div>
+      <div id="tc-pulsieren" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="500" max="8000" step="100" value="3000" id="tf-pulsieren" style="flex:1;" oninput="tUpdateF('pulsieren',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-pulsieren">3000 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Pulsrate</span><input type="range" min="1" max="10" step="0.5" value="3" id="tr-pulsieren" style="flex:1;" oninput="tUpdateR('pulsieren',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="trv-pulsieren">3 /Sek</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-pulsieren" style="flex:1;" oninput="tUpdateV('pulsieren',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-pulsieren">1 %</span></div>
       </div>
     </div>
 
-    <!-- Weißes Rauschen -->
-    <div id="tk-weiss" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+    <!-- Klingeln -->
+    <div id="tk-klingeln" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Weißes Rauschen</span>
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Klingeln</span><span style="font-size:10px;color:#7a9a7a;display:block;">Glockenartiger Ton mit Obertönen</span></div>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-weiss" style="opacity:0;width:0;height:0;" onchange="tToggle('weiss',this.checked)">
-          <span id="ttr-weiss" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-weiss" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+          <input type="checkbox" id="tt-klingeln" style="opacity:0;width:0;height:0;" onchange="tToggle('klingeln',this.checked)">
+          <span id="ttr-klingeln" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-klingeln" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
         </label>
       </div>
-      <div id="tc-weiss" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">500–8000 Hz</span><span style="flex:1;font-size:11px;color:#7a9a7a;font-style:italic;">Breitband · kein Frequenzregler</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-weiss" style="flex:1;" oninput="tUpdateV('weiss',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-weiss">5 %</span></div>
+      <div id="tc-klingeln" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="500" max="6000" step="100" value="2000" id="tf-klingeln" style="flex:1;" oninput="tUpdateF('klingeln',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-klingeln">2000 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-klingeln" style="flex:1;" oninput="tUpdateV('klingeln',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-klingeln">1 %</span></div>
       </div>
     </div>
 
-    <!-- Braunes Rauschen -->
-    <div id="tk-braun" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#5c7a5c;text-transform:uppercase;margin:12px 0 6px;display:flex;align-items:center;gap:8px;">Rauschen &amp; Sirren <span style="height:1px;flex:1;background:#d0ddd0;display:inline-block;"></span></div>
+
+    <!-- Grillenzirpen -->
+    <div id="tk-zirpen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:13px;font-weight:600;color:#2c3c2c;flex:1;">Braunes Rauschen</span>
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Grillenzirpen</span><span style="font-size:10px;color:#7a9a7a;display:block;">Zirpen · Sirren · pulsierendes Hochtonrauschen</span></div>
         <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
-          <input type="checkbox" id="tt-braun" style="opacity:0;width:0;height:0;" onchange="tToggle('braun',this.checked)">
-          <span id="ttr-braun" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
-          <span id="tth-braun" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+          <input type="checkbox" id="tt-zirpen" style="opacity:0;width:0;height:0;" onchange="tToggle('zirpen',this.checked)">
+          <span id="ttr-zirpen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-zirpen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
         </label>
       </div>
-      <div id="tc-braun" style="display:none;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Tiefbass</span><span style="flex:1;font-size:11px;color:#7a9a7a;font-style:italic;">Organisch, warm · wie Wasserfall</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="5" id="tv-braun" style="flex:1;" oninput="tUpdateV('braun',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:58px;text-align:right;" id="tvv-braun">5 %</span></div>
+      <div id="tc-zirpen" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Frequenz</span><input type="range" min="2000" max="10000" step="100" value="4500" id="tf-zirpen" style="flex:1;" oninput="tUpdateF('zirpen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-zirpen">4500 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Zirprate</span><input type="range" min="10" max="80" step="5" value="30" id="tr-zirpen" style="flex:1;" oninput="tUpdateR('zirpen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="trv-zirpen">30 /Sek</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-zirpen" style="flex:1;" oninput="tUpdateV('zirpen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-zirpen">1 %</span></div>
+      </div>
+    </div>
+
+    <!-- Gefiltertes Rauschen -->
+    <div id="tk-rauschen" style="border:1.5px solid #d0ddd0;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <div style="flex:1;"><span style="font-size:13px;font-weight:600;color:#2c3c2c;">Gefiltertes Rauschen</span><span style="font-size:10px;color:#7a9a7a;display:block;">Von breitem Rauschen bis schmalem Zischen</span></div>
+        <label style="position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block;">
+          <input type="checkbox" id="tt-rauschen" style="opacity:0;width:0;height:0;" onchange="tToggle('rauschen',this.checked)">
+          <span id="ttr-rauschen" style="position:absolute;inset:0;background:#d0ddd0;border-radius:24px;cursor:pointer;transition:.25s;"></span>
+          <span id="tth-rauschen" style="position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.2);pointer-events:none;"></span>
+        </label>
+      </div>
+      <div id="tc-rauschen" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Mittenton</span><input type="range" min="200" max="8000" step="100" value="2000" id="tf-rauschen" style="flex:1;" oninput="tUpdateF('rauschen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tfv-rauschen">2000 Hz</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Breite</span><input type="range" min="0.5" max="20" step="0.5" value="2" id="tr-rauschen" style="flex:1;" oninput="tUpdateR('rauschen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="trv-rauschen">Breit</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:#5a7a5a;font-weight:600;width:54px;">Lautstärke</span><input type="range" min="0" max="100" step="1" value="1" id="tv-rauschen" style="flex:1;" oninput="tUpdateV('rauschen',this.value)"><span style="font-size:11px;font-weight:700;color:#3d5c3d;width:62px;text-align:right;" id="tvv-rauschen">1 %</span></div>
       </div>
     </div>
 
     <button id="tPlayBtn" onclick="tTogglePlay()" style="width:100%;padding:13px;border-radius:12px;border:none;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:.03em;box-shadow:0 3px 14px rgba(92,122,92,.35);background:linear-gradient(135deg,#5c7a5c,#3d5c3d);color:#fff;margin-top:4px;">▶ Klang starten</button>
+    <button onclick="tSaveProfil()" style="width:100%;padding:10px;border-radius:12px;border:1.5px solid #5c7a5c;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:#fff;color:#5c7a5c;margin-top:8px;">Klangprofil speichern</button>
     <div id="tResultBox" style="display:none;background:#e8f0e8;border:1.5px solid #a8c5a8;border-radius:12px;padding:12px 14px;font-size:12px;color:#3d5c3d;line-height:1.6;margin-top:8px;"></div>
+    <div id="tProfilBox" style="display:none;background:#f8fbf8;border:1.5px solid #a8c5a8;border-radius:12px;padding:12px 14px;font-size:12px;color:#3d5c3d;line-height:1.6;margin-top:8px;"></div>
     <p style="font-size:10px;color:#7a9a7a;text-align:center;margin-top:10px;line-height:1.5;font-style:italic;">Kein medizinisches Messgerät · Nur zur persönlichen Orientierung · Kein Ersatz für professionelle Tinnitus-Diagnostik</p>
   </div>
 </div>
@@ -461,7 +449,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.0</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.1</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -478,7 +466,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v1.0 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v1.1 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -1205,9 +1193,17 @@ updateUI();
   setTimeout(showOverlay,1200);
 })();
 // ===== TINNITUS TESTER =====
-const tKanals = ['piepen','sirren','piepen','summen','brummen','zischen','weiss','braun'];
+const tKanals = ['hochton','brummen','pulsieren','klingeln','zirpen','rauschen'];
+const tDefaults = {
+  hochton:   {freq:6000, vol:1, rate:null},
+  brummen:   {freq:100,  vol:1, rate:null},
+  pulsieren: {freq:3000, vol:1, rate:3},
+  klingeln:  {freq:2000, vol:1, rate:null},
+  zirpen:    {freq:4500, vol:1, rate:30},
+  rauschen:  {freq:2000, vol:1, rate:2}
+};
 const tState = {};
-tKanals.forEach(k => tState[k] = {active:false, freq:0, vol:5});
+tKanals.forEach(k => tState[k] = {active:false, freq:tDefaults[k].freq, vol:tDefaults[k].vol, rate:tDefaults[k].rate});
 let tActx = null, tNodes = {}, tPlaying = false;
 
 function tGetCtx(){ if(!tActx) tActx = new (window.AudioContext||window.webkitAudioContext)(); return tActx; }
@@ -1230,12 +1226,13 @@ function tUpdateF(id, val){
   tState[id].freq = parseInt(val);
   document.getElementById('tfv-'+id).textContent = val + ' Hz';
   if(tPlaying && tNodes[id]){
-    const n = tNodes[id];
-    if(id==='piepen'){ n.osc.frequency.value=parseInt(val); }
-    else if(id==='sirren'){ n.osc.frequency.value=parseInt(val); if(n.filt) n.filt.frequency.value=parseInt(val); }
-    else if(id==='summen'){ n.osc.frequency.value=parseInt(val); if(n.osc2) n.osc2.frequency.value=parseInt(val)+3; }
-    else if(id==='brummen'){ n.osc.frequency.value=parseInt(val); }
-    else if(id==='zischen'){ if(n.filt) n.filt.frequency.value=parseInt(val); }
+    const n = tNodes[id]; const f = parseInt(val);
+    if(id==='hochton'){ n.osc.frequency.value=f; }
+    else if(id==='brummen'){ n.osc.frequency.value=f; if(n.osc2) n.osc2.frequency.value=f*2; if(n.osc3) n.osc3.frequency.value=f*3; }
+    else if(id==='pulsieren'){ n.osc.frequency.value=f; }
+    else if(id==='klingeln'){ n.osc.frequency.value=f; if(n.osc2) n.osc2.frequency.value=f*2.756; if(n.osc3) n.osc3.frequency.value=f*5.404; }
+    else if(id==='zirpen'){ n.osc.frequency.value=f; }
+    else if(id==='rauschen'){ if(n.filt) n.filt.frequency.value=f; }
   }
 }
 
@@ -1245,12 +1242,23 @@ function tUpdateV(id, val){
   if(tPlaying && tNodes[id] && tNodes[id].gain) tNodes[id].gain.gain.value = parseInt(val)/100*0.3;
 }
 
-function tMakeNoise(type){
+function tUpdateR(id, val){
+  tState[id].rate = parseFloat(val);
+  const v = parseFloat(val);
+  let label = v + ' /Sek';
+  if(id==='rauschen') label = v <= 2 ? 'Breit' : v <= 8 ? 'Mittel' : 'Schmal';
+  document.getElementById('trv-'+id).textContent = label;
+  if(tPlaying && tNodes[id]){
+    if((id==='pulsieren'||id==='zirpen') && tNodes[id].lfo) tNodes[id].lfo.frequency.value = v;
+    else if(id==='rauschen' && tNodes[id].filt) tNodes[id].filt.Q.value = v;
+  }
+}
+
+function tMakeWhiteNoise(){
   const ctx = tGetCtx();
-  const buf = ctx.createBuffer(1, ctx.sampleRate*2, ctx.sampleRate);
+  const buf = ctx.createBuffer(1, ctx.sampleRate*3, ctx.sampleRate);
   const d = buf.getChannelData(0);
-  if(type==='white'){ for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; }
-  else { let last=0; for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; last=(last+0.02*w)/1.02; d[i]=last*15; } }
+  for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
   const src = ctx.createBufferSource(); src.buffer=buf; src.loop=true; return src;
 }
 
@@ -1259,14 +1267,56 @@ function tStartKanal(id){
   const s = tState[id];
   const gain = ctx.createGain(); gain.gain.value = s.vol/100*0.3; gain.connect(ctx.destination);
   let n = {gain};
-  if(id==='piepen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||4000; o.connect(gain); o.start(); n.osc=o; }
-  else if(id==='sirren'){ const o=ctx.createOscillator(); o.type='square'; o.frequency.value=s.freq||3000; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=s.freq||3000; f.Q.value=8; o.connect(f); f.connect(gain); o.start(); n.osc=o; n.filt=f; }
-  else if(id==='piepen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||6000; const lfo=ctx.createOscillator(); lfo.type='square'; lfo.frequency.value=4; const lg=ctx.createGain(); lg.gain.value=0.5; lfo.connect(lg); lg.connect(gain.gain); o.connect(gain); lfo.start(); o.start(); n.osc=o; n.lfo=lfo; }
-  else if(id==='summen'){ const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq||800; const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=(s.freq||800)+3; o.connect(gain); o2.connect(gain); o.start(); o2.start(); n.osc=o; n.osc2=o2; }
-  else if(id==='brummen'){ const o=ctx.createOscillator(); o.type='sawtooth'; o.frequency.value=s.freq||100; const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=400; o.connect(f); f.connect(gain); o.start(); n.osc=o; }
-  else if(id==='zischen'){ const src=tMakeNoise('white'); const f=ctx.createBiquadFilter(); f.type='highpass'; f.frequency.value=s.freq||5000; src.connect(f); f.connect(gain); src.start(); n.src=src; n.filt=f; }
-  else if(id==='weiss'){ const src=tMakeNoise('white'); const f1=ctx.createBiquadFilter(); f1.type='highpass'; f1.frequency.value=500; const f2=ctx.createBiquadFilter(); f2.type='lowpass'; f2.frequency.value=8000; src.connect(f1); f1.connect(f2); f2.connect(gain); src.start(); n.src=src; }
-  else if(id==='braun'){ const src=tMakeNoise('brown'); src.connect(gain); src.start(); n.src=src; }
+
+  if(id==='hochton'){
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
+    o.connect(gain); o.start(); n.osc=o;
+  }
+  else if(id==='brummen'){
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
+    const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=s.freq*2;
+    const g2=ctx.createGain(); g2.gain.value=0.3; o2.connect(g2); g2.connect(gain);
+    const o3=ctx.createOscillator(); o3.type='sine'; o3.frequency.value=s.freq*3;
+    const g3=ctx.createGain(); g3.gain.value=0.1; o3.connect(g3); g3.connect(gain);
+    o.connect(gain); o.start(); o2.start(); o3.start();
+    n.osc=o; n.osc2=o2; n.osc3=o3;
+  }
+  else if(id==='pulsieren'){
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
+    const lfo=ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=s.rate||3;
+    const lfoGain=ctx.createGain(); lfoGain.gain.value=0.5;
+    const cGain=ctx.createGain(); cGain.gain.value=0.5;
+    lfo.connect(lfoGain); lfoGain.connect(cGain.gain);
+    o.connect(cGain); cGain.connect(gain);
+    lfo.start(); o.start(); n.osc=o; n.lfo=lfo; n.cGain=cGain;
+  }
+  else if(id==='klingeln'){
+    const f=s.freq;
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=f;
+    const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=f*2.756;
+    const g2=ctx.createGain(); g2.gain.value=0.4; o2.connect(g2); g2.connect(gain);
+    const o3=ctx.createOscillator(); o3.type='sine'; o3.frequency.value=f*5.404;
+    const g3=ctx.createGain(); g3.gain.value=0.15; o3.connect(g3); g3.connect(gain);
+    o.connect(gain); o.start(); o2.start(); o3.start();
+    n.osc=o; n.osc2=o2; n.osc3=o3;
+  }
+  else if(id==='zirpen'){
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
+    const lfo=ctx.createOscillator(); lfo.type='square'; lfo.frequency.value=s.rate||30;
+    const lfoGain=ctx.createGain(); lfoGain.gain.value=0.5;
+    const cGain=ctx.createGain(); cGain.gain.value=0.5;
+    lfo.connect(lfoGain); lfoGain.connect(cGain.gain);
+    o.connect(cGain); cGain.connect(gain);
+    lfo.start(); o.start(); n.osc=o; n.lfo=lfo; n.cGain=cGain;
+  }
+  else if(id==='rauschen'){
+    const src=tMakeWhiteNoise();
+    const filt=ctx.createBiquadFilter(); filt.type='bandpass';
+    filt.frequency.value=s.freq; filt.Q.value=s.rate||2;
+    src.connect(filt); filt.connect(gain); src.start();
+    n.src=src; n.filt=filt;
+  }
+
   tNodes[id] = n;
 }
 
@@ -1274,9 +1324,11 @@ function tStopKanal(id){
   const n = tNodes[id]; if(!n) return;
   try{if(n.osc){n.osc.stop();n.osc.disconnect();}}catch(e){}
   try{if(n.osc2){n.osc2.stop();n.osc2.disconnect();}}catch(e){}
+  try{if(n.osc3){n.osc3.stop();n.osc3.disconnect();}}catch(e){}
   try{if(n.lfo){n.lfo.stop();n.lfo.disconnect();}}catch(e){}
   try{if(n.src){n.src.stop();n.src.disconnect();}}catch(e){}
   try{if(n.gain){n.gain.disconnect();}}catch(e){}
+  try{if(n.cGain){n.cGain.disconnect();}}catch(e){}
   delete tNodes[id];
 }
 
@@ -1297,19 +1349,70 @@ function tTogglePlay(){
   }
 }
 
+const tNames = {hochton:'Hochtonpiepen',brummen:'Tiefes Brummen',pulsieren:'Pulsieren',klingeln:'Klingeln',zirpen:'Grillenzirpen',rauschen:'Gefiltertes Rauschen'};
+
 function tUpdateResult(){
   const active = tKanals.filter(k=>tState[k].active);
   const box = document.getElementById('tResultBox');
   if(!box) return;
   if(active.length===0){box.style.display='none';return;}
-  const names={'piepen':'piepen','sirren':'Sirren','piepen':'Piepen','summen':'Summen','brummen':'Brummen','zischen':'Zischen','weiss':'Weißes Rauschen','braun':'Braunes Rauschen'};
-  let html='<strong>Mein Tinnitus-Klangprofil:</strong><br>';
+  let html='<strong>Aktive Klänge:</strong><br>';
   active.forEach(k=>{
-    const s=tState[k]; const fStr=(k==='weiss'||k==='braun')?'Breitband':s.freq+' Hz';
-    html+=names[k]+' · '+fStr+' · '+s.vol+' %<br>';
+    const s=tState[k];
+    let detail=s.freq+' Hz';
+    if(k==='pulsieren') detail+=' · '+s.rate+' /Sek';
+    else if(k==='zirpen') detail+=' · '+s.rate+' /Sek Zirp';
+    else if(k==='rauschen') detail=s.freq+' Hz · '+(s.rate<=2?'Breit':s.rate<=8?'Mittel':'Schmal');
+    html+=tNames[k]+' · '+detail+' · '+s.vol+' %<br>';
   });
   box.innerHTML=html; box.style.display='block';
 }
+
+function tSaveProfil(){
+  const active = tKanals.filter(k=>tState[k].active);
+  if(active.length===0){alert('Bitte erst mindestens einen Klang aktivieren.');return;}
+  const profil={datum:new Date().toLocaleDateString('de-DE'), klaenge:{}};
+  active.forEach(k => profil.klaenge[k]={...tState[k]});
+  localStorage.setItem('tinnitusProfil', JSON.stringify(profil));
+  tZeigeProfil();
+}
+
+function tZeigeProfil(){
+  const raw=localStorage.getItem('tinnitusProfil');
+  const box=document.getElementById('tProfilBox');
+  if(!raw||!box){if(box)box.style.display='none';return;}
+  const p=JSON.parse(raw);
+  let html='<strong>Gespeichertes Profil</strong> <span style="font-weight:400;color:#7a9a7a;">('+p.datum+')</span><br>';
+  Object.keys(p.klaenge).forEach(k=>{
+    const s=p.klaenge[k];
+    let detail=s.freq+' Hz';
+    if(k==='pulsieren') detail+=' · '+s.rate+' /Sek';
+    else if(k==='zirpen') detail+=' · '+s.rate+' /Sek';
+    else if(k==='rauschen') detail=s.freq+' Hz · '+(s.rate<=2?'Breit':s.rate<=8?'Mittel':'Schmal');
+    html+=tNames[k]+' · '+detail+' · '+s.vol+' %<br>';
+  });
+  html+='<button onclick="tLadeProfil()" style="margin-top:8px;padding:6px 14px;border-radius:8px;border:1.5px solid #5c7a5c;background:#fff;color:#5c7a5c;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;">Profil laden</button>';
+  box.innerHTML=html; box.style.display='block';
+}
+
+function tLadeProfil(){
+  const raw=localStorage.getItem('tinnitusProfil');
+  if(!raw)return;
+  const p=JSON.parse(raw);
+  tKanals.forEach(k=>{ const cb=document.getElementById('tt-'+k); if(cb)cb.checked=false; tToggle(k,false); });
+  Object.keys(p.klaenge).forEach(k=>{
+    if(!tState[k])return;
+    const s=p.klaenge[k];
+    tState[k].freq=s.freq; tState[k].vol=s.vol; tState[k].rate=s.rate;
+    const fEl=document.getElementById('tf-'+k); if(fEl){fEl.value=s.freq; document.getElementById('tfv-'+k).textContent=s.freq+' Hz';}
+    const vEl=document.getElementById('tv-'+k); if(vEl){vEl.value=s.vol; document.getElementById('tvv-'+k).textContent=s.vol+' %';}
+    if(s.rate!==null){ const rEl=document.getElementById('tr-'+k); if(rEl){rEl.value=s.rate; tUpdateR(k,s.rate);} }
+    const cb=document.getElementById('tt-'+k); if(cb)cb.checked=true;
+    tToggle(k,true);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', tZeigeProfil);
 // ===== ENDE TINNITUS TESTER =====
 </script>
 <!-- ===== ENDE INSTALL OVERLAY ===== -->

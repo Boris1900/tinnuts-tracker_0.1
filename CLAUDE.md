@@ -38,6 +38,13 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 ### Zuletzt umgesetzt (Session Mai 2026)
 
+**Tester-Tab komplett neu gebaut (v1.1):**
+- 6 neue Klangtypen: Hochtonpiepen, Tiefes Brummen, Pulsieren, Klingeln, Grillenzirpen, Gefiltertes Rauschen
+- Bug behoben: `tKanals` hatte `'piepen'` doppelt – zweite Instanz war toter Code
+- Lautstärke-Standard auf 1% gesenkt (war 5%)
+- Klangprofil speichern / laden via localStorage
+- Result-Box zeigt aktive Klänge mit Einstellungen
+
 **PDF-Export komplett überarbeitet:**
 - Klick auf "Als PDF exportieren" öffnet jetzt ein Modal mit Auswahl
 - Zeitraum: 7 / 14 / 30 / 60 Tage / Alle
@@ -149,11 +156,25 @@ Erste Frage in neuer Session: "Lies die CLAUDE.md und sag mir kurz wo wir stehen
 
 ## Nächstes Feature (PRIORITÄT)
 
-**Tester-Tab komplett überarbeiten**
+**Tester-Tab Feinschliff – konkrete Änderungen aus Boris' Feedback (Mai 2026)**
 
-Der Tester ist der Tab, in dem Patienten ihren Tinnitus-Klang nachbilden können (Frequenz, Lautstärke, Klangtyp). Boris möchte diesen Tab in einer neuen Session von Grund auf neu gestalten.
+Der Tester läuft (v1.1), ist aber noch nicht final. Folgende Änderungen beim nächsten Mal umsetzen – KEIN weiteres Konzeptgespräch nötig, einfach direkt machen:
 
-Vor der Umsetzung: Tester-Code lesen und verstehen was aktuell drin ist, dann mit Boris das neue Konzept besprechen.
+1. **Pulsieren entfernen** – Boris braucht diesen Klangtyp nicht, Platz sparen.
+
+2. **Klingeln überarbeiten** – Der aktuelle Klang (Sinuston + inharmonische Obertöne) klingt nicht nach dem, was Menschen als "Klingeln" kennen (Telefon, Türklingel). Neu implementieren: pulsierender Hochton mit kurzen An/Aus-Bursts (~4–6 Hz Pulsrate), evtl. mit leicht ansteigender Hüllkurve. Oder: zwei Töne im Wechsel (wie Telefon-Doppelklingeln). Boris entscheidet nach Probe.
+
+3. **Grillenzirpen – Zirprate anpassen** – Aktuell 10–80 /Sek, wirkt zu langsam. Bereich auf 30–200 /Sek erhöhen, Standardwert auf ~80 /Sek setzen. Grillen zirpen deutlich schneller als der aktuelle Default.
+
+4. **Gefiltertes Rauschen – Frequenzbereich erweitern** – Aktuell Mittenton bis 8000 Hz → auf 12.000 Hz erhöhen.
+
+5. **Gefiltertes Rauschen – Bandpassfilter schmaler machen** – Aktuell Q max 20. Auf Q max 60–80 erhöhen. Beschriftung: Breit / Mittel / Schmal / Sehr schmal (statt nur 3 Stufen). Grenzwerte anpassen:
+   - Q ≤ 2 → Breit
+   - Q 3–8 → Mittel
+   - Q 9–25 → Schmal
+   - Q > 25 → Sehr schmal
+
+6. **Result-Box live aktualisieren** – Aktuell wird `tUpdateResult()` nur bei Toggle aufgerufen. Zusätzlich in `tUpdateF()`, `tUpdateV()` und `tUpdateR()` am Ende aufrufen, damit die Box sofort mitzieht wenn Regler bewegt wird.
 
 ---
 
@@ -165,7 +186,7 @@ Der neue PDF-Export (Zeitraum + Diagramm + Inhaltsauswahl) ist live. Boris muss 
 
 ## Offene Punkte / Ideen
 
-- [ ] Tester-Tab überarbeiten (PRIORITÄT – nächste Session)
+- [ ] Tester-Tab Feinschliff (PRIORITÄT – nächste Session, Änderungen oben dokumentiert)
 - [ ] PDF-Export: Drucklayout bei vielen Daten beobachten (Querformat ggf. nachrüsten)
 - [ ] JSON-Export als Backup-Funktion (nach Cache-Löschen-Vorfall dringend empfohlen)
 - [ ] Automatische Backup-Erinnerung alle 4 Wochen

@@ -741,11 +741,19 @@ function drawChart() {
   }));
   ctx.strokeStyle='#5c7a5c'; ctx.lineWidth=2.5; ctx.lineJoin='round';
   ctx.beginPath(); pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)); ctx.stroke();
+  const labelInterval = currentFilter===7 ? 1 : currentFilter===30 ? 5 : 10;
+  const minLabelGap = 28;
+  let lastLabelX = -Infinity;
   pts.forEach((p,i)=>{
     ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2);
     ctx.fillStyle=IC[p.v-1]; ctx.fill();
     ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.stroke();
-    if(i===0||i===n-1||n<=7){ctx.fillStyle='#5a7a5a';ctx.font='600 8px Open Sans';ctx.fillText(p.label,p.x-10,pad.t+H+18);}
+    const isDue = i===0 || i===n-1 || (i % labelInterval === 0);
+    if(isDue && p.x-lastLabelX >= minLabelGap){
+      ctx.fillStyle='#5a7a5a'; ctx.font='600 8px Open Sans';
+      ctx.fillText(p.label,p.x-10,pad.t+H+18);
+      lastLabelX=p.x;
+    }
   });
 }
 

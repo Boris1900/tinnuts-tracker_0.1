@@ -255,6 +255,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
         <div class="chart-wrap" id="chart-wrap" style="display:none">
           <canvas id="chart-canvas" style="width:100%;height:100%"></canvas>
         </div>
+        <div id="chart-hint" style="font-size:10px;color:#8aaa8a;text-align:center;margin-top:6px;min-height:14px"></div>
       </div>
 
       <button onclick="exportPDF()" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid #5c7a5c;background:#fff;color:#5c7a5c;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">
@@ -449,7 +450,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.1</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.2</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -466,7 +467,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v1.1 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v1.2 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -729,12 +730,71 @@ function updateChart() {
 }
 
 // ── Chart ────────────────────────────────────
+function aggregateByDay(entries) {
+  const map = {};
+  entries.forEach(e => {
+    if (!map[e.date]) map[e.date] = [];
+    map[e.date].push(e.intensity);
+  });
+  return Object.keys(map).sort().map(date => ({
+    label: new Date(date + 'T12:00:00').toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit'}),
+    intensity: Math.round(map[date].reduce((a,b) => a+b, 0) / map[date].length * 10) / 10
+  }));
+}
+
+function aggregateByWeek(entries) {
+  const map = {};
+  entries.forEach(e => {
+    const d = new Date(e.date + 'T12:00:00');
+    const dow = d.getDay() === 0 ? 6 : d.getDay() - 1;
+    const weekStart = new Date(d);
+    weekStart.setDate(d.getDate() - dow);
+    const key = weekStart.toISOString().split('T')[0];
+    if (!map[key]) map[key] = [];
+    map[key].push(e.intensity);
+  });
+  return Object.keys(map).sort().map(key => ({
+    label: new Date(key + 'T12:00:00').toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit'}),
+    intensity: Math.round(map[key].reduce((a,b) => a+b, 0) / map[key].length * 10) / 10
+  }));
+}
+
 function drawChart() {
   const canvas=document.getElementById('chart-canvas');
   const wrap=document.getElementById('chart-wrap');
   if(!wrap.offsetWidth) return;
   const fe=filteredEntries();
   if(fe.length<2) return;
+
+  // Aggregation und Hinweistext bestimmen
+  let chartData, hintText;
+  const uniqueDays = [...new Set(fe.map(e => e.date))].length;
+  if (currentFilter === 7) {
+    chartData = fe.map(e => ({
+      label: new Date(e.date + 'T12:00:00').toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit'}),
+      intensity: e.intensity
+    }));
+    hintText = '';
+  } else if (currentFilter === 30) {
+    chartData = aggregateByDay(fe);
+    hintText = 'Angezeigt wird der Tagesdurchschnitt Ihrer Einträge.';
+  } else {
+    if (uniqueDays <= 14) {
+      chartData = fe.map(e => ({
+        label: new Date(e.date + 'T12:00:00').toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit'}),
+        intensity: e.intensity
+      }));
+      hintText = '';
+    } else if (uniqueDays <= 60) {
+      chartData = aggregateByDay(fe);
+      hintText = 'Angezeigt wird der Tagesdurchschnitt Ihrer Einträge.';
+    } else {
+      chartData = aggregateByWeek(fe);
+      hintText = 'Angezeigt wird der Wochendurchschnitt Ihrer Einträge.';
+    }
+  }
+  document.getElementById('chart-hint').textContent = hintText;
+
   canvas.width=wrap.offsetWidth; canvas.height=200;
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -750,26 +810,23 @@ function drawChart() {
   ctx.strokeStyle='#a8c5a8'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
   ctx.beginPath(); ctx.moveTo(pad.l,pad.t+H-(4/9)*H); ctx.lineTo(pad.l+W,pad.t+H-(4/9)*H); ctx.stroke();
   ctx.setLineDash([]);
-  const n=fe.length;
-  const pts=fe.map((e,i)=>({
+  const n=chartData.length;
+  const pts=chartData.map((e,i)=>({
     x:pad.l+(n===1?W/2:(i/(n-1))*W),
     y:pad.t+H-((e.intensity-1)/9)*H,
     v:e.intensity,
-    label:new Date(e.datetime).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})
+    label:e.label
   }));
   ctx.strokeStyle='#5c7a5c'; ctx.lineWidth=2.5; ctx.lineJoin='round';
   ctx.beginPath(); pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)); ctx.stroke();
-  const labelInterval = currentFilter===30 ? 5 : 10;
   const minLabelGap = 28;
   let lastLabelX = -Infinity;
   let lastLabelDate = '';
   pts.forEach((p,i)=>{
     ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2);
-    ctx.fillStyle=IC[p.v-1]; ctx.fill();
+    ctx.fillStyle=IC[Math.round(p.v)-1]; ctx.fill();
     ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.stroke();
-    const isDue = currentFilter===7
-      ? p.label !== lastLabelDate
-      : i===0 || i===n-1 || (i % labelInterval === 0);
+    const isDue = p.label !== lastLabelDate;
     if(isDue && p.x-lastLabelX >= minLabelGap){
       ctx.fillStyle='#5a7a5a'; ctx.font='600 8px Open Sans';
       ctx.fillText(p.label,p.x-10,pad.t+H+18);

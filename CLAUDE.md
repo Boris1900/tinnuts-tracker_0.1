@@ -10,7 +10,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v15 / App v1.0)
+## Aktueller Stand (Cache v17 / App v1.2)
 
 ### Dateien im Repo
 
@@ -36,7 +36,14 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
 
-### Zuletzt umgesetzt (Session Mai 2026)
+### Zuletzt umgesetzt (Session Mai 2026 – v1.2)
+
+**Verlauf-Diagramm: Datumsanzeige und Aggregation (v1.2):**
+- X-Achse zeigt Datum jetzt tagesbasiert (beim ersten Eintrag jedes Tages) statt index-basiert
+- 7-Tage-Ansicht: alle Einzelpunkte wie bisher
+- 30-Tage-Ansicht: Tagesdurchschnitt + Hinweistext "Angezeigt wird der Tagesdurchschnitt..."
+- Alles-Ansicht: adaptiv – ≤14 Tage: Einzelpunkte, ≤60 Tage: Tagesdurchschnitt, >60 Tage: Wochendurchschnitt + jeweiliger Hinweistext
+- Hilfsfunktionen aggregateByDay() und aggregateByWeek() ergänzt
 
 **Tester-Tab komplett neu gebaut (v1.1):**
 - 6 neue Klangtypen: Hochtonpiepen, Tiefes Brummen, Pulsieren, Klingeln, Grillenzirpen, Gefiltertes Rauschen
@@ -114,8 +121,8 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v15` → `v16`
-2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.0` → `v1.1`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v17` → `v18`
+2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.2` → `v1.3`
    - Steht an **zwei Stellen**: in den Einstellungen (Über die App) und im Footer
 3. Commit + Push
 

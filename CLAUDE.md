@@ -11,7 +11,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v18 / App v1.3)
+## Aktueller Stand (Cache v20 / App v1.5)
 
 ### Dateien im Repo
 
@@ -37,7 +37,11 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
 
-### Zuletzt umgesetzt (Session Mai 2026 – v1.3)
+### Zuletzt umgesetzt (Session Mai 2026 – v1.5)
+
+**iOS Stummschalter-Hinweis im Tester (v1.5):**
+- Hinweis wird per isIOS() nur auf iPhone/iPad angezeigt
+- Update-Button bleibt für alle Plattformen sichtbar
 
 **Update-Prüfung für iOS (v1.3):**
 - Button "Auf Update prüfen" in Einstellungen → Über die App
@@ -129,8 +133,8 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v18` → `v19`
-2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.3` → `v1.4`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v20` → `v21`
+2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.5` → `v1.6`
 3. CURRENT_CACHE-Konstante in TinnitusTracker_Seedorf.html ebenfalls hochzählen (muss mit sw.js übereinstimmen)
    - Steht an **zwei Stellen**: in den Einstellungen (Über die App) und im Footer
 3. Commit + Push

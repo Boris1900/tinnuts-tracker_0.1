@@ -294,7 +294,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
     <div style="background:#fff8e1;border:1.5px solid #f5cc4a;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5a00;line-height:1.5;margin-bottom:12px;">
       ⚠ <strong>Bitte Kopfhörer verwenden</strong> und mit 1% Lautstärke beginnen. Laute Töne können Ihren Tinnitus verschlimmern.
     </div>
-    <div style="background:#e8f0ff;border:1.5px solid #a0b0e0;border-radius:10px;padding:10px 14px;font-size:12px;color:#2a3a6a;line-height:1.5;margin-bottom:12px;">
+    <div id="ios-mute-hint" style="display:none;background:#e8f0ff;border:1.5px solid #a0b0e0;border-radius:10px;padding:10px 14px;font-size:12px;color:#2a3a6a;line-height:1.5;margin-bottom:12px;">
       📱 <strong>iPhone-Nutzer:</strong> Der seitliche Stummschalter am Gerät muss <strong>ausgeschaltet</strong> sein (kein orangefarbener Streifen sichtbar) – sonst ist kein Ton zu hören.
     </div>
     <div class="card-label">Klänge auswählen &amp; mischen</div>
@@ -453,7 +453,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.4</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.5</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -474,7 +474,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v1.4 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v1.5 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -548,7 +548,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 </div>
 
 <script>
-const CURRENT_CACHE = 'tinnitus-tracker-v19';
+const CURRENT_CACHE = 'tinnitus-tracker-v20';
 const IC = ["#5c7a5c","#6e8f4a","#8fa832","#b8bf2a","#d4b020","#d48820","#cc6620","#c04428","#a82828","#8b1a1a"];
 const IL = {1:"Kaum hörbar",2:"Sehr leise",3:"Leise",4:"Merklich",5:"Mäßig",6:"Störend",7:"Stark",8:"Sehr stark",9:"Extrem laut",10:"Unerträglich"};
 const TIMES = ["Morgens","Mittags","Abends"];
@@ -1282,6 +1282,7 @@ updateUI();
   var KEY='tinnitusTrackerInstallShown';
   function isIOS(){return (/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1))&&!window.MSStream;}
   function isAndroid(){return /Android/.test(navigator.userAgent);}
+  if(isIOS()){const h=document.getElementById('ios-mute-hint');if(h)h.style.display='block';}
   function isStandalone(){return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches;}
   window.closeInstallOverlay=function(){
     var o=document.getElementById('installOverlay');

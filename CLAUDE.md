@@ -5,7 +5,8 @@
 Progressive Web App (PWA) für Patienten der Tinnituspraxis Seedorf in Ahrensburg.
 Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-Sound matchen.
 
-**Live-URL:** https://app.tinnituspraxis-seedorf.de
+**Live-URL (Landingpage):** https://app.tinnituspraxis-seedorf.de
+**Direkte App-URL:** https://app.tinnituspraxis-seedorf.de/TinnitusTracker_Seedorf.html
 **GitHub:** https://github.com/Boris1900/tinnuts-tracker_0.1
 
 ---

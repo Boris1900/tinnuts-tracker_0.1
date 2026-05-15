@@ -10,7 +10,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v17 / App v1.2)
+## Aktueller Stand (Cache v18 / App v1.3)
 
 ### Dateien im Repo
 
@@ -36,7 +36,14 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
 
-### Zuletzt umgesetzt (Session Mai 2026 – v1.2)
+### Zuletzt umgesetzt (Session Mai 2026 – v1.3)
+
+**Update-Prüfung für iOS (v1.3):**
+- Button "Auf Update prüfen" in Einstellungen → Über die App
+- Lädt sw.js frisch aus dem Netz, vergleicht CACHE-Version mit CURRENT_CACHE-Konstante
+- Bei veralteter Version: "🆕 Update verfügbar → Jetzt laden" → löscht alle Caches + reload
+- Bei aktueller Version: "✅ Du hast bereits die aktuelle Version."
+- WICHTIG: CURRENT_CACHE in HTML muss immer mit CACHE in sw.js übereinstimmen
 
 **Verlauf-Diagramm: Datumsanzeige und Aggregation (v1.2):**
 - X-Achse zeigt Datum jetzt tagesbasiert (beim ersten Eintrag jedes Tages) statt index-basiert
@@ -121,8 +128,9 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v17` → `v18`
-2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.2` → `v1.3`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v18` → `v19`
+2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.3` → `v1.4`
+3. CURRENT_CACHE-Konstante in TinnitusTracker_Seedorf.html ebenfalls hochzählen (muss mit sw.js übereinstimmen)
    - Steht an **zwei Stellen**: in den Einstellungen (Über die App) und im Footer
 3. Commit + Push
 

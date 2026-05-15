@@ -1,4 +1,4 @@
-const CACHE = 'tinnitus-tracker-v20';
+const CACHE = 'tinnitus-tracker-v21';
 const FILES = [
   './TinnitusTracker_Seedorf.html',
   './manifest.json',

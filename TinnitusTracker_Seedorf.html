@@ -527,7 +527,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.9</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v2.0</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -548,7 +548,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v1.9 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v2.0 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -622,7 +622,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 </div>
 
 <script>
-const CURRENT_CACHE = 'tinnitus-tracker-v24';
+const CURRENT_CACHE = 'tinnitus-tracker-v25';
 const IC = ["#5c7a5c","#6e8f4a","#8fa832","#b8bf2a","#d4b020","#d48820","#cc6620","#c04428","#a82828","#8b1a1a"];
 const IL = {1:"Kaum hörbar",2:"Sehr leise",3:"Leise",4:"Merklich",5:"Mäßig",6:"Störend",7:"Stark",8:"Sehr stark",9:"Extrem laut",10:"Unerträglich"};
 const TIMES = ["Morgens","Mittags","Abends"];
@@ -1283,9 +1283,9 @@ updateUI();
   <div style="background:#fff;border-radius:16px 16px 0 0;margin-top:60px;padding:24px 20px 40px;max-width:480px;margin-left:auto;margin-right:auto;position:relative;">
     <button onclick="closeInstallOverlay()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#888;cursor:pointer;">✕</button>
     <div style="text-align:center;margin-bottom:20px;">
-      <div style="font-size:42px;margin-bottom:8px;">📲</div>
-      <h2 style="color:#3d5c3d;font-family:'Open Sans',sans-serif;font-size:18px;margin:0 0 6px;">App auf dem Homescreen speichern</h2>
-      <p style="color:#666;font-size:14px;margin:0;font-family:'Open Sans',sans-serif;">So nutzt du den Tinnitus Tracker wie eine richtige App – ohne App Store!</p>
+      <div id="overlayEmoji" style="font-size:42px;margin-bottom:8px;">📲</div>
+      <h2 id="overlayTitle" style="color:#3d5c3d;font-family:'Open Sans',sans-serif;font-size:18px;margin:0 0 6px;">App auf dem Homescreen speichern</h2>
+      <p id="overlaySubtitle" style="color:#666;font-size:14px;margin:0;font-family:'Open Sans',sans-serif;">So nutzt du den Tinnitus Tracker wie eine richtige App – ohne App Store!</p>
     </div>
 
     <!-- iOS -->
@@ -1326,39 +1326,24 @@ updateUI();
     <!-- Android -->
     <div id="androidGuide" style="display:none;">
       <div style="background:#e8f0e8;border-radius:12px;padding:16px;margin-bottom:12px;">
-        <p style="font-size:13px;color:#5c7a5c;font-weight:700;margin:0 0 12px;font-family:'Open Sans',sans-serif;">🤖 Anleitung für Android (Chrome)</p>
-        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
-          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">1</div>
-          <div>
-            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe oben rechts auf die <strong>drei Punkte:</strong></p>
-            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;">
-              <svg width="6" height="24" viewBox="0 0 6 24" fill="#333" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="3" r="2.5"/><circle cx="3" cy="12" r="2.5"/><circle cx="3" cy="21" r="2.5"/></svg>
-              <span style="color:#333;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Menü oben rechts</span>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
-          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">2</div>
-          <div>
-            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Im Menü <strong>nach unten scrollen.</strong></p>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;">
-          <div style="background:#5c7a5c;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">3</div>
-          <div>
-            <p style="margin:0;font-size:14px;color:#333;font-family:'Open Sans',sans-serif;">Tippe auf <strong>„Zum Startbildschirm hinzufügen"</strong></p>
-            <div style="margin:8px 0;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#4CAF50"/><rect x="13" y="13" width="9" height="9" rx="2" fill="#4CAF50" opacity="0.4"/><path d="M17.5 13.5V19.5M14.5 16.5H20.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-              <span style="color:#333;font-size:13px;font-family:'Open Sans',sans-serif;font-weight:600;">Zum Startbildschirm hinzufügen</span>
-            </div>
-            <p style="margin:4px 0 0;font-size:13px;color:#555;font-family:'Open Sans',sans-serif;">Dann <strong>„Hinzufügen"</strong> bestätigen – fertig! ✅</p>
-          </div>
-        </div>
+        <p style="font-size:13px;color:#5c7a5c;font-weight:700;margin:0 0 8px;font-family:'Open Sans',sans-serif;">📲 App direkt installieren</p>
+        <p style="font-size:13px;color:#555;margin:0 0 14px;font-family:'Open Sans',sans-serif;">Lade die App als APK herunter – dann läuft sie wie eine normale App auf deinem Handy.</p>
+        <a href="https://app.tinnituspraxis-seedorf.de/download.html" style="display:block;text-align:center;background:#5c7a5c;color:#fff;padding:13px;border-radius:10px;font-weight:600;text-decoration:none;font-size:14px;font-family:'Open Sans',sans-serif;">⬇️ App herunterladen</a>
+        <p style="font-size:11px;color:#888;margin:10px 0 0;text-align:center;font-family:'Open Sans',sans-serif;">Beim ersten Start: „Installation aus unbekannten Quellen" einmalig erlauben.</p>
+      </div>
+    </div>
+
+    <!-- Desktop -->
+    <div id="desktopGuide" style="display:none;">
+      <div style="background:#fff3cd;border:1.5px solid #ffe08a;border-radius:12px;padding:16px;margin-bottom:12px;text-align:center;">
+        <p style="font-size:13px;color:#7a5c00;font-weight:700;margin:0 0 8px;font-family:'Open Sans',sans-serif;">Diese App ist für Smartphones gedacht</p>
+        <p style="font-size:13px;color:#555;margin:0 0 12px;font-family:'Open Sans',sans-serif;">Bitte öffne sie auf deinem iPhone oder Android-Handy – dort läuft sie am besten.</p>
+        <p style="font-size:12px;color:#888;background:#fff;border-radius:8px;padding:8px 12px;margin:0;font-family:monospace;word-break:break-all;">app.tinnituspraxis-seedorf.de</p>
       </div>
     </div>
 
     <button onclick="closeInstallOverlay()" style="width:100%;padding:14px;background:#5c7a5c;color:white;border:none;border-radius:10px;font-size:16px;font-family:'Open Sans',sans-serif;font-weight:600;cursor:pointer;margin-top:8px;">Verstanden – los geht's! 👍</button>
-    <p style="text-align:center;font-size:12px;color:#aaa;margin:12px 0 0;font-family:'Open Sans',sans-serif;">Diese Anleitung erscheint nur einmal.</p>
+    <p id="overlayOnceNote" style="text-align:center;font-size:12px;color:#aaa;margin:12px 0 0;font-family:'Open Sans',sans-serif;">Diese Anleitung erscheint nur einmal.</p>
   </div>
 </div>
 
@@ -1369,19 +1354,32 @@ updateUI();
   function isAndroid(){return /Android/.test(navigator.userAgent);}
   if(isIOS()){const h=document.getElementById('ios-mute-hint');if(h)h.style.display='block';}
   function isStandalone(){return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches;}
+  var overlayIsDesktop = false;
   window.closeInstallOverlay=function(){
     var o=document.getElementById('installOverlay');
     if(o)o.style.display='none';
-    localStorage.setItem(KEY,'1');
+    if(!overlayIsDesktop) localStorage.setItem(KEY,'1');
   };
   function showOverlay(){
-    if(window.Capacitor && window.Capacitor.isNativePlatform())return; // Native APK – kein Hinweis nötig
+    if(window.Capacitor && window.Capacitor.isNativePlatform())return;
     if(isStandalone())return;
-    if(!isIOS())return; // Nur iPhone bekommt den Installations-Hinweis
-    if(localStorage.getItem(KEY))return;
+    overlayIsDesktop = !isIOS() && !isAndroid();
+    if(!overlayIsDesktop && localStorage.getItem(KEY))return;
     var o=document.getElementById('installOverlay');
     if(!o)return;
-    document.getElementById('iosGuide').style.display='block';
+    if(isIOS()){
+      document.getElementById('iosGuide').style.display='block';
+    } else if(isAndroid()){
+      document.getElementById('overlayTitle').textContent='App installieren';
+      document.getElementById('overlaySubtitle').textContent='Für das beste Erlebnis bitte die App herunterladen und installieren.';
+      document.getElementById('androidGuide').style.display='block';
+    } else {
+      document.getElementById('overlayEmoji').textContent='🖥️';
+      document.getElementById('overlayTitle').textContent='Diese App ist für Smartphones';
+      document.getElementById('overlaySubtitle').textContent='Auf dem Computer funktioniert sie nicht optimal.';
+      document.getElementById('desktopGuide').style.display='block';
+      document.getElementById('overlayOnceNote').style.display='none';
+    }
     o.style.display='block';
     o.addEventListener('click',function(e){if(e.target===o)window.closeInstallOverlay();});
   }

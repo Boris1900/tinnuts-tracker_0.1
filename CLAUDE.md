@@ -37,6 +37,16 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
 
+### Zuletzt umgesetzt (Session Mai 2026 – v1.8)
+
+**Android Icon-Fix (v1.8):**
+- `mipmap-anydpi-v26` entfernt – adaptives Icon war Ursache des blauen Kreuzes auf Android 8+
+- Leere `ic_launcher_foreground.xml` aus `drawable-v24` entfernt
+- Icons neu generiert via `npx @capacitor/assets generate --android` aus `assets/icon-only.png`
+- Footer-Versionsanzeige v1.6 → v1.8 korrigiert (war ein Überbleibsel-Bug)
+- APK v1.8 auf GitHub Releases, `download.html` aktualisiert
+- iPhone-PWA war nie betroffen (nutzt `icon-192.png` direkt)
+
 ### Zuletzt umgesetzt (Session Mai 2026 – v1.5)
 
 **iOS Stummschalter-Hinweis im Tester (v1.5):**
@@ -207,19 +217,12 @@ Erste Frage in neuer Session: "Lies die CLAUDE.md und sag mir kurz wo wir stehen
 
 ## Offene Aufgaben (nächste Session)
 
-### 1. Update-Check v1.6 → v1.7 funktioniert nicht (bekanntes Problem)
-**Ursache:** v1.6 APK fetcht `./sw.js` lokal aus dem APK-Bundle statt von GitHub Pages.
-Der neue Update-Check (fetcht von `https://app.tinnituspraxis-seedorf.de/sw.js`) ist erst ab v1.7 drin.
-**Lösung:** v1.7 muss einmalig manuell installiert werden (per `https://app.tinnituspraxis-seedorf.de/download`).
-Ab v1.7 funktioniert der Update-Check korrekt für alle Folgeversionen.
-**Aufgabe:** Boris informieren wie er v1.7 an bestehende Nutzer verteilt.
+### 1. Icon-Fix testen (v1.8)
+Nach Installation von v1.8 APK prüfen ob das grüne Ohr-Icon jetzt korrekt angezeigt wird.
 
 ### 2. Anleitung-Tab (noch nicht gebaut)
 Neuer Menüpunkt mit Erklärungen zu allen 6 Views.
 Erst lokal als HTML testen, dann einbauen.
-
-### 3. Icon auf dem Handy prüfen
-Nach manueller Installation von v1.7 prüfen ob das grüne Ohr-Icon jetzt korrekt angezeigt wird.
 
 ---
 

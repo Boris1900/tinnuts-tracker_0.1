@@ -745,20 +745,27 @@ async function checkForUpdate() {
   btn.textContent = '⏳ Prüfe...';
   status.textContent = '';
   try {
-    const res = await fetch('./sw.js?t=' + Date.now(), { cache: 'no-store' });
+    const isNative = window.Capacitor && window.Capacitor.isNativePlatform();
+    const swUrl = isNative
+      ? 'https://app.tinnituspraxis-seedorf.de/sw.js?t=' + Date.now()
+      : './sw.js?t=' + Date.now();
+    const res = await fetch(swUrl, { cache: 'no-store' });
     const text = await res.text();
-    const match = text.match(/const CACHE\s*=\s*'([^']+)'/);
-    const latestCache = match ? match[1] : null;
+    const cacheMatch = text.match(/const CACHE\s*=\s*'([^']+)'/);
+    const versionMatch = text.match(/APP_VERSION:\s*(v[\d.]+)/);
+    const latestCache = cacheMatch ? cacheMatch[1] : null;
+    const latestVersion = versionMatch ? versionMatch[1] : null;
     if (!latestCache) throw new Error('Version nicht lesbar');
     if (latestCache === CURRENT_CACHE) {
       status.textContent = '✅ Du hast bereits die aktuelle Version.';
-      btn.textContent = '🔄 Auf Update prüfen';
-      btn.disabled = false;
+    } else if (isNative && latestVersion) {
+      const apkUrl = `https://github.com/Boris1900/tinnuts-tracker_0.1/releases/download/${latestVersion}/TinnitusTracker-${latestVersion}.apk`;
+      status.innerHTML = `🆕 Update verfügbar! <button onclick="window.open('${apkUrl}','_system')" style="margin-left:6px;padding:4px 10px;border-radius:8px;border:none;background:#5c7a5c;color:#fff;font-size:11px;font-weight:600;cursor:pointer;">APK laden</button>`;
     } else {
       status.innerHTML = '🆕 Update verfügbar! <button onclick="applyUpdate()" style="margin-left:6px;padding:4px 10px;border-radius:8px;border:none;background:#5c7a5c;color:#fff;font-size:11px;font-weight:600;cursor:pointer;">Jetzt laden</button>';
-      btn.textContent = '🔄 Auf Update prüfen';
-      btn.disabled = false;
     }
+    btn.textContent = '🔄 Auf Update prüfen';
+    btn.disabled = false;
   } catch(e) {
     status.textContent = '⚠️ Prüfung fehlgeschlagen – bitte Internet prüfen.';
     btn.textContent = '🔄 Auf Update prüfen';

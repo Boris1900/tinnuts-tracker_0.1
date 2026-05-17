@@ -1,0 +1,7 @@
+# Capacitor
+node_modules/
+www/
+
+# System
+Thumbs.db
+.DS_Store

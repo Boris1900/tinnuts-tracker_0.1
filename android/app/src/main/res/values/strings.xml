@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tinnitus Tracker</string>
+    <string name="title_activity_main">Tinnitus Tracker</string>
+    <string name="package_name">de.tinnituspraxis.tracker</string>
+    <string name="custom_url_scheme">de.tinnituspraxis.tracker</string>
+</resources>

@@ -1524,7 +1524,17 @@ function tLadeProfil(){
 
 document.addEventListener('DOMContentLoaded', tZeigeProfil);
 // ===== ENDE TINNITUS TESTER =====
+
+// ── Capacitor StatusBar (nur native APK) ──────
+window.addEventListener('load', () => {
+  if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+    const { StatusBar } = window.Capacitor.Plugins;
+    StatusBar.setOverlaysWebView({ overlay: true });
+    StatusBar.setStyle({ style: 'DARK' });
+  }
+});
 </script>
+<script src="capacitor.js"></script>
 <!-- ===== ENDE INSTALL OVERLAY ===== -->
 </body>
 </html>

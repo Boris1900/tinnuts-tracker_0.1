@@ -11,7 +11,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v24 / App v1.9)
+## Aktueller Stand (Cache v25 / App v2.0)
 
 ### Dateien im Repo
 
@@ -36,6 +36,15 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - **PWA** mit Service Worker (offline-fähig, auf Android/iOS installierbar)
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
+
+### Zuletzt umgesetzt (Session Mai 2026 – v2.0)
+
+**Install-Hinweis je nach Gerät (v2.0):**
+- Native APK → kein Hinweis (unverändert)
+- iOS Safari → bestehender PWA-Hinweis (unverändert)
+- Android Browser → neuer Hinweis: APK herunterladen (Link auf download.html)
+- Desktop/Laptop → Hinweis: „Diese App ist für Smartphones" – erscheint jedes Mal (kein localStorage)
+- APK v1.9 auf GitHub Releases, GitHub Release + download.html auf v1.9 aktualisiert
 
 ### Zuletzt umgesetzt (Session Mai 2026 – v1.9)
 
@@ -282,3 +291,4 @@ Der neue PDF-Export (Zeitraum + Diagramm + Inhaltsauswahl) ist live. Boris muss 
 - [ ] Wochenübersicht / Monatsdurchschnitte
 - [ ] Erinnerungs-Notifications
 - [ ] Morgen/Abend-Vergleich
+- [ ] **APK-Download-URL verschönern** – Statt `github.com/Boris1900/tinnuts-tracker_0.1/...` eine eigene Weiterleitung z.B. `app.tinnituspraxis-seedorf.de/download` → redirectet auf aktuelle APK. Erst sinnvoll wenn mehr Nutzer die App bekommen.

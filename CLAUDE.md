@@ -205,6 +205,24 @@ Erste Frage in neuer Session: "Lies die CLAUDE.md und sag mir kurz wo wir stehen
 
 ---
 
+## Offene Aufgaben (nächste Session)
+
+### 1. Update-Check v1.6 → v1.7 funktioniert nicht (bekanntes Problem)
+**Ursache:** v1.6 APK fetcht `./sw.js` lokal aus dem APK-Bundle statt von GitHub Pages.
+Der neue Update-Check (fetcht von `https://app.tinnituspraxis-seedorf.de/sw.js`) ist erst ab v1.7 drin.
+**Lösung:** v1.7 muss einmalig manuell installiert werden (per `https://app.tinnituspraxis-seedorf.de/download`).
+Ab v1.7 funktioniert der Update-Check korrekt für alle Folgeversionen.
+**Aufgabe:** Boris informieren wie er v1.7 an bestehende Nutzer verteilt.
+
+### 2. Anleitung-Tab (noch nicht gebaut)
+Neuer Menüpunkt mit Erklärungen zu allen 6 Views.
+Erst lokal als HTML testen, dann einbauen.
+
+### 3. Icon auf dem Handy prüfen
+Nach manueller Installation von v1.7 prüfen ob das grüne Ohr-Icon jetzt korrekt angezeigt wird.
+
+---
+
 ## Nächstes Feature (PRIORITÄT)
 
 **Tester-Tab Feinschliff – konkrete Änderungen aus Boris' Feedback (Mai 2026)**

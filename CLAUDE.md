@@ -217,8 +217,10 @@ Erste Frage in neuer Session: "Lies die CLAUDE.md und sag mir kurz wo wir stehen
 
 ## Offene Aufgaben (nächste Session)
 
-### 1. Icon-Fix testen (v1.8)
-Nach Installation von v1.8 APK prüfen ob das grüne Ohr-Icon jetzt korrekt angezeigt wird.
+### 1. Splash Screen beim App-Start (v1.9)
+Beim Start der APK ist kurz ein blaues Kreuz sichtbar bevor das echte Icon erscheint.
+**Lösung:** Weißen Splash Screen einbauen (wie Medi-App, dort schwarz – hier weiß gewünscht).
+Bei der Medi-App wurde das über Capacitor `@capacitor/splash-screen` oder native Android-Splash-Konfiguration gelöst.
 
 ### 2. Anleitung-Tab (noch nicht gebaut)
 Neuer Menüpunkt mit Erklärungen zu allen 6 Views.

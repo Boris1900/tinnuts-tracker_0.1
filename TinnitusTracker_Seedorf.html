@@ -131,6 +131,18 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 .time-toggle-btn { flex:1; padding:7px 0; border-radius:8px; border:1.5px solid #d0ddd0; background:#fff; color:#5a6e5a; font-size:11px; font-family:inherit; cursor:pointer; transition:all .15s; }
 .time-toggle-btn.on { background:#e8f0e8; border-color:#5c7a5c; color:#3d5c3d; font-weight:600; }
 
+/* ANLEITUNG ACCORDION */
+.guide-item { border-bottom:1px solid #e8f0e8; }
+.guide-item:last-child { border-bottom:none; }
+.guide-header { width:100%; background:none; border:none; padding:12px 0; display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-family:inherit; font-size:13px; font-weight:600; color:#2c3c2c; text-align:left; gap:8px; }
+.guide-arrow { font-size:18px; color:#5c7a5c; transition:transform .2s; flex-shrink:0; line-height:1; }
+.guide-item.open .guide-arrow { transform:rotate(90deg); }
+.guide-body { display:none; padding-bottom:14px; font-size:12px; color:#4a6a4a; line-height:1.75; }
+.guide-item.open .guide-body { display:block; }
+.guide-body p { margin-bottom:8px; }
+.guide-body p:last-child { margin-bottom:0; }
+.guide-body strong { color:#3d5c3d; font-weight:700; }
+
 /* MODAL */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:100; align-items:flex-end; justify-content:center; }
 .modal-overlay.open { display:flex; }
@@ -412,6 +424,64 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
     <!-- SETTINGS -->
     <div id="view-settings" class="view">
       <div class="card">
+        <div class="settings-section">So nutzt du diese App</div>
+
+        <div class="guide-item">
+          <button class="guide-header" onclick="toggleGuide(this)">
+            <span>📊 Warum überhaupt tracken?</span><span class="guide-arrow">›</span>
+          </button>
+          <div class="guide-body">
+            <p>Tracken hilft dir, <strong>Trigger zu finden</strong> – also Dinge, die deinen Tinnitus verstärken oder beruhigen. Das können ganz alltägliche Sachen sein: Sport, Sauna, ein langer Spaziergang, ungewöhnliches Essen, Stress, schlechter Schlaf oder eine lange Autofahrt.</p>
+            <p>Wichtig zu wissen: Viele Veränderungen zeigen sich <strong>erst am nächsten Tag</strong>. Wer freitags Chips isst und samstags mehr Pfeifen hat, bringt das oft nicht zusammen – weil der Abstand zu groß ist.</p>
+            <p>Mit regelmäßigen Einträgen entsteht über Wochen ein Bild: <em>Wann wird es besser? Was macht es schlechter?</em> Das ist wertvoller als jede Erinnerung.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-header" onclick="toggleGuide(this)">
+            <span>✏️ So trägst du richtig ein</span><span class="guide-arrow">›</span>
+          </button>
+          <div class="guide-body">
+            <p>Trag <strong>3× täglich</strong> ein: Morgens, Mittags und Abends. Das ergibt ein vollständiges Bild des Tages.</p>
+            <p>Nutze das <strong>Notizfeld</strong> aktiv: War heute etwas anders als sonst? Sport, Sauna, Stress, Alkohol, Lärm, Urlaub, ungewöhnliches Essen? Trag es ein – auch wenn du noch keinen Zusammenhang siehst. Muster erkennt man erst rückblickend.</p>
+            <p>Regelmäßigkeit ist wichtiger als Vollständigkeit. Besser 5 von 7 Tagen konsequent als sporadisch.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-header" onclick="toggleGuide(this)">
+            <span>📈 Den Verlauf verstehen</span><span class="guide-arrow">›</span>
+          </button>
+          <div class="guide-body">
+            <p>Im <strong>Verlauf-Tab</strong> siehst du deine Einträge als Diagramm. Wähle 7 Tage für einen schnellen Überblick, 30 Tage für Muster, oder „Alles" für die Langzeitentwicklung.</p>
+            <p>Schau nicht nur auf einzelne Spitzen – schau auf den <strong>Trend</strong>. Eine leicht sinkende Kurve über Wochen ist ein gutes Zeichen, auch wenn einzelne Tage schlechter waren.</p>
+            <p>Das Tagebuch darunter zeigt dir die Einträge mit allen Notizen – ideal um nachzuvollziehen, was an einem bestimmten Tag war.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-header" onclick="toggleGuide(this)">
+            <span>🎧 Der Tester</span><span class="guide-arrow">›</span>
+          </button>
+          <div class="guide-body">
+            <p>Im <strong>Tester-Tab</strong> kannst du Frequenz und Klangtyp deines Tinnitus bestimmen – Piepen, Rauschen, Klingeln und mehr.</p>
+            <p>Das hilft dir zu verstehen, was du hörst – und ob sich dein Ton über die Zeit verändert. Beim nächsten Praxisbesuch kannst du konkret beschreiben: „Ich höre ein Hochtonpiepen bei etwa 6.000 Hz."</p>
+            <p>Kopfhörer nutzen für das beste Ergebnis.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-header" onclick="toggleGuide(this)">
+            <span>📖 Blog – Wissen aus der Praxis</span><span class="guide-arrow">›</span>
+          </button>
+          <div class="guide-body">
+            <p>Im <strong>Blog-Tab</strong> findest du Artikel direkt aus der Tinnituspraxis Seedorf: Was wirklich hilft, was Mythos ist, und wie du im Alltag mit Tinnitus umgehen kannst.</p>
+            <p>Die Beiträge werden regelmäßig ergänzt – schau gelegentlich rein.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="card">
         <div class="settings-section">Erinnerungen</div>
         <div class="setting-row">
           <div>
@@ -453,7 +523,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.8</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v1.9</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -474,7 +544,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v1.8 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v1.9 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -548,7 +618,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 </div>
 
 <script>
-const CURRENT_CACHE = 'tinnitus-tracker-v23';
+const CURRENT_CACHE = 'tinnitus-tracker-v24';
 const IC = ["#5c7a5c","#6e8f4a","#8fa832","#b8bf2a","#d4b020","#d48820","#cc6620","#c04428","#a82828","#8b1a1a"];
 const IL = {1:"Kaum hörbar",2:"Sehr leise",3:"Leise",4:"Merklich",5:"Mäßig",6:"Störend",7:"Stark",8:"Sehr stark",9:"Extrem laut",10:"Unerträglich"};
 const TIMES = ["Morgens","Mittags","Abends"];
@@ -1166,6 +1236,10 @@ function clearAllData() {
 }
 
 // ── View switch ───────────────────────────────
+function toggleGuide(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+
 function switchView(v) {
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');

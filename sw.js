@@ -1,4 +1,4 @@
-const CACHE = 'tinnitus-tracker-v23'; // APP_VERSION: v1.8
+const CACHE = 'tinnitus-tracker-v24'; // APP_VERSION: v1.9
 const FILES = [
   './TinnitusTracker_Seedorf.html',
   './manifest.json',

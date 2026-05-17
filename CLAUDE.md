@@ -11,7 +11,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v23 / App v1.8)
+## Aktueller Stand (Cache v24 / App v1.9)
 
 ### Dateien im Repo
 
@@ -37,7 +37,12 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 - Sprache: Deutsch, Lokalisierung: de-DE
 - Deployed via: GitHub Pages
 
-### Zuletzt umgesetzt (Session Mai 2026 – v1.8)
+### Zuletzt umgesetzt (Session Mai 2026 – v1.9)
+
+**Anleitung-Karte in Einstellungen (v1.9):**
+- Neue Card „So nutzt du diese App" ganz oben in den Einstellungen
+- 5 aufklappbare Accordion-Abschnitte: Warum tracken / Eintragen / Verlauf / Tester / Blog
+- Inhalte von Boris: Trigger finden, Verzögerungseffekt, Beispiele (Sport, Sauna, Essen, Autofahrt)
 
 **Android Icon-Fix (v1.8):**
 - `mipmap-anydpi-v26` entfernt – adaptives Icon war Ursache des blauen Kreuzes auf Android 8+
@@ -145,9 +150,9 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v23` → `v24` + `// APP_VERSION: v1.8` → `v1.9`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v24` → `v25` + `// APP_VERSION: v1.9` → `v2.0`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
-3. App-Version `v1.8` in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
+3. App-Version `v1.9` in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
 5. Commit + Push
 6. Bei APK: `.\build-android.ps1` → Android Studio → APK bauen → umbenennen → `gh release create` → `download.html` aktualisieren

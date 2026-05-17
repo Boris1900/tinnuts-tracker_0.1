@@ -11,7 +11,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v20 / App v1.5)
+## Aktueller Stand (Cache v21 / App v1.6)
 
 ### Dateien im Repo
 
@@ -206,7 +206,8 @@ Der neue PDF-Export (Zeitraum + Diagramm + Inhaltsauswahl) ist live. Boris muss 
 
 ## Offene Punkte / Ideen
 
-- [ ] Tester-Tab Feinschliff (PRIORITÄT – nächste Session, Änderungen oben dokumentiert)
+- [ ] **Android APK bauen** (PRIORITÄT) – analog zur Meditations-App (Bubblewrap/PWABuilder). CLAUDE.md der Medi-App unter C:\Users\Boris\Projekte\MeditationsApp\ als Vorlage nutzen.
+- [ ] Tester-Tab Feinschliff – Änderungen weiter oben dokumentiert
 - [ ] PDF-Export: Drucklayout bei vielen Daten beobachten (Querformat ggf. nachrüsten)
 - [ ] JSON-Export als Backup-Funktion (nach Cache-Löschen-Vorfall dringend empfohlen)
 - [ ] Automatische Backup-Erinnerung alle 4 Wochen

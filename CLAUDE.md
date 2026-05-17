@@ -145,6 +145,34 @@ Bei **jeder** Änderung die deployed wird:
 
 ---
 
+## Android APK – Capacitor-Setup
+
+### Installierte Pakete
+- `@capacitor/core`, `@capacitor/cli`, `@capacitor/android`
+- `@capacitor/status-bar` – StatusBar transparent
+- `@capacitor/assets` – Icon-Generierung
+
+### Build-Workflow
+⚠️ **Reihenfolge zwingend einhalten – sonst landet alte Version in der APK!**
+
+1. Änderungen in `TinnitusTracker_Seedorf.html` vornehmen
+2. Versionsnummern hochzählen (App-Version + Cache-Version + CURRENT_CACHE)
+3. Build-Skript ausführen:
+```powershell
+.\build-android.ps1   # kopiert HTML als www/index.html + npx cap sync android
+```
+4. Android Studio: **Shift+Shift → "Generate APKs"** → APK umbenennen → verteilen
+
+**APK liegt in:** `android/app/build/outputs/apk/debug/app-debug.apk`
+
+### Neue Datei hinzugefügt?
+→ Auch in `build-android.ps1` in die Copy-Liste eintragen!
+
+### Besonderheit TinnitusTracker vs. Medi-App
+`TinnitusTracker_Seedorf.html` wird beim Build als `www/index.html` kopiert – Capacitor erwartet immer `index.html` als Einstiegspunkt.
+
+---
+
 ## Deployment
 
 ```bash
@@ -206,7 +234,7 @@ Der neue PDF-Export (Zeitraum + Diagramm + Inhaltsauswahl) ist live. Boris muss 
 
 ## Offene Punkte / Ideen
 
-- [ ] **Android APK bauen** (PRIORITÄT) – analog zur Meditations-App (Bubblewrap/PWABuilder). CLAUDE.md der Medi-App unter C:\Users\Boris\Projekte\MeditationsApp\ als Vorlage nutzen.
+- [x] **Android APK bauen** – Capacitor-Setup abgeschlossen (Mai 2026). Nächster Schritt: Android Studio öffnen → APK generieren.
 - [ ] Tester-Tab Feinschliff – Änderungen weiter oben dokumentiert
 - [ ] PDF-Export: Drucklayout bei vielen Daten beobachten (Querformat ggf. nachrüsten)
 - [ ] JSON-Export als Backup-Funktion (nach Cache-Löschen-Vorfall dringend empfohlen)

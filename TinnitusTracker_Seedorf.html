@@ -1297,13 +1297,13 @@ updateUI();
     localStorage.setItem(KEY,'1');
   };
   function showOverlay(){
+    if(window.Capacitor && window.Capacitor.isNativePlatform())return; // Native APK – kein Hinweis nötig
     if(isStandalone())return;
-    if(!isIOS()&&!isAndroid())return;
+    if(!isIOS())return; // Nur iPhone bekommt den Installations-Hinweis
     if(localStorage.getItem(KEY))return;
     var o=document.getElementById('installOverlay');
     if(!o)return;
-    if(isIOS())document.getElementById('iosGuide').style.display='block';
-    else document.getElementById('androidGuide').style.display='block';
+    document.getElementById('iosGuide').style.display='block';
     o.style.display='block';
     o.addEventListener('click',function(e){if(e.target===o)window.closeInstallOverlay();});
   }

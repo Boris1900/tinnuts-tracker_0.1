@@ -39,10 +39,14 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 ### Zuletzt umgesetzt (Session Mai 2026 – v1.9)
 
-**Anleitung-Karte in Einstellungen (v1.9):**
+**Anleitung-Karte in Einstellungen + Korrekturen (v1.9):**
 - Neue Card „So nutzt du diese App" ganz oben in den Einstellungen
 - 5 aufklappbare Accordion-Abschnitte: Warum tracken / Eintragen / Verlauf / Tester / Blog
-- Inhalte von Boris: Trigger finden, Verzögerungseffekt, Beispiele (Sport, Sauna, Essen, Autofahrt)
+- Inhalte von Boris: Trigger finden, Verzögerungseffekt, freie Tage/Urlaub, Therapieerfolg messen
+- Skala 1–10 erklärt (persönliches Maximum, spontan eintragen)
+- „bis zu 3× täglich" statt „3×" – kein Druck
+- Wichtig-Hinweis: Wenn Tracken stresst → lass es!
+- Install-Banner unterdrückt (nur noch iOS-spezifischer Hinweis aktiv)
 
 **Android Icon-Fix (v1.8):**
 - `mipmap-anydpi-v26` entfernt – adaptives Icon war Ursache des blauen Kreuzes auf Android 8+
@@ -222,14 +226,18 @@ Erste Frage in neuer Session: "Lies die CLAUDE.md und sag mir kurz wo wir stehen
 
 ## Offene Aufgaben (nächste Session)
 
-### 1. Splash Screen beim App-Start (v1.9)
+### 1. Verlaufsdiagramm testen
+Boris hat noch keine echten Einträge im aktuellen Stand – Diagramm wurde noch nicht live getestet.
+Einträge machen, dann prüfen: X-Achse, Aggregation (7/30/Alles), Datumsanzeige.
+
+### 2. Splash Screen beim App-Start
 Beim Start der APK ist kurz ein blaues Kreuz sichtbar bevor das echte Icon erscheint.
 **Lösung:** Weißen Splash Screen einbauen (wie Medi-App, dort schwarz – hier weiß gewünscht).
 Bei der Medi-App wurde das über Capacitor `@capacitor/splash-screen` oder native Android-Splash-Konfiguration gelöst.
 
-### 2. Anleitung-Tab (noch nicht gebaut)
-Neuer Menüpunkt mit Erklärungen zu allen 6 Views.
-Erst lokal als HTML testen, dann einbauen.
+### 3. APK v1.9 bauen und verteilen
+Anleitung-Card + Install-Banner-Fix sind in v1.9. APK noch nicht gebaut (Boris baut in Android Studio).
+Nach dem Build: umbenennen, GitHub Release erstellen, download.html aktualisieren.
 
 ---
 

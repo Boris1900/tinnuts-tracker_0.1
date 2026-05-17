@@ -432,8 +432,10 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
           </button>
           <div class="guide-body">
             <p>Tracken hilft dir, <strong>Trigger zu finden</strong> – also Dinge, die deinen Tinnitus verstärken oder beruhigen. Das können ganz alltägliche Sachen sein: Sport, Sauna, ein langer Spaziergang, ungewöhnliches Essen, Stress, schlechter Schlaf oder eine lange Autofahrt.</p>
-            <p>Wichtig zu wissen: Viele Veränderungen zeigen sich <strong>erst am nächsten Tag</strong>. Wer freitags Chips isst und samstags mehr Pfeifen hat, bringt das oft nicht zusammen – weil der Abstand zu groß ist.</p>
-            <p>Mit regelmäßigen Einträgen entsteht über Wochen ein Bild: <em>Wann wird es besser? Was macht es schlechter?</em> Das ist wertvoller als jede Erinnerung.</p>
+            <p>Wichtig zu wissen: Manche Veränderungen zeigen sich <strong>erst am nächsten Tag</strong>. Wer freitags Überstunden macht und samstags morgens einen lauteren Tinnitus hat, bringt das oft nicht zusammen – weil der Abstand zu groß ist.</p>
+            <p>Besonders aufschlussreich: Wie verhält sich der Tinnitus an <strong>freien Tagen oder im Urlaub</strong>? Viele bemerken erst dann, wie stark Alltags-Stress ihren Tinnitus beeinflusst.</p>
+            <p>Tracken lohnt sich auch, um zu sehen ob etwas <strong>wirkt</strong>: eine neue Therapie, Entspannungsübungen, eine Ernährungsumstellung oder mehr Bewegung. Ohne Aufzeichnungen ist das schwer zu beurteilen – mit Verlaufsdaten wird es sichtbar.</p>
+            <p>Mit regelmäßigen Einträgen entsteht über Wochen ein Bild: <em>Wann wird es besser? Was macht es schlechter?</em> Was aufgezeichnet wird, schlägt jedes Gedächtnis – Zusammenhänge, die du nie bewusst wahrgenommen hättest, werden im Verlauf sichtbar.</p>
           </div>
         </div>
 
@@ -442,9 +444,11 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
             <span>✏️ So trägst du richtig ein</span><span class="guide-arrow">›</span>
           </button>
           <div class="guide-body">
-            <p>Trag <strong>3× täglich</strong> ein: Morgens, Mittags und Abends. Das ergibt ein vollständiges Bild des Tages.</p>
+            <p>Trag <strong>bis zu 3× täglich</strong> ein: Morgens, Mittags und Abends. Das ergibt ein vollständiges Bild des Tages.</p>
+            <p>Die Skala von <strong>1–10</strong> ist persönlich: <strong>1</strong> ist minimal – der Tinnitus ist kaum wahrnehmbar. <strong>10</strong> ist dein persönliches Maximum – so laut wie du ihn dir gerade noch vorstellen kannst. Trag spontan ein, ohne lange nachzudenken – dein erster Eindruck ist der richtige.</p>
             <p>Nutze das <strong>Notizfeld</strong> aktiv: War heute etwas anders als sonst? Sport, Sauna, Stress, Alkohol, Lärm, Urlaub, ungewöhnliches Essen? Trag es ein – auch wenn du noch keinen Zusammenhang siehst. Muster erkennt man erst rückblickend.</p>
             <p>Regelmäßigkeit ist wichtiger als Vollständigkeit. Besser 5 von 7 Tagen konsequent als sporadisch.</p>
+            <p><strong>Wichtig:</strong> Wenn du merkst, dass dich das Tracken zu sehr fixiert und stresst – dann lass es! Die App soll helfen, nicht belasten.</p>
           </div>
         </div>
 
@@ -1253,7 +1257,7 @@ function switchView(v) {
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault(); deferredPrompt=e;
-  document.getElementById('install-banner').style.display='flex';
+  // Banner nur für iOS – Android-Nutzer installieren per APK
 });
 document.getElementById('install-btn').addEventListener('click',async()=>{
   if(!deferredPrompt) return;

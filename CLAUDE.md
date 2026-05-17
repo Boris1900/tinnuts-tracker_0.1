@@ -11,7 +11,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v21 / App v1.6)
+## Aktueller Stand (Cache v22 / App v1.7)
 
 ### Dateien im Repo
 
@@ -129,15 +129,18 @@ Alle App-Logik ist in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, ke
 
 ---
 
-## Versionierungs-Regel (WICHTIG)
+## Versionierungs-Regel (PFLICHT – NIEMALS VERGESSEN)
+
+⚠️ **Claude muss das bei JEDER Änderung selbstständig erledigen – nicht auf Boris warten!**
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v20` → `v21`
-2. App-Version in `TinnitusTracker_Seedorf.html` hochzählen: `v1.5` → `v1.6`
-3. CURRENT_CACHE-Konstante in TinnitusTracker_Seedorf.html ebenfalls hochzählen (muss mit sw.js übereinstimmen)
-   - Steht an **zwei Stellen**: in den Einstellungen (Über die App) und im Footer
-3. Commit + Push
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v22` → `v23` + `// APP_VERSION: v1.7` → `v1.8`
+2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
+3. App-Version `v1.7` in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
+4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
+5. Commit + Push
+6. Bei APK: `.\build-android.ps1` → Android Studio → APK bauen → umbenennen → `gh release create` → `download.html` aktualisieren
 
 **Warum:** Boris sieht die App-Version auf dem Handy (Einstellungen → Über die App, oder ganz unten im Footer). So kann er sofort prüfen ob das Update geladen wurde – ohne raten zu müssen.
 

@@ -82,8 +82,8 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 6. **Result-Box live** – `tUpdateResult()` am Ende von `tUpdateF()`, `tUpdateV()`, `tUpdateR()` aufrufen
 7. **Tester-Button Farbe** – ✅ erledigt (v2.3)
 
-### „Gut gemacht"-Meldung variieren
-Beim 3. Tageseintrag kommt aktuell immer „Gut gemacht". Stattdessen zufällig wechseln zwischen mehreren Varianten z.B.: „Tipptop! 👌", „Perfekt! ✅", „Super gemacht! 🎯", „Klasse! 💪" usw.
+### „Gut gemacht"-Meldung ersetzen
+Beim 3. Tageseintrag kommt aktuell „Gut gemacht". Ersetzen durch: „Tiptop!" – fertig, keine weiteren Varianten.
 
 ### Tageswechsel-Bug (KRITISCH)
 Nach Mitternacht erkennt die App den neuen Tag nicht – zeigt noch „alle 3 Einträge erfasst" vom Vortag und lässt keine neuen Einträge zu. Irgendwo im Code wird geprüft ob heute schon 3 Einträge gemacht wurden – dieser Check nutzt vermutlich kein echtes Tagesdatum sondern einen anderen Mechanismus. Prüfen: `usedT()`, `filteredEntries()`, Datumsvergleich in der Eintragen-Logik.

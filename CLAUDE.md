@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v28 / App v2.3)
+## Aktueller Stand (Cache v29 / App v2.4)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v28` → `v29` + `// APP_VERSION: v2.3` → `v2.4`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v29` → `v30` + `// APP_VERSION: v2.4` → `v2.5`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
@@ -82,14 +82,14 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 6. **Result-Box live** – `tUpdateResult()` am Ende von `tUpdateF()`, `tUpdateV()`, `tUpdateR()` aufrufen
 7. **Tester-Button Farbe** – ✅ erledigt (v2.3)
 
-### „Gut gemacht"-Meldung ersetzen
-Beim 3. Tageseintrag kommt aktuell „Gut gemacht". Ersetzen durch: „Tiptop!" – fertig, keine weiteren Varianten.
-
-### Tageswechsel-Bug (KRITISCH)
-Nach Mitternacht erkennt die App den neuen Tag nicht – zeigt noch „alle 3 Einträge erfasst" vom Vortag und lässt keine neuen Einträge zu. Irgendwo im Code wird geprüft ob heute schon 3 Einträge gemacht wurden – dieser Check nutzt vermutlich kein echtes Tagesdatum sondern einen anderen Mechanismus. Prüfen: `usedT()`, `filteredEntries()`, Datumsvergleich in der Eintragen-Logik.
-
 ### Verlaufsdiagramm testen
 Noch keine echten Daten vorhanden – Boris trägt seit v2.2 echte Einträge ein. Dann prüfen: X-Achse, Aggregation (7/30/Alles), Datumsanzeige.
+
+### „Gut gemacht"-Meldung ersetzen
+✅ Erledigt in v2.4 – zeigt jetzt „Tiptop!"
+
+### Tageswechsel-Bug (KRITISCH)
+✅ Erledigt in v2.4 – `getToday()` nutzte `toISOString()` (UTC). In Deutschland (UTC+2) war nach Mitternacht lokal noch 2h UTC "gestern", deshalb wurden die 3 alten Einträge noch gefunden. Gefixt: `getToday()` nutzt jetzt lokales Datum via `getFullYear()/getMonth()/getDate()`.
 
 ---
 

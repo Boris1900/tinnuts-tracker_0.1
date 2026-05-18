@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v27 / App v2.2)
+## Aktueller Stand (Cache v28 / App v2.3)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v27` → `v28` + `// APP_VERSION: v2.2` → `v2.3`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v28` → `v29` + `// APP_VERSION: v2.3` → `v2.4`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
@@ -80,7 +80,7 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 4. **Gefiltertes Rauschen** – Mittenton max auf 12.000 Hz (war 8.000)
 5. **Gefiltertes Rauschen** – Q max 80, 4 Labels: Breit (≤2) / Mittel (3–8) / Schmal (9–25) / Sehr schmal (>25)
 6. **Result-Box live** – `tUpdateResult()` am Ende von `tUpdateF()`, `tUpdateV()`, `tUpdateR()` aufrufen
-7. **Tester-Button Farbe** – aktiver Zustand bleibt nicht dunkel (Bug aus letzter Session)
+7. **Tester-Button Farbe** – ✅ erledigt (v2.3)
 
 ### Verlaufsdiagramm testen
 Noch keine echten Daten vorhanden – Boris trägt seit v2.2 echte Einträge ein. Dann prüfen: X-Achse, Aggregation (7/30/Alles), Datumsanzeige.

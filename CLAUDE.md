@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v32 / App v2.7)
+## Aktueller Stand (Cache v33 / App v2.8)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v32` → `v33` + `// APP_VERSION: v2.7` → `v2.8`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v33` → `v34` + `// APP_VERSION: v2.8` → `v2.9`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"

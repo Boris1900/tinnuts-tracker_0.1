@@ -527,7 +527,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v2.7</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v2.8</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -548,7 +548,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v2.7 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v2.8 · Alle Daten bleiben auf Ihrem Gerät</div>
   </div>
 </div>
 
@@ -622,7 +622,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 </div>
 
 <script>
-const CURRENT_CACHE = 'tinnitus-tracker-v32';
+const CURRENT_CACHE = 'tinnitus-tracker-v33';
 const IC = ["#5c7a5c","#6e8f4a","#8fa832","#b8bf2a","#d4b020","#d48820","#cc6620","#c04428","#a82828","#8b1a1a"];
 const IL = {1:"Kaum hörbar",2:"Sehr leise",3:"Leise",4:"Merklich",5:"Mäßig",6:"Störend",7:"Stark",8:"Sehr stark",9:"Extrem laut",10:"Unerträglich"};
 const TIMES = ["Morgens","Mittags","Abends"];
@@ -1463,60 +1463,6 @@ function tUpdateF(id, val){
     if(id==='hochton'){ n.osc.frequency.value=f; }
     else if(id==='brummen'){ n.osc.frequency.value=f; if(n.osc2) n.osc2.frequency.value=f*2; if(n.osc3) n.osc3.frequency.value=f*3; }
     else if(id==='klingeln'){ n.osc.frequency.value=f; }
-    else if(id==='zirpen'){ n.osc.frequency.value=f; }
-    else if(id==='rauschen'){ if(n.filt) n.filt.frequency.value=f; }
-  }
-  tUpdateResult();
-}
-
-function tUpdateV(id, val){
-  tState[id].vol = parseInt(val);
-  document.getElementById('tvv-'+id).textContent = val + ' %';
-  if(tPlaying && tNodes[id] && tNodes[id].gain) tNodes[id].gain.gain.value = parseInt(val)/100*0.3;
-  tUpdateResult();
-}
-
-function tUpdateR(id, val){
-  tState[id].rate = parseFloat(val);
-  const v = parseFloat(val);
-  let label = v + ' /Sek';
-  if(id==='rauschen') label = v <= 2 ? 'Breit' : v <= 8 ? 'Mittel' : v <= 25 ? 'Schmal' : 'Sehr schmal';
-  document.getElementById('trv-'+id).textContent = label;
-  if(tPlaying && tNodes[id]){
-    if((id==='klingeln'||id==='zirpen') && tNodes[id].lfo) tNodes[id].lfo.frequency.value = v;
-    else if(id==='rauschen' && tNodes[id].filt) tNodes[id].filt.Q.value = v;
-  }
-  tUpdateResult();
-}
-
-function tMakeWhiteNoise(){
-  const ctx = tGetCtx();
-  const buf = ctx.createBuffer(1, ctx.sampleRate*3, ctx.sampleRate);
-  const d = buf.getChannelData(0);
-  for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
-  const src = ctx.createBufferSource(); src.buffer=buf; src.loop=true; return src;
-}
-
-function tStartKanal(id){
-  const ctx = tGetCtx(); tStopKanal(id);
-  const s = tState[id];
-  const gain = ctx.createGain(); gain.gain.value = s.vol/100*0.3; gain.connect(ctx.destination);
-  let n = {gain};
-
-  if(id==='hochton'){
-    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
-    o.connect(gain); o.start(); n.osc=o;
-  }
-  else if(id==='brummen'){
-    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=s.freq;
-    const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=s.freq*2;
-    const g2=ctx.createGain(); g2.gain.value=0.3; o2.connect(g2); g2.connect(gain);
-    const o3=ctx.createOscillator(); o3.type='sine'; o3.frequency.value=s.freq*3;
-    const g3=ctx.createGain(); g3.gain.value=0.1; o3.connect(g3); g3.connect(gain);
-    o.connect(gain); o.start(); o2.start(); o3.start();
-    n.osc=o; n.osc2=o2; n.osc3=o3;
-  }
-  else if(id==='klingeln'){ n.osc.frequency.value=f; }
     else if(id==='zirpen'){ n.osc.frequency.value=f; }
     else if(id==='rauschen'){ if(n.filt) n.filt.frequency.value=f; }
   }

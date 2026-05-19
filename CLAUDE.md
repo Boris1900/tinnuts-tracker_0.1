@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v30 / App v2.5)
+## Aktueller Stand (Cache v31 / App v2.6)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v30` → `v31` + `// APP_VERSION: v2.5` → `v2.6`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v31` → `v32` + `// APP_VERSION: v2.6` → `v2.7`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
@@ -73,14 +73,13 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ## Offene Aufgaben
 
-### Tester-Tab Feinschliff (PRIORITÄT – direkt umsetzen, kein Konzeptgespräch)
-1. **Pulsieren entfernen** – nicht gebraucht
-2. **Klingeln überarbeiten** – pulsierender Hochton mit An/Aus-Bursts (~5 Hz, square LFO), Pulsrate-Slider hinzufügen
-3. **Grillenzirpen** – Zirprate: min 30 / max 200 / default 80 /Sek (war 10–80)
-4. **Gefiltertes Rauschen** – Mittenton max auf 12.000 Hz (war 8.000)
-5. **Gefiltertes Rauschen** – Q max 80, 4 Labels: Breit (≤2) / Mittel (3–8) / Schmal (9–25) / Sehr schmal (>25)
-6. **Result-Box live** – `tUpdateResult()` am Ende von `tUpdateF()`, `tUpdateV()`, `tUpdateR()` aufrufen
-7. **Tester-Button Farbe** – ✅ erledigt (v2.3)
+### Tester-Tab Feinschliff
+✅ Alle Punkte erledigt in v2.6:
+- Pulsieren entfernt
+- Klingeln: square LFO An/Aus-Bursts, Pulsrate-Slider
+- Grillenzirpen: Zirprate min 30 / max 200 / default 80
+- Gefiltertes Rauschen: Mittenton max 12.000 Hz, Q max 80, 4 Labels
+- Result-Box live bei jedem Slider-Update
 
 ### Verlaufsdiagramm testen
 Noch keine echten Daten vorhanden – Boris trägt seit v2.2 echte Einträge ein. Dann prüfen: X-Achse, Aggregation (7/30/Alles), Datumsanzeige.

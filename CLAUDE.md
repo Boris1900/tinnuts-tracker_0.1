@@ -47,13 +47,14 @@ Bei **jeder** Änderung die deployed wird:
 
 ## Android APK – Build-Workflow
 
-⚠️ **Reihenfolge zwingend einhalten – sonst landet alte Version in der APK!**
+🚨 **CLAUDE MUSS `.\build-android.ps1` IMMER SELBST STARTEN – BEVOR Boris in Android Studio baut!**
+🚨 **Ohne build-android.ps1 landet die alte HTML-Version in der APK! Ist bereits 2× passiert (v2.5, v2.8)!**
 
 1. Änderungen in `TinnitusTracker_Seedorf.html` + Versionsnummern hochzählen
-2. `.\build-android.ps1` – kopiert HTML als `www/index.html` + cap sync
-3. Android Studio: **Shift+Shift → „Generate APKs"**
+2. **`.\build-android.ps1` ausführen** – kopiert HTML als `www/index.html` + cap sync ← CLAUDE MACHT DAS
+3. Erst dann Boris sagen: „Jetzt Android Studio → Generate APKs"
 4. APK liegt in: `android/app/build/outputs/apk/debug/app-debug.apk`
-5. Umbenennen → `gh release create` → `download.html` aktualisieren
+5. Boris sagt „fertig" → Claude: Umbenennen (Rename-Item!) → `gh release create` → `download.html` aktualisieren
 
 **Neue Datei hinzugefügt?** → Auch in `build-android.ps1` eintragen!
 

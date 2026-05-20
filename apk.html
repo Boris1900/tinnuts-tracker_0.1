@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinnitus Tracker – Update wird geladen…</title>
+<style>
+body { font-family: sans-serif; background: #f0f4f0; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+.box { background: #fff; border-radius: 16px; padding: 32px 24px; text-align: center; max-width: 340px; box-shadow: 0 4px 24px rgba(92,122,92,0.15); }
+.icon { font-size: 48px; margin-bottom: 12px; }
+h1 { font-size: 18px; color: #3d5c3d; margin-bottom: 8px; }
+p { font-size: 13px; color: #5a7a5a; line-height: 1.6; margin-bottom: 20px; }
+.note { font-size: 12px; color: #8fa08f; margin-top: 14px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="icon">⬇️</div>
+  <h1>Update wird heruntergeladen…</h1>
+  <p>Die neue Version landet gleich in Ihrem <strong>Downloads-Ordner</strong>.</p>
+  <div class="note">
+    Danach: <strong>Downloads-Ordner öffnen</strong> → auf die Datei tippen → installieren.
+  </div>
+</div>
+<script>
+  // Neueste APK-Version automatisch ermitteln und herunterladen
+  fetch('https://app.tinnituspraxis-seedorf.de/sw.js?nc=' + Date.now())
+    .then(r => r.text())
+    .then(text => {
+      const match = text.match(/APP_VERSION:\s*(v[\d.]+)/);
+      if (match) {
+        const v = match[1];
+        const url = `https://github.com/Boris1900/tinnuts-tracker_0.1/releases/download/${v}/TinnitusTracker-${v}.apk`;
+        window.location.href = url;
+      }
+    })
+    .catch(() => {
+      // Fallback: direkt zur neuesten bekannten Version
+      window.location.href = 'https://github.com/Boris1900/tinnuts-tracker_0.1/releases/download/v3.0/TinnitusTracker-v3.0.apk';
+    });
+</script>
+</body>
+</html>

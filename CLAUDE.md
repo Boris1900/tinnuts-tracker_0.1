@@ -72,6 +72,20 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ---
 
+## 🚨 NÄCHSTE SESSION – KRITISCH
+
+**Problem:** Ab v2.6 sind die Tester-Toggles kaputt (Schiebeschalter reagieren nicht). v2.8 ebenfalls betroffen. Ursache liegt in fehlerhaften Script-Änderungen am Tester-Tab-Code.
+
+**Plan für nächste Session:**
+1. Git-Stand von v2.4 wiederherstellen (`git show` oder `git checkout` des v2.4-Commits für `TinnitusTracker_Seedorf.html`)
+2. Daraus eine v2.9 machen (Versionsnummern hochzählen, Cache anpassen)
+3. build-android.ps1 → Android Studio → APK v2.9 bauen
+4. Freigabe durch Boris vor JEDER Änderung einholen
+
+**Wichtig:** v2.4 war der letzte bekannte funktionierende Stand der App.
+
+---
+
 ## Offene Aufgaben
 
 ### Tester-Tab Feinschliff

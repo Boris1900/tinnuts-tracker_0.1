@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v34 / App v2.9)
+## Aktueller Stand (Cache v35 / App v3.0)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v34` → `v35` + `// APP_VERSION: v2.9` → `v3.0`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v35` → `v36` + `// APP_VERSION: v3.0` → `v3.1`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
@@ -74,7 +74,7 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ## Letzter Stand
 
-v2.9 ist der aktuelle Stand. Rollback auf v2.4-Basis – Tester-Toggles sind repariert. APK v2.9 ist live auf GitHub Releases.
+v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button in der App öffnet jetzt app.tinnituspraxis-seedorf.de/apk.html statt direkt github.com – kein GitHub-App-Konflikt mehr auf Android.
 
 ---
 

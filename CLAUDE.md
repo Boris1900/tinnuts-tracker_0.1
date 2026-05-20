@@ -76,6 +76,14 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button in der App öffnet jetzt app.tinnituspraxis-seedorf.de/apk.html statt direkt github.com – kein GitHub-App-Konflikt mehr auf Android.
 
+### Zusätzliche Dateien im Repo (kein App-Bestandteil)
+- `apk.html` – Auto-Download-Weiterleitung für APK-Updates (kein GitHub-App-Konflikt)
+- `download.html` – APK-Download-Seite für Erstinstallation
+- `tester.html` – **Standalone Tinnitus-Klang-Tester** (Vorschau: app.tinnituspraxis-seedorf.de/tester.html)
+  → Wird als eigenes Projekt ausgelagert: `C:\Users\Boris\Projekte\TinnitusTester\`
+  → Eigene Domain geplant: `tester.tinnituspraxis-seedorf.de`
+  → Neues GitHub-Repo + DNS-Eintrag bei all-inkl nötig
+
 ---
 
 ## Offene Aufgaben
@@ -106,4 +114,5 @@ Noch keine echten Daten vorhanden – Boris trägt seit v2.2 echte Einträge ein
 - [ ] Erinnerungs-Notifications
 - [ ] Morgen/Abend-Vergleich
 - [ ] PDF-Export: Drucklayout bei vielen Daten beobachten (Querformat ggf. nachrüsten)
-- [ ] APK-Download-URL verschönern – eigene Weiterleitung statt github.com/Boris1900/...
+- [x] APK-Download-URL verbessert – apk.html auf eigener Domain (v3.0)
+- [ ] Tester-Tab in App verbessern (Sounds + UX) – Vorlage: tester.html / TinnitusTester-Projekt

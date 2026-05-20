@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinnitus-Klang-Tester | Tinnituspraxis Seedorf Ahrensburg</title>
+<meta name="description" content="Kostenloser Online-Tinnitus-Tester: Bilden Sie Ihren persönlichen Tinnitus-Klang nach. Von Boris Seedorf – Tinnitus-Spezialist in Ahrensburg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #ece9e1;
+    --green:      #7eda57;
+    --green-mid:  #5cb83c;
+    --green-dark: #3d7a28;
+    --text:       #232323;
+    --text-mid:   #555;
+    --text-light: #888;
+    --white:      #ffffff;
+    --card-bg:    #f9f8f5;
+    --border:     #dbd7ce;
+    --shadow:     0 4px 20px rgba(0,0,0,0.08);
+    --radius:     14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 3px solid var(--green);
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .logo-wrap { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .logo-text { text-align: left; }
+  .logo-text strong { display: block; font-size: 14px; letter-spacing: .12em; color: var(--text); font-weight: 700; }
+  .logo-text span { font-size: 11px; color: var(--text-light); letter-spacing: .06em; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #3d7a28 0%, #5cb83c 60%, #7eda57 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(22px, 5vw, 36px); font-weight: 700; margin-bottom: 12px; }
+  .hero p { font-size: 15px; opacity: .9; max-width: 540px; margin: 0 auto 24px; line-height: 1.7; }
+  .hero-btn {
+    display: inline-block;
+    background: white;
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: none;
+  }
+  .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+
+  /* ── MAIN ── */
+  main { max-width: 780px; margin: 0 auto; padding: 32px 16px 120px; }
+
+  /* ── WARNING ── */
+  .warning {
+    background: #fff8e6;
+    border: 1px solid #f5d87a;
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #7a5c00;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .warning strong { color: #5a4000; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+
+  /* ── SOUND CARDS ── */
+  .sounds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 580px) {
+    .sounds-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  .sound-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow);
+    padding: 18px 16px 14px;
+    transition: border-color .2s, box-shadow .2s;
+    cursor: default;
+  }
+  .sound-card.active {
+    border-color: var(--green);
+    box-shadow: 0 4px 20px rgba(126,218,87,0.25);
+  }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .card-icon { font-size: 26px; line-height: 1; }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--text); flex: 1; }
+  .card-desc { font-size: 11px; color: var(--text-light); line-height: 1.5; margin-bottom: 14px; }
+
+  /* Toggle switch */
+  .toggle-wrap { display: flex; align-items: center; gap: 0; }
+  .toggle-input { display: none; }
+  .toggle-label {
+    width: 44px; height: 24px;
+    background: #ccc;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background .2s;
+    flex-shrink: 0;
+  }
+  .toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: left .2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle-input:checked + .toggle-label { background: var(--green); }
+  .toggle-input:checked + .toggle-label::after { left: 23px; }
+
+  /* Sliders */
+  .sliders { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .sound-card.active .sliders { display: block; }
+
+  .slider-row { margin-bottom: 10px; }
+  .slider-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--text-mid);
+    margin-bottom: 4px;
+  }
+  .slider-label span { font-weight: 600; color: var(--green-dark); }
+  input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    border: none;
+  }
+
+  /* ── ERGEBNIS-PANEL ── */
+  .result-panel {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-top: 36px;
+    display: none;
+  }
+  .result-panel.visible { display: block; }
+  .result-panel h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .result-panel p { font-size: 13px; color: var(--text-mid); margin-bottom: 18px; }
+  .result-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .result-tag {
+    background: #edfce6;
+    color: var(--green-dark);
+    border: 1px solid var(--green);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── LEAD FORM ── */
+  .lead-form { margin-top: 36px; }
+  .lead-box {
+    background: linear-gradient(135deg, #3d7a28, #5cb83c);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    color: white;
+  }
+  .lead-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .lead-box p { font-size: 13px; opacity: .9; line-height: 1.7; margin-bottom: 20px; }
+
+  .form-row { margin-bottom: 12px; }
+  .form-row input,
+  .form-row textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    background: rgba(255,255,255,0.9);
+    color: var(--text);
+    outline: none;
+  }
+  .form-row input::placeholder,
+  .form-row textarea::placeholder { color: #999; }
+  .form-row textarea { resize: vertical; min-height: 80px; }
+  .form-submit {
+    width: 100%;
+    padding: 14px;
+    background: white;
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    transition: transform .15s;
+  }
+  .form-submit:hover { transform: translateY(-1px); }
+  .form-note { font-size: 10px; opacity: .7; margin-top: 10px; text-align: center; }
+
+  /* ── DATENSCHUTZ ── */
+  .disclaimer {
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--white);
+    border-top: 3px solid var(--green);
+    padding: 20px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+  footer a { color: var(--green-dark); text-decoration: none; }
+
+  /* ── STICKY BAR ── */
+  .sticky-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--green-dark);
+    color: white;
+    padding: 12px 20px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 100;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+  }
+  .sticky-bar.visible { display: flex; }
+  .sticky-bar-text { font-size: 13px; font-weight: 600; }
+  .sticky-bar-btn {
+    background: var(--green);
+    color: var(--text);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  /* ── SUCCESS MESSAGE ── */
+  .success-msg {
+    display: none;
+    background: #edfce6;
+    border: 1px solid var(--green);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    text-align: center;
+    color: var(--green-dark);
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">👂</div>
+    <div class="logo-text">
+      <strong>TINNITUSPRAXIS SEEDORF</strong>
+      <span>Tinnitus- und Innenohrtherapie · Ahrensburg</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Wie klingt Ihr Tinnitus?</h1>
+  <p>Mit diesem kostenlosen Tool können Sie Ihren persönlichen Tinnitus-Klang nachbilden – Schritt für Schritt, einfach und ohne Vorkenntnisse.</p>
+  <button class="hero-btn" onclick="document.getElementById('tester').scrollIntoView({behavior:'smooth'})">
+    ▶ Jetzt Klang testen
+  </button>
+</section>
+
+<!-- MAIN -->
+<main id="tester">
+
+  <div class="warning">
+    ⚠️ <strong>Bitte beginnen Sie mit sehr niedriger Lautstärke.</strong> Laute Töne können Tinnitus vorübergehend verstärken. Drehen Sie die Lautstärke erst langsam auf.
+  </div>
+
+  <div class="section-label">Schritt 1 – Klangtyp wählen &amp; aktivieren</div>
+
+  <div class="sounds-grid">
+
+    <!-- PFEIFTON -->
+    <div class="sound-card" id="card-pfeif">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">🎵</div>
+          <div class="card-title">Pfeifton</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-pfeif" onchange="toggleSound('pfeif',this.checked)">
+          <label class="toggle-label" for="tog-pfeif"></label>
+        </div>
+      </div>
+      <div class="card-desc">Hoher, anhaltender Pfeifton – das häufigste Tinnitus-Geräusch</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Tonhöhe <span id="val-pfeif-freq">4000 Hz</span></div>
+          <input type="range" id="sl-pfeif-freq" min="500" max="16000" value="4000" step="100" oninput="updateSound('pfeif')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-pfeif-vol">30%</span></div>
+          <input type="range" id="sl-pfeif-vol" min="1" max="100" value="30" oninput="updateSound('pfeif')">
+        </div>
+      </div>
+    </div>
+
+    <!-- BRUMMTON -->
+    <div class="sound-card" id="card-brumm">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">〰️</div>
+          <div class="card-title">Brummton</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-brumm" onchange="toggleSound('brumm',this.checked)">
+          <label class="toggle-label" for="tog-brumm"></label>
+        </div>
+      </div>
+      <div class="card-desc">Tiefes, summendes oder brummendes Geräusch</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Tonhöhe <span id="val-brumm-freq">120 Hz</span></div>
+          <input type="range" id="sl-brumm-freq" min="50" max="500" value="120" step="10" oninput="updateSound('brumm')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-brumm-vol">30%</span></div>
+          <input type="range" id="sl-brumm-vol" min="1" max="100" value="30" oninput="updateSound('brumm')">
+        </div>
+      </div>
+    </div>
+
+    <!-- RAUSCHEN -->
+    <div class="sound-card" id="card-rausch">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">🌊</div>
+          <div class="card-title">Rauschen</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-rausch" onchange="toggleSound('rausch',this.checked)">
+          <label class="toggle-label" for="tog-rausch"></label>
+        </div>
+      </div>
+      <div class="card-desc">Breites Rauschen oder schmales Zischen – wie Wind oder Wasser</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Mittenton <span id="val-rausch-freq">4000 Hz</span></div>
+          <input type="range" id="sl-rausch-freq" min="200" max="12000" value="4000" step="200" oninput="updateSound('rausch')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Schärfe (eng ↔ breit) <span id="val-rausch-q">20</span></div>
+          <input type="range" id="sl-rausch-q" min="1" max="80" value="20" oninput="updateSound('rausch')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-rausch-vol">30%</span></div>
+          <input type="range" id="sl-rausch-vol" min="1" max="100" value="30" oninput="updateSound('rausch')">
+        </div>
+      </div>
+    </div>
+
+    <!-- ZIRPEN -->
+    <div class="sound-card" id="card-zirp">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">🦗</div>
+          <div class="card-title">Zirpen / Sirren</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-zirp" onchange="toggleSound('zirp',this.checked)">
+          <label class="toggle-label" for="tog-zirp"></label>
+        </div>
+      </div>
+      <div class="card-desc">Rhythmisches Zirpen oder elektrisches Sirren wie Grillen</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Zirptempo <span id="val-zirp-rate">80/min</span></div>
+          <input type="range" id="sl-zirp-rate" min="30" max="200" value="80" oninput="updateSound('zirp')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-zirp-vol">30%</span></div>
+          <input type="range" id="sl-zirp-vol" min="1" max="100" value="30" oninput="updateSound('zirp')">
+        </div>
+      </div>
+    </div>
+
+    <!-- KLINGELN -->
+    <div class="sound-card" id="card-kling">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">🔔</div>
+          <div class="card-title">Klingeln</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-kling" onchange="toggleSound('kling',this.checked)">
+          <label class="toggle-label" for="tog-kling"></label>
+        </div>
+      </div>
+      <div class="card-desc">Metallisches Klingeln oder Glöckchen-Ton mit Obertönen</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Tonhöhe <span id="val-kling-freq">1200 Hz</span></div>
+          <input type="range" id="sl-kling-freq" min="400" max="8000" value="1200" step="100" oninput="updateSound('kling')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Pulsrate <span id="val-kling-rate">0/min</span></div>
+          <input type="range" id="sl-kling-rate" min="0" max="120" value="0" oninput="updateSound('kling')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-kling-vol">30%</span></div>
+          <input type="range" id="sl-kling-vol" min="1" max="100" value="30" oninput="updateSound('kling')">
+        </div>
+      </div>
+    </div>
+
+    <!-- PULSIEREN -->
+    <div class="sound-card" id="card-puls">
+      <div class="card-top">
+        <div>
+          <div class="card-icon">💓</div>
+          <div class="card-title">Pulsieren</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="tog-puls" onchange="toggleSound('puls',this.checked)">
+          <label class="toggle-label" for="tog-puls"></label>
+        </div>
+      </div>
+      <div class="card-desc">Rhythmisches Pochen oder Pulsieren – oft im Takt des Herzschlags</div>
+      <div class="sliders">
+        <div class="slider-row">
+          <div class="slider-label">Pulsrate <span id="val-puls-rate">60 BPM</span></div>
+          <input type="range" id="sl-puls-rate" min="30" max="180" value="60" oninput="updateSound('puls')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Tonhöhe <span id="val-puls-freq">200 Hz</span></div>
+          <input type="range" id="sl-puls-freq" min="80" max="2000" value="200" step="20" oninput="updateSound('puls')">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lautstärke <span id="val-puls-vol">30%</span></div>
+          <input type="range" id="sl-puls-vol" min="1" max="100" value="30" oninput="updateSound('puls')">
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /sounds-grid -->
+
+  <!-- ERGEBNIS-PANEL -->
+  <div class="result-panel" id="result-panel">
+    <h2>🎯 Ihr Tinnitus-Klangprofil</h2>
+    <p>Diese Klänge beschreiben Ihren Tinnitus am besten:</p>
+    <div class="result-tags" id="result-tags"></div>
+    <p style="font-size:13px;color:var(--text-mid);">Notieren Sie dieses Profil – es hilft Ihrem Therapeuten, Ihren Tinnitus besser zu verstehen und gezielt zu behandeln.</p>
+  </div>
+
+  <!-- LEAD FORM -->
+  <div class="lead-form" id="lead-form">
+    <div class="lead-box">
+      <h2>📋 Klangprofil speichern &amp; Beratung erhalten</h2>
+      <p>Tragen Sie Ihren Namen und Ihre E-Mail-Adresse ein – ich schicke Ihnen Ihr Klangprofil zu und melde mich für ein kostenloses Erstgespräch.</p>
+      <form id="contact-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <input type="text" id="f-name" placeholder="Ihr Name" required>
+        </div>
+        <div class="form-row">
+          <input type="email" id="f-email" placeholder="Ihre E-Mail-Adresse" required>
+        </div>
+        <div class="form-row">
+          <textarea id="f-msg" placeholder="Optional: Was möchten Sie mir noch mitteilen?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">✉️ Klangprofil zusenden &amp; Beratung anfragen</button>
+        <div class="form-note">Kein Spam. Ihre Daten werden vertraulich behandelt und nicht weitergegeben.</div>
+      </form>
+      <div class="success-msg" id="success-msg">
+        ✅ Vielen Dank! Ich melde mich schnellstmöglich bei Ihnen.<br>
+        <small style="font-weight:400;font-size:12px;">– Boris Seedorf, Tinnituspraxis Seedorf Ahrensburg</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Kein medizinisches Messgerät · Nur zur persönlichen Orientierung · Kein Ersatz für professionelle Tinnitus-Diagnostik<br>
+    <a href="https://www.tinnituspraxis-seedorf.de">www.tinnituspraxis-seedorf.de</a> ·
+    <a href="https://www.tinnituspraxis-seedorf.de/impressum">Impressum</a> ·
+    <a href="https://www.tinnituspraxis-seedorf.de/datenschutz">Datenschutz</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong>TINNITUSPRAXIS SEEDORF</strong><br>
+  Boris Seedorf · Heilpraktiker · Tinnitus-Spezialist<br>
+  Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg<br>
+  <a href="tel:041026648201">04102 6648201</a> ·
+  <a href="https://www.tinnituspraxis-seedorf.de">www.tinnituspraxis-seedorf.de</a>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-text" id="sticky-bar-text">0 Klänge aktiv</div>
+  <button class="sticky-bar-btn" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'})">
+    Klangprofil speichern ↓
+  </button>
+</div>
+
+<script>
+// ── Audio Engine ──────────────────────────────────────────────
+let ctx = null;
+const nodes = {};
+
+function getCtx() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') ctx.resume();
+  return ctx;
+}
+
+function stopSound(id) {
+  if (!nodes[id]) return;
+  const n = nodes[id];
+  try {
+    if (n.lfo)      { n.lfo.stop(); n.lfoGain.disconnect(); }
+    if (n.osc)      { n.osc.stop(); }
+    if (n.osc2)     { n.osc2.stop(); }
+    if (n.noise)    { n.noise.stop(); }
+    if (n.gain)     { n.gain.disconnect(); }
+    if (n.filter)   { n.filter.disconnect(); }
+    if (n.ampMod)   { n.ampMod.stop(); n.ampModGain.disconnect(); }
+  } catch(e) {}
+  delete nodes[id];
+}
+
+function startPfeif() {
+  const c = getCtx();
+  const freq = +document.getElementById('sl-pfeif-freq').value;
+  const vol  = +document.getElementById('sl-pfeif-vol').value / 100 * 0.4;
+  const osc  = c.createOscillator();
+  const gain = c.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.value = vol;
+  osc.connect(gain); gain.connect(c.destination);
+  osc.start();
+  nodes.pfeif = { osc, gain };
+}
+
+function startBrumm() {
+  const c = getCtx();
+  const freq = +document.getElementById('sl-brumm-freq').value;
+  const vol  = +document.getElementById('sl-brumm-vol').value / 100 * 0.35;
+  const osc  = c.createOscillator();
+  const osc2 = c.createOscillator();
+  const gain = c.createGain();
+  osc.type  = 'sawtooth'; osc.frequency.value  = freq;
+  osc2.type = 'sine';     osc2.frequency.value = freq * 2.01;
+  gain.gain.value = vol;
+  osc.connect(gain); osc2.connect(gain); gain.connect(c.destination);
+  osc.start(); osc2.start();
+  nodes.brumm = { osc, osc2, gain };
+}
+
+function startRausch() {
+  const c      = getCtx();
+  const freq   = +document.getElementById('sl-rausch-freq').value;
+  const q      = +document.getElementById('sl-rausch-q').value;
+  const vol    = +document.getElementById('sl-rausch-vol').value / 100 * 0.6;
+  const buf    = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
+  const data   = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const noise  = c.createBufferSource();
+  noise.buffer = buf; noise.loop = true;
+  const filter = c.createBiquadFilter();
+  filter.type = 'bandpass'; filter.frequency.value = freq; filter.Q.value = q;
+  const gain   = c.createGain(); gain.gain.value = vol;
+  noise.connect(filter); filter.connect(gain); gain.connect(c.destination);
+  noise.start();
+  nodes.rausch = { noise, filter, gain };
+}
+
+function startZirp() {
+  const c    = getCtx();
+  const rate = +document.getElementById('sl-zirp-rate').value;
+  const vol  = +document.getElementById('sl-zirp-vol').value / 100 * 0.35;
+  // Amplitude-modulated noise burst
+  const buf  = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const noise    = c.createBufferSource();
+  noise.buffer   = buf; noise.loop = true;
+  const filter   = c.createBiquadFilter();
+  filter.type    = 'bandpass'; filter.frequency.value = 7000; filter.Q.value = 15;
+  const ampMod   = c.createOscillator();
+  ampMod.frequency.value = rate / 60;
+  const ampModGain = c.createGain(); ampModGain.gain.value = 0.5;
+  const gain     = c.createGain(); gain.gain.value = vol;
+  // AM: carrier * (0.5 + 0.5*sin)
+  const dcOffset = c.createConstantSource ? null : null;
+  ampMod.connect(ampModGain); ampModGain.connect(gain.gain);
+  noise.connect(filter); filter.connect(gain); gain.connect(c.destination);
+  noise.start(); ampMod.start();
+  nodes.zirp = { noise, filter, gain, ampMod, ampModGain };
+}
+
+function startKling() {
+  const c    = getCtx();
+  const freq = +document.getElementById('sl-kling-freq').value;
+  const rate = +document.getElementById('sl-kling-rate').value;
+  const vol  = +document.getElementById('sl-kling-vol').value / 100 * 0.4;
+  const osc  = c.createOscillator();
+  const osc2 = c.createOscillator();
+  const gain = c.createGain();
+  osc.type  = 'sine'; osc.frequency.value  = freq;
+  osc2.type = 'sine'; osc2.frequency.value = freq * 2.756;
+  gain.gain.value = vol;
+  if (rate > 0) {
+    const lfo     = c.createOscillator();
+    const lfoGain = c.createGain();
+    lfo.frequency.value = rate / 60;
+    lfoGain.gain.value  = vol * 0.8;
+    lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+    lfo.start();
+    nodes.kling = { osc, osc2, gain, lfo, lfoGain };
+  } else {
+    nodes.kling = { osc, osc2, gain };
+  }
+  osc.connect(gain); osc2.connect(gain); gain.connect(c.destination);
+  osc.start(); osc2.start();
+}
+
+function startPuls() {
+  const c    = getCtx();
+  const bpm  = +document.getElementById('sl-puls-rate').value;
+  const freq = +document.getElementById('sl-puls-freq').value;
+  const vol  = +document.getElementById('sl-puls-vol').value / 100 * 0.4;
+  const osc  = c.createOscillator();
+  osc.type   = 'sine'; osc.frequency.value = freq;
+  const lfo      = c.createOscillator();
+  const lfoGain  = c.createGain();
+  lfo.type       = 'square';
+  lfo.frequency.value = bpm / 60;
+  lfoGain.gain.value  = vol;
+  const gain = c.createGain(); gain.gain.value = 0;
+  lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+  osc.connect(gain); gain.connect(c.destination);
+  osc.start(); lfo.start();
+  nodes.puls = { osc, gain, lfo, lfoGain };
+}
+
+// ── Toggle & Update ──────────────────────────────────────────
+function toggleSound(id, on) {
+  const card = document.getElementById('card-' + id);
+  if (on) {
+    card.classList.add('active');
+    startFn[id]();
+  } else {
+    card.classList.remove('active');
+    stopSound(id);
+  }
+  updateUI();
+}
+
+const startFn = {
+  pfeif: startPfeif, brumm: startBrumm, rausch: startRausch,
+  zirp:  startZirp,  kling: startKling, puls:   startPuls
+};
+
+function updateSound(id) {
+  if (!nodes[id]) return;
+  stopSound(id);
+  startFn[id]();
+  updateSliderLabels(id);
+}
+
+// ── Slider Labels ──────────────────────────────────────────
+function updateSliderLabels(id) {
+  const get = (sid) => { const el = document.getElementById('sl-'+id+'-'+sid); return el ? el.value : null; };
+  const set = (vid, val) => { const el = document.getElementById('val-'+id+'-'+vid); if(el) el.textContent = val; };
+  if (id==='pfeif') { set('freq', get('freq')+' Hz'); set('vol', get('vol')+'%'); }
+  if (id==='brumm') { set('freq', get('freq')+' Hz'); set('vol', get('vol')+'%'); }
+  if (id==='rausch'){ set('freq', get('freq')+' Hz'); set('q', get('q')); set('vol', get('vol')+'%'); }
+  if (id==='zirp')  { set('rate', get('rate')+'/min'); set('vol', get('vol')+'%'); }
+  if (id==='kling') { set('freq', get('freq')+' Hz'); set('rate', get('rate')+'/min'); set('vol', get('vol')+'%'); }
+  if (id==='puls')  { set('rate', get('rate')+' BPM'); set('freq', get('freq')+' Hz'); set('vol', get('vol')+'%'); }
+}
+
+// Live label update on input
+['pfeif','brumm','rausch','zirp','kling','puls'].forEach(id => {
+  document.querySelectorAll('[id^="sl-'+id+'"]').forEach(el => {
+    el.addEventListener('input', () => updateSliderLabels(id));
+  });
+});
+
+// ── UI Updates ───────────────────────────────────────────────
+const NAMES = { pfeif:'Pfeifton', brumm:'Brummton', rausch:'Rauschen', zirp:'Zirpen/Sirren', kling:'Klingeln', puls:'Pulsieren' };
+
+function updateUI() {
+  const active = Object.keys(nodes);
+  // Sticky bar
+  const bar = document.getElementById('sticky-bar');
+  const barTxt = document.getElementById('sticky-bar-text');
+  if (active.length > 0) {
+    bar.classList.add('visible');
+    barTxt.textContent = active.length + (active.length===1 ? ' Klang aktiv' : ' Klänge aktiv');
+  } else {
+    bar.classList.remove('visible');
+  }
+  // Result panel
+  const panel = document.getElementById('result-panel');
+  const tags  = document.getElementById('result-tags');
+  if (active.length > 0) {
+    panel.classList.add('visible');
+    tags.innerHTML = active.map(id => `<span class="result-tag">✓ ${NAMES[id]}</span>`).join('');
+  } else {
+    panel.classList.remove('visible');
+  }
+}
+
+// ── Form Submit ──────────────────────────────────────────────
+function submitForm(e) {
+  e.preventDefault();
+  const name  = document.getElementById('f-name').value;
+  const email = document.getElementById('f-email').value;
+  const msg   = document.getElementById('f-msg').value;
+  const active = Object.keys(nodes);
+  const profile = active.map(id => NAMES[id]).join(', ') || 'Kein Klang ausgewählt';
+
+  // Mailto als Fallback (kann später durch EmailJS/Formspree ersetzt werden)
+  const subject = encodeURIComponent('Tinnitus-Klangprofil von ' + name);
+  const body    = encodeURIComponent(
+    'Name: ' + name + '\nE-Mail: ' + email +
+    '\nKlangprofil: ' + profile +
+    (msg ? '\nNachricht: ' + msg : '')
+  );
+  window.location.href = 'mailto:info@tinnituspraxis-seedorf.de?subject=' + subject + '&body=' + body;
+
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

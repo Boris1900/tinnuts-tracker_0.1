@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v33 / App v2.8)
+## Aktueller Stand (Cache v34 / App v2.9)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -33,7 +33,7 @@ Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Date
 
 Bei **jeder** Änderung die deployed wird:
 
-1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v33` → `v34` + `// APP_VERSION: v2.8` → `v2.9`
+1. Cache-Version in `sw.js` hochzählen: `tinnitus-tracker-v34` → `v35` + `// APP_VERSION: v2.9` → `v3.0`
 2. `CURRENT_CACHE` in `TinnitusTracker_Seedorf.html` hochzählen (muss mit sw.js übereinstimmen)
 3. App-Version in `TinnitusTracker_Seedorf.html` hochzählen – steht an **zwei Stellen** (Einstellungen + Footer)
 4. `CLAUDE.md` aktualisieren: "Aktueller Stand (Cache vXX / App vX.X)"
@@ -72,17 +72,9 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ---
 
-## 🚨 NÄCHSTE SESSION – KRITISCH
+## Letzter Stand
 
-**Problem:** Ab v2.6 sind die Tester-Toggles kaputt (Schiebeschalter reagieren nicht). v2.8 ebenfalls betroffen. Ursache liegt in fehlerhaften Script-Änderungen am Tester-Tab-Code.
-
-**Plan für nächste Session:**
-1. Git-Stand von v2.4 wiederherstellen (`git show` oder `git checkout` des v2.4-Commits für `TinnitusTracker_Seedorf.html`)
-2. Daraus eine v2.9 machen (Versionsnummern hochzählen, Cache anpassen)
-3. build-android.ps1 → Android Studio → APK v2.9 bauen
-4. Freigabe durch Boris vor JEDER Änderung einholen
-
-**Wichtig:** v2.4 war der letzte bekannte funktionierende Stand der App.
+v2.9 ist der aktuelle Stand. Rollback auf v2.4-Basis – Tester-Toggles sind repariert. APK v2.9 ist live auf GitHub Releases.
 
 ---
 

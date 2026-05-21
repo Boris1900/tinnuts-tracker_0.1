@@ -74,7 +74,9 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ## Letzter Stand
 
-v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button in der App öffnet jetzt app.tinnituspraxis-seedorf.de/apk.html statt direkt github.com – kein GitHub-App-Konflikt mehr auf Android.
+v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button öffnet apk.html statt direkt github.com.
+
+**Landingpage (index.html):** Alle Grünflächen auf Markengrün `#7ed957` umgestellt (war vorher dunkles `#5c7a5c`/`#3d5c3d`). Betrifft: Nav-Button, CTA-Buttons, Schritt-Nummern, CTA-Sektion, Footer-Streifen, Quentn-Formular.
 
 ### Zusätzliche Dateien im Repo (kein App-Bestandteil)
 - `apk.html` – Auto-Download-Weiterleitung für APK-Updates (kein GitHub-App-Konflikt)
@@ -85,25 +87,6 @@ v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis).
   → Neues GitHub-Repo + DNS-Eintrag bei all-inkl nötig
 
 ---
-
-## Offene Aufgaben
-
-### Tester-Tab Feinschliff
-✅ Alle Punkte erledigt in v2.6:
-- Pulsieren entfernt
-- Klingeln: square LFO An/Aus-Bursts, Pulsrate-Slider
-- Grillenzirpen: Zirprate min 30 / max 200 / default 80
-- Gefiltertes Rauschen: Mittenton max 12.000 Hz, Q max 80, 4 Labels
-- Result-Box live bei jedem Slider-Update
-
-### Verlaufsdiagramm testen
-Noch keine echten Daten vorhanden – Boris trägt seit v2.2 echte Einträge ein. Dann prüfen: X-Achse, Aggregation (7/30/Alles), Datumsanzeige.
-
-### „Gut gemacht"-Meldung ersetzen
-✅ Erledigt in v2.4 – zeigt jetzt „Tiptop!"
-
-### Tageswechsel-Bug (KRITISCH)
-✅ Erledigt in v2.4 – `getToday()` nutzte `toISOString()` (UTC). In Deutschland (UTC+2) war nach Mitternacht lokal noch 2h UTC "gestern", deshalb wurden die 3 alten Einträge noch gefunden. Gefixt: `getToday()` nutzt jetzt lokales Datum via `getFullYear()/getMonth()/getDate()`.
 
 ---
 

@@ -66,6 +66,14 @@ Bei **jeder** Änderung die deployed wird:
 
 ---
 
+## Analyse-Regeln (PFLICHT – nach Fehler vom 24.05.2026 eingeführt)
+
+⚠️ **Diese Regeln gelten bei jeder Code-Analyse – ohne Ausnahme.**
+
+1. **Vollständig lesen vor jeder Aussage:** Keine Behauptung über das Verhalten einer Funktion, bevor sie komplett gelesen wurde. Nie aus der Mitte einer Funktion schlussfolgern.
+2. **Vermutung ≠ Tatsache:** Unsichere Analyse immer kennzeichnen: „Ich sehe X im Code – ich muss noch Y prüfen." Nicht als Fakt präsentieren.
+3. **Vor jedem Fix live testen lassen:** Boris bittet, das konkrete Szenario in der echten App zu testen und zu beschreiben was er sieht. Erst dann beheben. Boris kennt die laufende App besser als der Code-Leser.
+
 ## Session-Workflow
 
 Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lies die CLAUDE.md und sag mir kurz wo wir stehen."

@@ -96,6 +96,12 @@ v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis).
 
 ---
 
+## Verknüpfte Projekte
+
+- **Blogartikel** (`C:\Users\Boris\Projekte\Blogartikel\`) – dort wird ein Blogartikel zur Veröffentlichung der TinnitusTracker App geschrieben, für die Wix-Homepage. Blogartikel-Arbeit gehört NICHT in diesen Ordner.
+
+---
+
 ## Offene Punkte / Ideen
 
 🔴 hoch / 🟡 mittel / 🟢 niedrig

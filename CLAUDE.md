@@ -88,14 +88,13 @@ v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis).
 
 ---
 
----
-
 ## Offene Punkte / Ideen
-- [ ] Automatische Backup-Erinnerung alle 4 Wochen
-- [ ] Einträge löschen können (einzeln oder alle)
-- [ ] Wochenübersicht / Monatsdurchschnitte
-- [ ] Erinnerungs-Notifications
-- [ ] Morgen/Abend-Vergleich
-- [ ] PDF-Export: Drucklayout bei vielen Daten beobachten (Querformat ggf. nachrüsten)
-- [x] APK-Download-URL verbessert – apk.html auf eigener Domain (v3.0)
-- [ ] Tester-Tab in App verbessern (Sounds + UX) – Vorlage: tester.html / TinnitusTester-Projekt
+
+🔴 hoch / 🟡 mittel / 🟢 niedrig
+
+- 🔴 Verlauf-Tab: Verhalten bei nur 1–2 Einträgen/Tag prüfen (Diagramm, Auswertung)
+- 🟡 PDF-Export im Querformat anlegen (Diagramm braucht Breite)
+- 🟡 Wochenübersicht / Monatsdurchschnitte ausbauen (30-Tage-Schnitt schon vorhanden)
+- 🟢 Backup-Erinnerung alle 4 Wochen (Backup-Funktion selbst ist schon drin)
+- 🟢 Morgen/Abend-Vergleich
+- 🟢 Tester-Tab verbessern – erst nach Bewerbung der App priorisieren

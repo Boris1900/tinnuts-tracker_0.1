@@ -9,7 +9,7 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 
 ---
 
-## Aktueller Stand (Cache v35 / App v3.0)
+## Aktueller Stand (Cache v36 / App v3.1)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -82,7 +82,9 @@ Am Ende jeder Session: CLAUDE.md aktualisieren. Neue Session starten mit: „Lie
 
 ## Letzter Stand
 
-v3.0 ist der aktuelle Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button öffnet apk.html statt direkt github.com.
+**v3.1 (16.07.2026):** Impressum + Datenschutz im App-Footer ergänzt (Datenschutz → https://www.tinnituspraxis-seedorf.de/app-datenschutz, gemeinsame App-Datenschutzseite für Ohreninsel/Augenblick/Tracker). apk.html- und download.html-Fallback auf v3.1 gezogen. PWA gepusht + APK-Release v3.1 erstellt. Hintergrund: Vorbereitung für den Play Store (rechtlich sauber). Impressum bleibt Praxis-Impressum (korrekt).
+
+v3.0 war der vorherige Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis). APK-Update-Flow verbessert: Update-Button öffnet apk.html statt direkt github.com.
 
 **Landingpage (index.html):** Alle Grünflächen auf Markengrün `#7ed957` umgestellt (war vorher dunkles `#5c7a5c`/`#3d5c3d`). Betrifft: Nav-Button, CTA-Buttons, Schritt-Nummern, CTA-Sektion, Footer-Streifen, Quentn-Formular.
 

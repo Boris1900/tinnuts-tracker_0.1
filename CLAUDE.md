@@ -7,6 +7,10 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 **Live-URL:** https://app.tinnituspraxis-seedorf.de
 **GitHub:** https://github.com/Boris1900/tinnuts-tracker_0.1
 
+**🎉 Play Store: LIVE seit 29.07.2026** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
+Paketname `de.tinnituspraxis.tracker`, Organisationskonto Tinnituspraxis Seedorf. Details siehe Abschnitt "Play Store" weiter unten.
+**⚠️ Direkt nächste Aufgabe:** APK-Links überall durch den Play-Store-Link ersetzen, siehe "Offene Punkte" ganz unten.
+
 ---
 
 ## Aktueller Stand (Cache v36 / App v3.1)
@@ -98,6 +102,52 @@ v3.0 war der vorherige Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis)
 
 ---
 
+## Play Store
+
+**Stand 29.07.2026: ✅ LIVE im Play Store** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
+Eingereicht 24./25.07., freigegeben 29.07.2026 (5 Tage Prüfdauer, Store-Eintrag „Aktualisiert am 25.07.2026").
+
+### Technisch (erledigt)
+- Upload-Keystore: `android/keystore/tracker-upload.jks`, Alias `tracker` (gitignored). Passwort liegt im Passwortmanager, **ohne Keystore + Passwort sind keine Updates mehr möglich** → Backup der `.jks`-Datei nicht vergessen.
+- `android/keystore.properties` (gitignored) + `signingConfig` in `android/app/build.gradle` (gleiches Muster wie bei Ohreninsel/TinnitusMediApp).
+- Signiertes AAB gebaut über `cd android && ./gradlew bundleRelease` → `android/app/build/outputs/bundle/release/app-release.aab`.
+- Paketname `de.tinnituspraxis.tracker` über Android-Entwickler-Identitätsbestätigung registriert und von Google verifiziert (ADI-Snippet in `android/app/src/main/assets/adi-registration.properties`, Debug-APK zur Bestätigung hochgeladen).
+- **Für künftige Updates:** `versionCode`/`versionName` in `build.gradle` hochzählen, `bundleRelease` neu bauen, neuen Release im Produktions-Track hochladen.
+
+### Store-Eintrag (erledigt)
+- Kategorie: **Gesundheit & Fitness** (nicht Medizin).
+- Gesundheitsfunktionen-Erklärung: **Krankheits- und Beschwerdemanagement** (unter "Medizin" in Googles Formular) – bewusst gewählt, weil die App aktiv Symptomintensität trackt (anders als die Ohreninsel, die nur Wellness/Entspannung ist). Regionale Zusatzanforderungen: aktuell keine (Stand 24.07.2026, Google informiert bei Änderungen).
+- Datensicherheit: "Keine Daten erhoben" (App speichert ausschließlich lokal, kein Server, kein Tracking).
+- Zielgruppe: 18 und älter.
+- Länder: Deutschland, Österreich, Schweiz (DACH) – bewusst nicht weltweit, da App nur auf Deutsch.
+- Anmeldedaten/Anzeigen/Behörden-Apps/Finanzfunktionen: jeweils "nicht erforderlich"/"Nein".
+- Datenschutz-URL: https://www.tinnituspraxis-seedorf.de/app-datenschutz
+- Store-Texte (Kurz-/Vollbeschreibung): `store-texte-entwurf.md` im Projekt-Root.
+- Bildmaterial in `03-Design/Store-Assets/`: App-Symbol (`icon-512.png` im Projekt-Root), `feature-graphic-1024x500.png`, sowie `screenshot-1-eintragen.png` bis `screenshot-4-tester.png` (1080×1920, aus echten Handy-Screenshots hochskaliert, auch für 7"/10"-Tablet wiederverwendet).
+
+### Wichtig / Erfahrung aus der Erst-Einreichung
+- **Während die Prüfung läuft: nichts am App-Paket oder Store-Eintrag ändern** (setzt die Prüf-Uhr zurück).
+- **Prüfdauer real: 5 Tage** (24.07. → 29.07.). Googles Ankündigung „bis zu 48h" ist bei Erst-Einreichungen unrealistisch, bei Ohreninsel waren es sogar 8 Tage.
+- **28.07. (Tag 4): Play-Console-Helpdesk auf Englisch angeschrieben**, mit Verweis auf den Ohreninsel-Präzedenzfall. Antwort noch am selben Tag (Support „Ruth"): reiner Standard-Textbaustein, keine Bestätigung einer manuellen Prüfung oder Beschleunigung – „steht in normaler Prüfung, bis zu 7 Tage, keine weitere Version einreichen, Meldung folgt automatisch". Einen Tag später war die App live.
+- **Lehre:** Ob der Helpdesk-Kontakt wirklich beschleunigt oder nur zufällig kurz vor der ohnehin fälligen Freigabe kam, lässt sich aus zwei Fällen nicht sagen. Er kostet aber nichts. Für die Zukunft: **erst ab Tag 7 anschreiben**, vorher gibt es nur den Textbaustein.
+
+### Update-Workflow (ab jetzt, für jede künftige Version)
+
+Bei jeder inhaltlichen Änderung – **beide Vertriebswege bedienen, PWA/Sideload UND Play Store:**
+
+1. Änderungen in `TinnitusTracker_Seedorf.html`.
+2. Versionsnummern hochzählen – **alles synchron, gleiche Nummer überall** (z.B. alle auf "3.2"):
+   - `sw.js`: Cache-Version (`tinnitus-tracker-vXX`)
+   - `TinnitusTracker_Seedorf.html`: `CURRENT_CACHE` (muss mit sw.js übereinstimmen) + App-Version an 2 Stellen (Einstellungen + Footer)
+   - `android/app/build.gradle`: `versionName` auf dieselbe Nummer setzen
+3. `android/app/build.gradle`: `versionCode` **immer um 1 hochzählen** (rein interne Google-Zahl, nie identisch mit versionName, dem Nutzer nie sichtbar, muss bei jedem Play-Store-Upload strikt steigen)
+4. `CLAUDE.md` aktualisieren
+5. Commit + Push
+6. Sideload-Weg: `.\build-android.ps1` → Android Studio → Debug-APK → umbenennen → `gh release create` → `download.html`/`apk.html` aktualisieren
+7. Play-Store-Weg: `cd android && ./gradlew bundleRelease` → signiertes AAB → Play Console → Produktion → Neuen Release erstellen → AAB hochladen → Versionshinweise → einreichen
+
+---
+
 ## Verknüpfte Projekte
 
 - **Blogartikel** (`C:\Users\Boris\Projekte\Blogartikel\`) – dort wird ein Blogartikel zur Veröffentlichung der TinnitusTracker App geschrieben, für die Wix-Homepage. Blogartikel-Arbeit gehört NICHT in diesen Ordner.
@@ -108,6 +158,28 @@ v3.0 war der vorherige Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis)
 
 🔴 hoch / 🟡 mittel / 🟢 niedrig
 
+### 🟡 Geparkt (29.07.2026): Update-Check-Button für Play-Store-Build entfernen
+Play Store aktualisiert Apps automatisch im Hintergrund, unabhängig davon ob/wann der Nutzer die App öffnet (Standard-Einstellung, außer Nutzer hat Auto-Update manuell deaktiviert). Der In-App-„Auf Update prüfen"-Button ist für den Play-Store-Weg damit überflüssig (reine Kür, kein echter Play-Store-Statusabgleich – vergleicht nur die APP_VERSION gegen die GitHub-Pages-Kopie). **Idee:** Button nur aus dem AAB-Build (Play Store) entfernen, in APK (Sideload) und PWA behalten, da dort kein automatisches Update-System existiert. **Bewusst noch nicht umgesetzt:** würde einen weiteren Play-Store-Release samt erneuter Prüfwartezeit auslösen – erst mit dem nächsten ohnehin fälligen Update mitnehmen, nicht extra dafür einreichen. Gilt vermutlich analog auch für die Ohreninsel-App (dort existiert derselbe Update-Check-Mechanismus).
+
+### 🔴 DRINGEND – Play-Store-Link überall ausrollen (Stand 29.07.2026, noch nichts davon erledigt)
+
+Die App ist live, aber alle Wege führen Android-Nutzer weiterhin auf den APK-Sideload. Reihenfolge nach Boris' Priorität:
+
+**Schritt 1 (zuerst, dringend): Landingpage `alltagshelfer.tinnituspraxis-seedorf.de`**
+- ⚠️ Das ist eine **Subdomain**, kein Wix-Pfad. `www.tinnituspraxis-seedorf.de/alltagshelfer` liefert 404, und in der Wix-`pages-sitemap.xml` taucht die Seite nicht auf. Wo genau sie gehostet wird (Wix-Subdomain? all-inkl? eigenes Repo?), ist noch nicht geklärt – **das ist der erste zu klärende Punkt** in der nächsten Session.
+- Ziel: APK-Download raus, stattdessen Play-Store-Link `https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker`, genau wie es bei der Ohreninsel schon gemacht wurde.
+
+**Schritt 2 (danach): Wix-Praxisseite + Quentn-Mailstrecke**
+- Auf der Wix-Praxisseite die Stelle anpassen, an der die E-Mail-Double-Opt-in-Strecke zwischengeschaltet ist (Schritt 2 der Anmeldung).
+- In **Quentn** die Folgemail anpassen: Android-Link zeigt aktuell auf `download.html` (APK-Sideload) und muss auf den Play Store zeigen. Die Mails liegen komplett in Quentn, nicht im Repo.
+
+**Ebenfalls noch offen (im Repo, Android-Wege zeigen alle auf die APK):**
+- `download.html:50` – direkter APK-Link
+- `apk.html:33/39` – Auto-Weiterleitung zur APK
+- `TinnitusTracker_Seedorf.html:857` (`apkUrl`) + `:1389` (Button „App herunterladen")
+- Überlegung dabei: Für iPhone bleibt der PWA-Weg bestehen, nur Android wandert auf den Play Store. Die APK-Wege ganz abzuschalten wäre riskant, solange ältere Sideload-Installationen darüber ihre Updates ziehen.
+
+- 🟡 **Download-Flow vereinheitlichen (nach Play-Store-Freigabe), analog zur Ohreninsel:** Ist-Zustand: `index.html` hat ein eingebettetes Quentn-Formular (`data-form-id="331"`, Host `t88of5.eu-5.quentn-site.com`) für die E-Mail-Anmeldung. Double-Opt-in-Mail + Folgemail mit Gerätelinks sind komplett in Quentn konfiguriert (nicht im Repo). Aktuell vermutlich zwei getrennte Links in der Mail: Android → `download.html` (direkter APK-Download + Installationsanleitung), iPhone → direkt die App-URL (App erkennt iOS selbst per JS und zeigt eine eingebaute "Zum Home-Bildschirm"-Anleitung). Ziel: verschlanken auf einen einzigen Link in der Mail, der auf eine gemeinsame Seite führt (iPhone-Anleitung + Play-Store-Link für Android statt APK-Sideload), Quentn-Mail entsprechend anpassen. Erst umsetzen, sobald Google die App bestätigt hat (Play-Store-Link wird erst dann gültig).
 - 🔴 Verlauf-Tab: Verhalten bei nur 1–2 Einträgen/Tag prüfen (Diagramm, Auswertung)
 - 🟡 PDF-Export im Querformat anlegen (Diagramm braucht Breite)
 - 🟡 Wochenübersicht / Monatsdurchschnitte ausbauen (30-Tage-Schnitt schon vorhanden)

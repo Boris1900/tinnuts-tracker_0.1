@@ -13,7 +13,7 @@ Paketname `de.tinnituspraxis.tracker`, Organisationskonto Tinnituspraxis Seedorf
 
 ---
 
-## Aktueller Stand (Cache v36 / App v3.1)
+## Aktueller Stand (Cache v39 / App v3.4, lokal getestet, noch nicht veröffentlicht)
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -158,8 +158,16 @@ Bei jeder inhaltlichen Änderung – **beide Vertriebswege bedienen, PWA/Sideloa
 
 🔴 hoch / 🟡 mittel / 🟢 niedrig
 
-### 🟡 Geparkt (29.07.2026): Update-Check-Button für Play-Store-Build entfernen
-Play Store aktualisiert Apps automatisch im Hintergrund, unabhängig davon ob/wann der Nutzer die App öffnet (Standard-Einstellung, außer Nutzer hat Auto-Update manuell deaktiviert). Der In-App-„Auf Update prüfen"-Button ist für den Play-Store-Weg damit überflüssig (reine Kür, kein echter Play-Store-Statusabgleich – vergleicht nur die APP_VERSION gegen die GitHub-Pages-Kopie). **Idee:** Button nur aus dem AAB-Build (Play Store) entfernen, in APK (Sideload) und PWA behalten, da dort kein automatisches Update-System existiert. **Bewusst noch nicht umgesetzt:** würde einen weiteren Play-Store-Release samt erneuter Prüfwartezeit auslösen – erst mit dem nächsten ohnehin fälligen Update mitnehmen, nicht extra dafür einreichen. Gilt vermutlich analog auch für die Ohreninsel-App (dort existiert derselbe Update-Check-Mechanismus).
+### ✅ Erledigt (29.07.2026): Update-Check-Bug behoben + native Update-UI ehrlich gemacht
+Beim Prüfen der Idee "Update-Button für Play-Store-Build entfernen" fiel auf: `checkForUpdate()` verlinkte bei JEDER nativen Installation (Play Store UND Sideload) im Update-Fall auf die GitHub-APK (`apk.html`) – **derselbe Bug, den die Ohreninsel-App schon hatte** (LOG-028 dort). Das steckte bereits in der live veröffentlichten v3.1.
+
+**Weiterer Fund beim Durchspielen der Szenarien:** Der Versionsvergleich (GitHub-Pages-`sw.js` vs. eingebackene `CURRENT_CACHE`) ist für native Installationen strukturell irreführend, weil GitHub Pages sofort beim Push aktualisiert wird, das Play-Store-Review aber bis zu 7 Tage hinterherhinken kann (siehe TinnitusTracker-Erst-Einreichung). In diesem Fenster hätte die App "Update verfügbar" gemeldet, obwohl der Play Store objektiv noch nichts Neues hatte – Nutzer wäre auf der Store-Seite ohne Update-Button gelandet, verwirrt.
+
+**Finale Lösung:** Für native Installationen (Play Store UND Sideload, technisch nicht unterscheidbar ohne eigenes natives Plugin) komplett auf den Versionsvergleich verzichtet. Button zeigt dort direkt "🛒 Play Store öffnen", statischer Hinweistext "Play Store hält dich automatisch aktuell", kein Rätselraten mehr. Der echte Versionsvergleich bleibt nur für Browser/PWA bestehen (dort ist er ehrlich, kein Review-Verzug).
+
+**Bewusste Konsequenz:** Die GitHub-APK bleibt wie in der Ohreninsel-CLAUDE.md explizit ein **Sideload-Rückfall**, kein gleichwertiger, sich selbst aktualisierender zweiter Weg – wird bei jedem Release weiter aktuell gehalten und veröffentlicht, aber ohne eigene In-App-Update-Schleife.
+
+**Migrations-Hinweis ergänzt:** Wer noch eine alte Sideload-APK hat und über den Button zum Play Store wechselt, bekommt einen Android-Signaturkonflikt (unterschiedliche Signierschlüssel, Play Store lässt sich nicht drüberinstallieren). Kurzer Hinweistext in der App dazu: erst Backup exportieren, alte App deinstallieren, aus dem Play Store neu installieren, Backup importieren – exakt der Weg, den Boris beim Testen von Hand durchgespielt hat.
 
 ### 🔴 DRINGEND – Play-Store-Link überall ausrollen (Stand 29.07.2026, noch nichts davon erledigt)
 

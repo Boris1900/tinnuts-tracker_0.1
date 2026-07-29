@@ -531,6 +531,13 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
           <button onclick="document.getElementById('import-file').click()" style="padding:7px 12px;border-radius:8px;border:1.5px solid #5c7a5c;background:#fff;color:#5c7a5c;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;">Import</button>
         </div>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importBackup(this)">
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">📝 Backup als Text</div>
+            <div class="setting-desc">Zum Kopieren anzeigen oder Text einfügen</div>
+          </div>
+          <button onclick="showBackupText(JSON.stringify({version:'2.0',exportDate:new Date().toISOString(),entries:JSON.parse(localStorage.getItem('tt_entries')||'[]'),settings:JSON.parse(localStorage.getItem('tt_settings')||'{}')},null,2),'')" style="padding:7px 12px;border-radius:8px;border:1.5px solid #5c7a5c;background:#fff;color:#5c7a5c;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;">Text</button>
+        </div>
         <div style="font-size:10px;color:#7a9a7a;margin-top:2px;line-height:1.5;padding:0 2px;">💡 Tipp: Speichere das Backup in iCloud oder Google Drive – so findest du es immer wieder.</div>
         <div class="setting-row" style="margin-top:8px;">
           <div>
@@ -543,7 +550,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <div class="card">
         <div class="settings-section">Über die App</div>
         <div style="font-size:12px;color:#5a7a5a;line-height:1.7;">
-          <strong style="color:#3d5c3d;">Tinnitus Tracker v3.1</strong><br>
+          <strong style="color:#3d5c3d;">Tinnitus Tracker v3.4</strong><br>
           Entwickelt für die Tinnituspraxis Seedorf<br>
           Ahrensburg bei Hamburg<br><br>
           <a href="https://www.tinnituspraxis-seedorf.de" target="_blank" style="color:#5c7a5c;font-weight:600;">www.tinnituspraxis-seedorf.de</a>
@@ -551,6 +558,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
         <div style="margin-top:12px;">
           <button id="update-btn" onclick="checkForUpdate()" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid #5c7a5c;background:#fff;color:#5c7a5c;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔄 Auf Update prüfen</button>
           <div id="update-status" style="font-size:11px;color:#5a7a5a;text-align:center;margin-top:8px;min-height:16px;"></div>
+          <div id="update-migrate-hint" style="display:none;font-size:10px;color:#7a9a7a;text-align:center;margin-top:6px;line-height:1.5;">Hast du die App früher schon mal als APK-Datei installiert (nicht aus dem Play Store)? Dann lässt sich die Play-Store-Version nicht einfach darüber installieren. Erst oben ein Backup exportieren, die alte App deinstallieren, aus dem Play Store neu installieren, danach das Backup wieder importieren.</div>
         </div>
       </div>
     </div>
@@ -564,7 +572,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
       <span>TINNITUSPRAXIS SEEDORF</span>
     </div>
     <div class="footer-addr">Kaiser-Wilhelm-Allee 2b · 22926 Ahrensburg</div>
-    <div class="footer-tiny">v3.1 · Alle Daten bleiben auf Ihrem Gerät</div>
+    <div class="footer-tiny">v3.4 · Alle Daten bleiben auf Ihrem Gerät</div>
     <div style="margin-top:6px;font-size:10px;">
       <a href="https://www.tinnituspraxis-seedorf.de/impressum" target="_blank" rel="noopener" style="color:#5a7a5a;text-decoration:none;">Impressum</a>
       <span style="color:#c0d0c0;"> · </span>
@@ -634,6 +642,23 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
   </div>
 </div>
 
+<!-- BACKUP-TEXT MODAL (Sicherheitsnetz + manueller Import) -->
+<div class="modal-overlay" id="backup-text-modal">
+  <div class="modal">
+    <div class="modal-title">💾 Backup als Text</div>
+    <div id="backup-text-hint" style="font-size:12.5px;color:#5a7a5a;line-height:1.6;margin-bottom:12px"></div>
+    <textarea id="backup-text-area" spellcheck="false" style="width:100%;height:150px;font-family:monospace;font-size:11px;border:1.5px solid #d0ddd0;border-radius:10px;padding:10px;color:#2c3c2c;background:#f7faf7;resize:vertical"></textarea>
+    <div style="display:flex;gap:8px;margin:12px 0 4px">
+      <button class="btn-save" onclick="copyBackupText()" style="flex:1">📋 Kopieren</button>
+      <button class="btn-save" onclick="importFromText()" style="flex:1">📥 Importieren</button>
+    </div>
+    <div style="font-size:11px;color:#8fa08f;line-height:1.6;margin-bottom:14px">Zum Sichern: „Kopieren" und den Text z.B. in einer Notiz oder E-Mail an dich selbst ablegen.<br>Zum Wiederherstellen: Text hier einfügen und „Importieren" tippen.</div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeBackupText()" style="flex:1">Schließen</button>
+    </div>
+  </div>
+</div>
+
 <!-- INSTALL BANNER -->
 <div id="install-banner">
   <div style="font-size:24px">📱</div>
@@ -643,7 +668,7 @@ input:checked + .toggle-slider:before { transform:translateX(22px); }
 </div>
 
 <script>
-const CURRENT_CACHE = 'tinnitus-tracker-v36';
+const CURRENT_CACHE = 'tinnitus-tracker-v39';
 const IC = ["#5c7a5c","#6e8f4a","#8fa832","#b8bf2a","#d4b020","#d48820","#cc6620","#c04428","#a82828","#8b1a1a"];
 const IL = {1:"Kaum hörbar",2:"Sehr leise",3:"Leise",4:"Merklich",5:"Mäßig",6:"Störend",7:"Stark",8:"Sehr stark",9:"Extrem laut",10:"Unerträglich"};
 const TIMES = ["Morgens","Mittags","Abends"];
@@ -836,26 +861,33 @@ function updateChart() {
 async function checkForUpdate() {
   const btn = document.getElementById('update-btn');
   const status = document.getElementById('update-status');
+  const isNative = window.Capacitor && window.Capacitor.isNativePlatform();
+
+  if (isNative) {
+    // Play Store aktualisiert automatisch im Hintergrund. Ob GERADE ein Update
+    // bereitsteht, kann die App von innen nicht zuverlässig wissen – ein
+    // Vergleich mit der GitHub-Pages-Version wäre hier irreführend, weil die
+    // Play-Store-Prüfung Tage hinter dem GitHub-Pages-Push hinterherhinken
+    // kann (bis zu 7 Tage, siehe CLAUDE.md). Deshalb kein Versionsvergleich,
+    // nur ein ehrlicher Hinweis + Link zum selbst nachsehen.
+    const storeUrl = 'https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker';
+    window.open(storeUrl, '_system');
+    return;
+  }
+
+  // Browser / PWA: hier ist die GitHub-Pages-Version tatsächlich die live
+  // laufende Version, ohne Verzug – der Vergleich ist ehrlich.
   btn.disabled = true;
   btn.textContent = '⏳ Prüfe...';
   status.textContent = '';
   try {
-    const isNative = window.Capacitor && window.Capacitor.isNativePlatform();
-    const swUrl = isNative
-      ? 'https://app.tinnituspraxis-seedorf.de/sw.js?t=' + Date.now()
-      : './sw.js?t=' + Date.now();
-    const res = await fetch(swUrl, { cache: 'no-store' });
+    const res = await fetch('./sw.js?t=' + Date.now(), { cache: 'no-store' });
     const text = await res.text();
     const cacheMatch = text.match(/const CACHE\s*=\s*'([^']+)'/);
-    const versionMatch = text.match(/APP_VERSION:\s*(v[\d.]+)/);
     const latestCache = cacheMatch ? cacheMatch[1] : null;
-    const latestVersion = versionMatch ? versionMatch[1] : null;
     if (!latestCache) throw new Error('Version nicht lesbar');
     if (latestCache === CURRENT_CACHE) {
       status.textContent = '✅ Du hast bereits die aktuelle Version.';
-    } else if (isNative && latestVersion) {
-      const apkUrl = `https://app.tinnituspraxis-seedorf.de/apk.html`;
-      status.innerHTML = `🆕 Update verfügbar! <button onclick="window.open('${apkUrl}','_system');document.getElementById('update-status').innerHTML='⬇️ Download gestartet – öffne danach den <strong>Downloads-Ordner</strong> und tippe auf die Datei zum Installieren.'" style="margin-left:6px;padding:4px 10px;border-radius:8px;border:none;background:#5c7a5c;color:#fff;font-size:11px;font-weight:600;cursor:pointer;">APK laden</button>`;
     } else {
       status.innerHTML = '🆕 Update verfügbar! <button onclick="applyUpdate()" style="margin-left:6px;padding:4px 10px;border-radius:8px;border:none;background:#5c7a5c;color:#fff;font-size:11px;font-weight:600;cursor:pointer;">Jetzt laden</button>';
     }
@@ -1256,21 +1288,96 @@ function scheduleReminders() {
     },target-now);
   });
 }
-function exportBackup() {
+async function exportBackup() {
   const data = {
     version: '2.0',
     exportDate: new Date().toISOString(),
-    entries: JSON.parse(localStorage.getItem('tinnitusEntries') || '[]'),
-    settings: JSON.parse(localStorage.getItem('tinnitusSettings') || '{}')
+    entries: JSON.parse(localStorage.getItem('tt_entries') || '[]'),
+    settings: JSON.parse(localStorage.getItem('tt_settings') || '{}')
   };
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  if (data.entries.length === 0) { alert('Noch keine Einträge zum Sichern vorhanden.'); return; }
+
+  const json = JSON.stringify(data, null, 2);
   const d = new Date();
   const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-  a.href = url; a.download = 'TinnitusTracker-Backup-' + dateStr + '.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const filename = 'TinnitusTracker-Backup-' + dateStr + '.json';
+
+  // Native App (Capacitor-WebView): Weder Blob-Download noch die Web-Share-API
+  // funktionieren dort. Einziger verlässlicher Weg ist das native Filesystem-Plugin
+  // (Datei schreiben) plus das Share-Plugin (Teilen-Dialog zum Ablegen/Versenden).
+  if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+    try {
+      const { Filesystem, Share } = window.Capacitor.Plugins;
+      const written = await Filesystem.writeFile({
+        path: filename, data: json, directory: 'CACHE', encoding: 'utf8'
+      });
+      await Share.share({ title: 'Tinnitus Tracker Backup', files: [written.uri] });
+    } catch (e) {
+      const msg = String((e && (e.message || e.errorMessage)) || e || '');
+      if (/abort|cancel|dismiss/i.test(msg)) return; // Teilen-Dialog abgebrochen
+      // Letztes Sicherheitsnetz: Daten sichtbar zum Kopieren anzeigen,
+      // damit die Einträge auf keinen Fall unerreichbar bleiben.
+      showBackupText(json, 'Automatisches Speichern hat nicht geklappt (' + msg + '). Kopiere den Text und sichere ihn z.B. in einer Notiz oder E-Mail an dich selbst.');
+    }
+    return;
+  }
+
+  // Browser / PWA: klassischer Datei-Download
+  try {
+    const blob = new Blob([json], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    showBackupText(json, 'Download hat nicht geklappt. Kopiere den Text und sichere ihn selbst.');
+  }
+}
+
+// Sicherheitsnetz: Backup-Daten als Text zum Kopieren anzeigen
+function showBackupText(json, hint) {
+  document.getElementById('backup-text-hint').textContent = hint || '';
+  const ta = document.getElementById('backup-text-area');
+  ta.value = json;
+  document.getElementById('backup-text-modal').classList.add('open');
+}
+function closeBackupText() { document.getElementById('backup-text-modal').classList.remove('open'); }
+async function copyBackupText() {
+  const ta = document.getElementById('backup-text-area');
+  try {
+    await navigator.clipboard.writeText(ta.value);
+    alert('✅ In die Zwischenablage kopiert.');
+  } catch (e) {
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); alert('✅ In die Zwischenablage kopiert.'); }
+    catch (e2) { alert('Kopieren nicht möglich – bitte den Text von Hand markieren und kopieren.'); }
+  }
+}
+// Gegenstück zum Import: eingefügten Backup-Text übernehmen
+function importFromText() {
+  const raw = document.getElementById('backup-text-area').value.trim();
+  if (!raw) { alert('Bitte zuerst den Backup-Text einfügen.'); return; }
+  if (applyBackupData(raw)) closeBackupText();
+}
+
+// Gemeinsame Import-Logik für Datei-Import und eingefügten Text
+function applyBackupData(raw) {
+  try {
+    const data = JSON.parse(raw);
+    if (!data.entries || !Array.isArray(data.entries)) { alert('Ungültige Backup-Daten.'); return false; }
+    if (!confirm(data.entries.length + ' Einträge importieren? Vorhandene Daten werden ersetzt.')) return false;
+    localStorage.setItem('tt_entries', JSON.stringify(data.entries));
+    if (data.settings) localStorage.setItem('tt_settings', JSON.stringify(data.settings));
+    entries = data.entries;
+    if (data.settings) settings = data.settings;
+    updateUI();
+    alert('✅ Backup erfolgreich importiert!');
+    return true;
+  } catch(err) {
+    alert('Fehler beim Lesen der Daten – bitte prüfe ob es ein gültiges Backup ist.');
+    return false;
+  }
 }
 
 function importBackup(input) {
@@ -1278,16 +1385,11 @@ function importBackup(input) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (!data.entries || !Array.isArray(data.entries)) { alert('Ungültige Backup-Datei.'); return; }
-      if (!confirm(data.entries.length + ' Einträge importieren? Vorhandene Daten werden ersetzt.')) return;
-      localStorage.setItem('tinnitusEntries', JSON.stringify(data.entries));
-      if (data.settings) localStorage.setItem('tinnitusSettings', JSON.stringify(data.settings));
-      entries = data.entries;
-      updateUI();
-      alert('✅ Backup erfolgreich importiert!');
-    } catch(err) { alert('Fehler beim Lesen der Datei – bitte prüfe ob es eine gültige Backup-Datei ist.'); }
+    applyBackupData(e.target.result);
+    input.value = '';
+  };
+  reader.onerror = function() {
+    alert('Datei konnte nicht gelesen werden.');
     input.value = '';
   };
   reader.readAsText(file);
@@ -1672,6 +1774,11 @@ window.addEventListener('load', () => {
     const { StatusBar } = window.Capacitor.Plugins;
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setStyle({ style: 'DARK' });
+
+    // Update-Button: native Installation prüft nicht, sondern verlinkt direkt
+    document.getElementById('update-btn').textContent = '🛒 Play Store öffnen';
+    document.getElementById('update-status').textContent = 'Play Store hält dich automatisch aktuell.';
+    document.getElementById('update-migrate-hint').style.display = 'block';
   }
 });
 </script>

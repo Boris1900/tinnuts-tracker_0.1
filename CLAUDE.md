@@ -13,7 +13,8 @@ Paketname `de.tinnituspraxis.tracker`, Organisationskonto Tinnituspraxis Seedorf
 
 ---
 
-## Aktueller Stand (Cache v39 / App v3.4, lokal getestet, noch nicht veröffentlicht)
+## Aktueller Stand (Cache v39 / App v3.4)
+PWA + GitHub-APK-Release live seit 29.07.2026. AAB bei Boris zum Hochladen in der Play Console, Play-Store-Freigabe steht noch aus (neue Prüfwartezeit von bis zu 7 Tagen).
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -104,8 +105,9 @@ v3.0 war der vorherige Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis)
 
 ## Play Store
 
-**Stand 29.07.2026: ✅ LIVE im Play Store** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
-Eingereicht 24./25.07., freigegeben 29.07.2026 (5 Tage Prüfdauer, Store-Eintrag „Aktualisiert am 25.07.2026").
+**Stand 29.07.2026, 23:57: v3.4-AAB gebaut und an Boris übergeben, Einreichung durch ihn steht noch aus.**
+Live im Store ist aktuell noch v3.1 (versionCode 1) — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
+v3.4 (versionCode 4) enthält den Export/Import-Fix und den korrigierten Update-Hinweis, siehe "🔴 DRINGEND"-Abschnitt weiter unten in dieser Datei. Erst-Einreichung brauchte 5 Tage Prüfdauer (24.07. → 29.07.).
 
 ### Technisch (erledigt)
 - Upload-Keystore: `android/keystore/tracker-upload.jks`, Alias `tracker` (gitignored). Passwort liegt im Passwortmanager, **ohne Keystore + Passwort sind keine Updates mehr möglich** → Backup der `.jks`-Datei nicht vergessen.
@@ -169,23 +171,17 @@ Beim Prüfen der Idee "Update-Button für Play-Store-Build entfernen" fiel auf: 
 
 **Migrations-Hinweis ergänzt:** Wer noch eine alte Sideload-APK hat und über den Button zum Play Store wechselt, bekommt einen Android-Signaturkonflikt (unterschiedliche Signierschlüssel, Play Store lässt sich nicht drüberinstallieren). Kurzer Hinweistext in der App dazu: erst Backup exportieren, alte App deinstallieren, aus dem Play Store neu installieren, Backup importieren – exakt der Weg, den Boris beim Testen von Hand durchgespielt hat.
 
-### 🔴 DRINGEND – Play-Store-Link überall ausrollen (Stand 29.07.2026, noch nichts davon erledigt)
+### ✅ Play-Store-Link im Repo überall ausgerollt (Stand 29.07.2026)
 
-Die App ist live, aber alle Wege führen Android-Nutzer weiterhin auf den APK-Sideload. Reihenfolge nach Boris' Priorität:
+- `download.html` – Android-Kachel zeigt jetzt den Play-Store-Link statt APK-Download (Priorität 1, erledigt).
+- `TinnitusTracker_Seedorf.html` – In-App-Update-Check zeigt bei nativer Installation jetzt „Play Store öffnen" statt GitHub-APK-Link (siehe "Update-Check-Bug behoben" oben).
+- `apk.html` – **bewusst unverändert gelassen**, dient jetzt als reiner Sideload-Rückfall (siehe Entscheidung oben), keine In-App-Verlinkung mehr dorthin.
+- Button „App herunterladen" (Install-Overlay) verlinkt weiterhin auf `download.html`, damit automatisch mit erledigt.
 
-**Schritt 1 (zuerst, dringend): Landingpage `alltagshelfer.tinnituspraxis-seedorf.de`**
-- ⚠️ Das ist eine **Subdomain**, kein Wix-Pfad. `www.tinnituspraxis-seedorf.de/alltagshelfer` liefert 404, und in der Wix-`pages-sitemap.xml` taucht die Seite nicht auf. Wo genau sie gehostet wird (Wix-Subdomain? all-inkl? eigenes Repo?), ist noch nicht geklärt – **das ist der erste zu klärende Punkt** in der nächsten Session.
-- Ziel: APK-Download raus, stattdessen Play-Store-Link `https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker`, genau wie es bei der Ohreninsel schon gemacht wurde.
-
-**Schritt 2 (danach): Wix-Praxisseite + Quentn-Mailstrecke**
+**Noch offen: Schritt 2 – Wix-Praxisseite + Quentn-Mailstrecke**
 - Auf der Wix-Praxisseite die Stelle anpassen, an der die E-Mail-Double-Opt-in-Strecke zwischengeschaltet ist (Schritt 2 der Anmeldung).
-- In **Quentn** die Folgemail anpassen: Android-Link zeigt aktuell auf `download.html` (APK-Sideload) und muss auf den Play Store zeigen. Die Mails liegen komplett in Quentn, nicht im Repo.
-
-**Ebenfalls noch offen (im Repo, Android-Wege zeigen alle auf die APK):**
-- `download.html:50` – direkter APK-Link
-- `apk.html:33/39` – Auto-Weiterleitung zur APK
-- `TinnitusTracker_Seedorf.html:857` (`apkUrl`) + `:1389` (Button „App herunterladen")
-- Überlegung dabei: Für iPhone bleibt der PWA-Weg bestehen, nur Android wandert auf den Play Store. Die APK-Wege ganz abzuschalten wäre riskant, solange ältere Sideload-Installationen darüber ihre Updates ziehen.
+- In **Quentn** die Folgemail anpassen: Android-Link zeigt aktuell auf `download.html` (jetzt zwar mit Play-Store-Link, aber ggf. Text/Anleitung in der Mail selbst noch auf APK-Sideload ausgelegt) – prüfen und auf Play Store umstellen. Die Mails liegen komplett in Quentn, nicht im Repo.
+- ⚠️ Ungeklärt bleibt weiterhin: `alltagshelfer.tinnituspraxis-seedorf.de` ist eine **Subdomain** (eigenes Projekt `C:\Users\Boris\Projekte\Alltagshelfer\`, GitHub Pages), nicht Teil der Wix-Seite – verlinkt aber selbst schon auf `download.html` und ist damit indirekt mit erledigt.
 
 - 🟡 **Download-Flow vereinheitlichen (nach Play-Store-Freigabe), analog zur Ohreninsel:** Ist-Zustand: `index.html` hat ein eingebettetes Quentn-Formular (`data-form-id="331"`, Host `t88of5.eu-5.quentn-site.com`) für die E-Mail-Anmeldung. Double-Opt-in-Mail + Folgemail mit Gerätelinks sind komplett in Quentn konfiguriert (nicht im Repo). Aktuell vermutlich zwei getrennte Links in der Mail: Android → `download.html` (direkter APK-Download + Installationsanleitung), iPhone → direkt die App-URL (App erkennt iOS selbst per JS und zeigt eine eingebaute "Zum Home-Bildschirm"-Anleitung). Ziel: verschlanken auf einen einzigen Link in der Mail, der auf eine gemeinsame Seite führt (iPhone-Anleitung + Play-Store-Link für Android statt APK-Sideload), Quentn-Mail entsprechend anpassen. Erst umsetzen, sobald Google die App bestätigt hat (Play-Store-Link wird erst dann gültig).
 - 🔴 Verlauf-Tab: Verhalten bei nur 1–2 Einträgen/Tag prüfen (Diagramm, Auswertung)

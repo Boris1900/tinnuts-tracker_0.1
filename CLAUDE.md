@@ -7,14 +7,13 @@ Patienten tracken täglich ihre Tinnitus-Intensität und können ihren Tinnitus-
 **Live-URL:** https://app.tinnituspraxis-seedorf.de
 **GitHub:** https://github.com/Boris1900/tinnuts-tracker_0.1
 
-**🎉 Play Store: LIVE seit 29.07.2026** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
-Paketname `de.tinnituspraxis.tracker`, Organisationskonto Tinnituspraxis Seedorf. Details siehe Abschnitt "Play Store" weiter unten.
-**⚠️ Direkt nächste Aufgabe:** APK-Links überall durch den Play-Store-Link ersetzen, siehe "Offene Punkte" ganz unten.
+**🎉 Play Store: v3.4 LIVE seit 30.07.2026** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
+Paketname `de.tinnituspraxis.tracker`, Organisationskonto Tinnituspraxis Seedorf. Freigabe diesmal sehr schnell (unter einem Tag). Details siehe Abschnitt "Play Store" weiter unten.
 
 ---
 
 ## Aktueller Stand (Cache v39 / App v3.4)
-PWA + GitHub-APK-Release live seit 29.07.2026. AAB bei Boris zum Hochladen in der Play Console, Play-Store-Freigabe steht noch aus (neue Prüfwartezeit von bis zu 7 Tagen).
+Alle drei Wege synchron live: PWA, GitHub-APK-Release, Play Store. Export/Import-Fix und ehrlicher Update-Hinweis bestätigt im Store.
 
 Alle App-Logik in `TinnitusTracker_Seedorf.html` – Vanilla JS/HTML/CSS, kein Build-Schritt.
 Service Worker: `sw.js` · PWA + Capacitor Android APK · localStorage für Datenpersistenz.
@@ -105,9 +104,8 @@ v3.0 war der vorherige Stand. Tester-Toggles repariert (Rollback auf v2.4-Basis)
 
 ## Play Store
 
-**Stand 29.07.2026, 23:57: v3.4-AAB gebaut und an Boris übergeben, Einreichung durch ihn steht noch aus.**
-Live im Store ist aktuell noch v3.1 (versionCode 1) — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
-v3.4 (versionCode 4) enthält den Export/Import-Fix und den korrigierten Update-Hinweis, siehe "🔴 DRINGEND"-Abschnitt weiter unten in dieser Datei. Erst-Einreichung brauchte 5 Tage Prüfdauer (24.07. → 29.07.).
+**Stand 30.07.2026: ✅ v3.4 LIVE im Play Store** — https://play.google.com/store/apps/details?id=de.tinnituspraxis.tracker
+Enthält den Export/Import-Fix und den korrigierten Update-Hinweis. Freigabe diesmal unter einem Tag (eingereicht 29.07. abends, live 30.07. morgens), deutlich schneller als die Erst-Einreichung (5 Tage, 24.07. → 29.07.) – vermutlich weil Updates zu bereits freigegebenen Apps grundsätzlich schneller geprüft werden (gleiches Muster wie bei der Ohreninsel).
 
 ### Technisch (erledigt)
 - Upload-Keystore: `android/keystore/tracker-upload.jks`, Alias `tracker` (gitignored). Passwort liegt im Passwortmanager, **ohne Keystore + Passwort sind keine Updates mehr möglich** → Backup der `.jks`-Datei nicht vergessen.
